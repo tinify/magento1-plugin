@@ -1,0 +1,30 @@
+<config>
+  <modules>
+    <Tiny_CompressImages>
+      <version>1.0.0</version>
+    </Tiny_CompressImages>
+  </modules>
+  <global>
+    <models>
+      <tiny_compressimages>
+        <class>Tiny_CompressImages_Model</class>
+      </tiny_compressimages>
+      <catalog>
+        <rewrite>
+          <product_image>Tiny_CompressImages_Model_Product_Image</product_image>
+        </rewrite>
+      </catalog>
+    </models>
+    <events>
+      <catalog_product_image_save_after>
+        <observers>
+          <tiny_compressimages>
+            <class>tiny_compressimages/observer</class>
+            <method>compress</method>
+            <type>singleton</type>
+          </tiny_compressimages>
+        </observers>
+      </catalog_product_image_save_after>
+    </events>
+  </global>
+</config>

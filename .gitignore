@@ -1,0 +1,11 @@
+# Magic that makes whitelisting possible
+/*
+
+# Whitelist
+!.gitignore
+!/app/code/community/Tiny
+!/app/code/community/Tiny/*
+!/dev
+!/dev/*
+!/lib/TinyCompress
+!/lib/TinyCompress/*

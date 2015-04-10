@@ -4,7 +4,7 @@ class Tiny_CompressImages_Model_Product_Image extends Mage_Catalog_Model_Product
 {
 
     /* Changed for TinyPNG image compression */
-    protected $_quality = 100;
+    protected $_quality = 95;
 
     /**
      * @return Mage_Catalog_Model_Product_Image

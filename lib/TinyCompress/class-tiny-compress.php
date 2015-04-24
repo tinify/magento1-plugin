@@ -79,7 +79,7 @@ abstract class Tiny_Compress {
             $headers = explode("\r\n", $headers);
         }
         foreach ($headers as $header) {
-            if (substr($header, 0, 10) === "Location: ") {
+            if (strtolower(substr($header, 0, 10)) === "location: ") {
                 return substr($header, 10);
             }
         }

@@ -22,7 +22,7 @@
             <api_key translate="label comment">
               <label>TinyPNG API Key</label>
               <frontend_type>text</frontend_type>
-              <comment>Visit https://tinypng.com/developer to obtain a free key</comment>
+              <comment>Visit https://tinypng.com/developers to obtain a free key</comment>
               <sort_order>10</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>

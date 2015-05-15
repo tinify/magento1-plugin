@@ -52,14 +52,18 @@ class Tiny_CompressImages_Model_Observer
                 $width = $imageObject->getWidth();
                 $height = $imageObject->getHeight();
                 $compressor = Tiny_Compress::get_compressor($apiKey);
-                $details = $compressor->compress_file($newFile);
-                $logDescription =
-                    "Variant " . $destinationSubdir .
-                    " allowed " . $allowCompression .
-                    " width " . $width .
-                    " height " . $height .
-                    " API " . $apiKey .
-                    " JSON response " . json_encode($details);
+                try {
+                    $details = $compressor->compress_file($newFile);
+                    $logDescription =
+                        "Variant " . $destinationSubdir .
+                        " allowed " . $allowCompression .
+                        " width " . $width .
+                        " height " . $height .
+                        " API " . $apiKey .
+                        " JSON response " . json_encode($details);
+                } catch (Tiny_Exception $e) {
+                    $logDescription = $e->get_error() . ': ' . $e->getMessage();
+                }
             } else {
                 $logDescription = "No API key found for compression.";
             }

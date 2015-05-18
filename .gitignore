@@ -9,3 +9,4 @@
 !/dev/*
 !/lib/TinyCompress
 !/lib/TinyCompress/*
+!README.md

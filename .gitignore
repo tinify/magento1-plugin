@@ -5,8 +5,9 @@
 !.gitignore
 !/app/code/community/Tiny
 !/app/code/community/Tiny/*
-!/dev
-!/dev/*
+
+!/lib
+/lib/*
 !/lib/TinyCompress
 !/lib/TinyCompress/*
 !README.md

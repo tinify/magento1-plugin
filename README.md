@@ -76,3 +76,18 @@ Go to host and follow instructions (use 127.0.0.1 for host not localhost)
 ### How to go to admin
 http://HOST/admin (when enabled RewriteEngine)
 http://HOST/index.php/admin
+
+## License
+Copyright (C) 2015 Voormedia B.V.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+[View the complete license](lib/TinyCompress/LICENSE).

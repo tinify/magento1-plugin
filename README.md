@@ -42,16 +42,27 @@ find . -type d | xargs chmod 777 ; find . -type f | xargs chmod 666
 ### Add host
 Add host in Apache configuration for this directory
 
-### Install mcrypt library (and other configuration tools if not already installed)
-`brew install mcrypt`
+### Install PHP mcrypt extension
 
-### Compile PHP mcrypt extension
+#### Homebrew
+If you use the homebrew version of PHP install the mcrypt extension via
+```
+brew install phpXX-mcrypt
+````
+with XX your PHP version.
+
+#### From source
+Install mcrypt library
+```
+brew install mcrypt
+````
+and other standard build tools if not already installed.
 
 Download PHP source of the version you are running
 ```
 php --version
 ```
-and extract source somewhere
+and extract source somewhere.
 
 Go to /ext/mcrypt in the uncompressed dir
 ```

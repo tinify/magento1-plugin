@@ -31,7 +31,7 @@ abstract class Tiny_Compress {
     }
 
     public static function get_config() {
-        return parse_ini_file(dirname(__FILE__) . '/config/tinypng-api.ini', true);
+        return array("api" => array("url" => "https://api.tinify.com/shrink"));
     }
 
     public static function get_compressor($api_key) {

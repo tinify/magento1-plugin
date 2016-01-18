@@ -6,6 +6,12 @@ You can download the plugin from http://www.magentocommerce.com/magento-connect/
 
 Learn more about TinyPNG at https://tinypng.com.
 
+Do you use Magento 2? Install our Magento 2 plugin instead:
+https://github.com/tinify/magento2-plugin
+Compared to the Magento 1 version, the plugin for Magento 2 has an advanced
+feature to detect image duplicates and only compress them once. This saves
+unnecessary compressions.
+
 ## Contact us
 Got questions or feedback? Let us know! Contact us at support@tinypng.com.
 

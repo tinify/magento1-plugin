@@ -1,0 +1,121 @@
+<?php
+/**
+ *                  ___________       __            __
+ *                  \__    ___/____ _/  |_ _____   |  |
+ *                    |    |  /  _ \\   __\\__  \  |  |
+ *                    |    | |  |_| ||  |   / __ \_|  |__
+ *                    |____|  \____/ |__|  (____  /|____/
+ *                                              \/
+ *          ___          __                                   __
+ *         |   |  ____ _/  |_   ____ _______   ____    ____ _/  |_
+ *         |   | /    \\   __\_/ __ \\_  __ \ /    \ _/ __ \\   __\
+ *         |   ||   |  \|  |  \  ___/ |  | \/|   |  \\  ___/ |  |
+ *         |___||___|  /|__|   \_____>|__|   |___|  / \_____>|__|
+ *                  \/                           \/
+ *                  ________
+ *                 /  _____/_______   ____   __ __ ______
+ *                /   \  ___\_  __ \ /  _ \ |  |  \\____ \
+ *                \    \_\  \|  | \/|  |_| ||  |  /|  |_| |
+ *                 \______  /|__|    \____/ |____/ |   __/
+ *                        \/                       |__|
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Creative Commons License.
+ * It is available through the world-wide-web at this URL:
+ * http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
+ * If you are unable to obtain it through the world-wide-web, please send an email
+ * to servicedesk@totalinternetgroup.nl so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this module to newer
+ * versions in the future. If you wish to customize this module for your
+ * needs please contact servicedesk@totalinternetgroup.nl for more information.
+ *
+ * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
+ * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
+ */
+
+/** @var TIG_Tinypng_Block_Adminhtml_System_Config_Form_Field_SupportTab $this */
+?>
+
+<?php $_tigHomepage             = 'https://tig.nl'; ?>
+<?php $_kbUrl                   = 'http://servicedesk.tig.nl/hc/nl'; ?>
+<?php $_kbTicketUrl             = 'http://servicedesk.tig.nl/hc/nl/requests/new'; ?>
+<?php $_changelogUrl            = 'https://tig.nl'; ?>
+<?php $_installationManualUrl   = 'https://tig.nl'; ?>
+<?php $_userGuideUrl            = 'https://tig.nl'; ?>
+<?php $_version                 = Mage::getConfig()->getNode()->modules->TIG_Tinypng->version; ?>
+
+<tr id="tig_tinypng_support">
+    <td>
+        <h2 class="content-heading">
+            <?php echo $this->__('TIG Tinypng %s', $_version);?>
+        </h2>
+        <table id="supportWrap" cellpadding="0" cellspacing="0">
+            <tr>
+                <td class="column">
+                    <div class="text-box">
+                        <h4><?php echo $this->__("We urge you to read these instructions before you proceed to use this extension."); ?></h4>
+                    </div>
+
+                    <div class="text-box">
+                        <ul class="tig-tinypng-config-warning">
+                            <li><?php echo $this->__("Important information one should read before continuing."); ?></li>
+                        </ul>
+                    </div>
+
+                    <div class="text-box">
+                        <h3><?php echo $this->__('Magento & 3rd party version compatibility');?></h3>
+                        <ul>
+                            <li><?php echo $this->__('Magento Community Edition version');?> v1.9</li>
+                            <li><?php echo $this->__('Magento Enterprise Edition version');?> v1.14</li>
+                        </ul>
+                        <ul>
+                            <li><?php echo $this->__('We cannot guarantee compatibility with unsupported extensions and versions of Magento.'); ?></li>
+                        </ul>
+                    </div>
+                </td>
+
+                <td class="column-gutter"></td>
+
+                <td class="column">
+                    <div class="text-box">
+                        <h3><?php echo $this->__('Support');?></h3>
+                        <p><?php echo $this->__('The extension is developed by TIG.');?></p>
+                        <table class="contact">
+                            <tr>
+                                <td class="first"><?php echo $this->__('Website:');?></td>
+                                <td class="last"><a target="_blank" href="<?php echo $_tigHomepage; ?>"><?php echo $_tigHomepage; ?></a></td>
+                            </tr>
+                            <tr>
+                                <td class="first"><?php echo $this->__('Support website:');?></td>
+                                <td class="last"><a target="_blank" href="<?php echo $_kbUrl; ?>"><?php echo $_kbUrl; ?></a></td>
+                            </tr>
+                        </table>
+                        <h4><em><?php echo $this->__('Extension support and configuration questions');?></em></h4>
+                        <p><?php echo $this->__('For questions about installing and configuring the extension please consult the relevant documentation:');?></p>
+                        <ul class="manual-links">
+                            <li><a target="_blank" href="<?php echo $_kbUrl; ?>" title="<?php echo $this->__('Frequently asked questions');?>"><?php echo $this->__('FAQ');?></a></li>
+                        </ul>
+                        <h4><em><?php echo $this->__('Unable to find the answer you need using the links above?'); ?></em></h4>
+                        <p><?php echo $this->__('Use the button below to request help from the TIG servicedesk.'); ?></p>
+                        <ul class="manual-links">
+                            <li><a target="_blank" href="<?php echo $_kbTicketUrl; ?>" title="<?php echo $this->__('Request help from the servicedesk');?>"><?php echo $this->__('Request help from the servicedesk');?></a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+
+<script>
+    //<![CDATA[
+    // Remove default onclick value
+    $('tig_tinypng_support-head').setAttribute('onclick', '');
+    // Get and remove the first head on the page (ours)
+    $$('.entry-edit-head')[0].remove();
+    //]]>
+</script>

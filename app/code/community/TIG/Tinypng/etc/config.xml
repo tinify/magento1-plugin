@@ -5,4 +5,25 @@
             <version>0.1.0</version>
         </TIG_Tinypng>
     </modules>
+    <global>
+        <blocks>
+            <tig_tinypng>
+                <class>TIG_Tinypng_Block</class>
+            </tig_tinypng>
+        </blocks>
+        <helpers>
+            <tig_tinypng>
+                <class>TIG_Tinypng_Helper</class>
+            </tig_tinypng>
+        </helpers>
+    </global>
+    <adminhtml>
+        <layout>
+            <updates>
+                <tig_tinypng>
+                    <file>TIG/tinypng.xml</file>
+                </tig_tinypng>
+            </updates>
+        </layout>
+    </adminhtml>
 </config>

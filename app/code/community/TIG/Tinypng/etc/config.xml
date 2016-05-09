@@ -16,6 +16,11 @@
                 <class>TIG_Tinypng_Helper</class>
             </tig_tinypng>
         </helpers>
+        <models>
+            <tig_tinypng>
+                <class>TIG_Tinypng_Model</class>
+            </tig_tinypng>>
+        </models>
     </global>
     <adminhtml>
         <layout>

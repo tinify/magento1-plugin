@@ -49,6 +49,7 @@
         <tig_tinypng translate="label" module="tig_tinypng">
             <label>TIG Tinypng</label>
             <tab>tinypng</tab>
+            <frontend_model>tig_tinypng/adminhtml_system_config_form</frontend_model>
             <class>tig-tinypng-section</class>
             <frontend_type>text</frontend_type>
             <sort_order>1000</sort_order>
@@ -81,24 +82,14 @@
                     <fields>
                         <enabled translate="label comment">
                             <label>Enable Tinypng</label>
-                            <frontend_type>select</frontend_type>
+                            <frontend_type>tinypng_radios</frontend_type>
                             <sort_order>10</sort_order>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <comment>If this is set to no, Tinypng will no longer compress images</comment>
+                            <source_model>tig_tinypng/system_config_source_testlive</source_model>
+                            <comment>If this is set to Off, Tinypng will no longer compress images</comment>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </enabled>
-                        <test_mode translate="label comment">
-                            <label>Enable Test Mode</label>
-                            <frontend_type>select</frontend_type>
-                            <sort_order>20</sort_order>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <comment>If this is set to yes, the extension will be linked to the Tinypng test environment</comment>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </test_mode>
                         <api_key tranaslate="label">
                             <label>API Key</label>
                             <frontend_type>text</frontend_type>

@@ -121,3 +121,12 @@
     position: relative;
     top: 1px;
 }
+
+/* Modus radios */
+.wrapper-radio {
+    margin-bottom: 3px;
+}
+
+.wrapper-radio input {
+    margin-right: 5px;
+}

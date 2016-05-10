@@ -36,20 +36,27 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
-class TIG_Tinypng_Block_Adminhtml_System_Config_Form extends Mage_Adminhtml_Block_System_Config_Form
+class TIG_Tinypng_Model_System_Config_Backend_ApiKey extends Mage_Core_Model_Config_Data
 {
     /**
-     * Add a new element types.
+     * Validate the value before saving.
      *
-     * @return array
+     * @return Mage_Core_Model_Abstract
+     * @throws Mage_Exception
      */
-    protected function _getAdditionalElementTypes()
+    protected function _beforeSave()
     {
-        $elementTypes = parent::_getAdditionalElementTypes();
+        $apiKeyValue = $this->getValue();
+        $helper = Mage::helper('tig_tinypng');
 
-        $elementTypes['tinypng_radios'] = Mage::getConfig()
-            ->getBlockClassName('tig_tinypng/adminhtml_system_config_form_field_radios');
+        if (strlen($apiKeyValue) > 0) {
+            $validateResult = $helper->validate($apiKeyValue);
 
-        return $elementTypes;
+            if (!$validateResult) {
+                throw new Mage_Exception($helper->__('The Api Key is invalid'));
+            }
+        }
+
+        return parent::_beforeSave();
     }
 }

@@ -93,6 +93,7 @@
                         <api_key tranaslate="label">
                             <label>API Key</label>
                             <frontend_type>text</frontend_type>
+                            <backend_model>tig_tinypng/system_config_backend_apiKey</backend_model>
                             <sort_order>30</sort_order>
                             <validate>validate-alphanum</validate>
                             <show_in_default>1</show_in_default>

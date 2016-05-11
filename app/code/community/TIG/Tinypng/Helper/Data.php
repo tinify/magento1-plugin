@@ -39,32 +39,7 @@
 /**
  * Class TIG_Adcurve_Helper_Data
  */
-require_once(Mage::getBaseDir('lib') . '/tinify-php/lib/Tinify.php');
-require_once(Mage::getBaseDir('lib') . '/tinify-php/lib/Tinify/Client.php');
-require_once(Mage::getBaseDir('lib') . '/tinify-php/lib/Tinify/Exception.php');
-require_once(Mage::getBaseDir('lib') . '/tinify-php/lib/Tinify/ResultMeta.php');
-require_once(Mage::getBaseDir('lib') . '/tinify-php/lib/Tinify/Result.php');
-require_once(Mage::getBaseDir('lib') . '/tinify-php/lib/Tinify/Source.php');
-
 class TIG_Tinypng_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    /**
-     * Validate the Tinify Api Key.
-     *
-     * @param $apiKey
-     *
-     * @return bool
-     */
-    public function validate($apiKey) {
-        \Tinify\setKey($apiKey);
 
-        try {
-            \Tinify\validate();
-        } catch (\Tinify\Exception $e) {
-            //If this exception is thrown, the validation has failed
-            return false;
-        }
-
-        return true;
-    }
 }

@@ -36,27 +36,71 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
-class TIG_Tinypng_Model_System_Config_Backend_ApiKey extends Mage_Core_Model_Config_Data
+class TIG_Tinypng_Helper_Tinify extends Mage_Core_Helper_Abstract
 {
     /**
-     * Validate the value before saving.
-     *
-     * @return Mage_Core_Model_Abstract
-     * @throws Mage_Exception
+     * Constructor
      */
-    protected function _beforeSave()
+    public function __construct() {
+        require_once(Mage::getBaseDir('lib') . '/tinify-php/lib/Tinify.php');
+
+        spl_autoload_register( array($this, 'load'), true, true );
+    }
+
+    /**
+     * This function autoloads Tinify classes
+     *
+     * @param string $class
+     */
+    private static function load( $class )
     {
-        $apiKeyValue = $this->getValue();
-        $helper = Mage::helper('tig_tinypng/tinify');
+        /** Project-specific namespace prefix */
+        $prefix = '';
 
-        if (strlen($apiKeyValue) > 0) {
-            $validateResult = $helper->validate($apiKeyValue);
+        /** Base directory for the namespace prefix */
+        $base_dir = Mage::getBaseDir('lib') . '/tinify-php/lib/';
 
-            if (!$validateResult) {
-                throw new Mage_Exception($helper->__('The Api Key is invalid'));
-            }
+        /** Does the class use the namespace prefix? */
+        $len = strlen($prefix);
+
+        if (strncmp($prefix, $class, $len) !== 0) {
+            /** No, move to the next registered autoloader */
+            return;
         }
 
-        return parent::_beforeSave();
+        /** Get the relative class name */
+        $relative_class = substr($class, $len);
+
+        /**
+         * Replace the namespace prefix with the base directory, replace namespace
+         * separators with directory separators in the relative class name, append
+         * with .php
+         */
+        $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
+
+        /** if the file exists, require it */
+        if (file_exists($file)) {
+            require $file;
+        }
+    }
+
+    /**
+     * Validate the Tinify Api Key.
+     *
+     * @param $apiKey
+     *
+     * @return bool
+     */
+    public function validate($apiKey) {
+        \Tinify\setKey($apiKey);
+
+        try {
+            \Tinify\validate();
+        } catch (\Tinify\Exception $e) {
+            //If this exception is thrown, the validation has failed
+            return false;
+        }
+
+        return true;
     }
 }

@@ -5,3 +5,4 @@ app/etc/modules/TIG_Tinypng.xml
 /lib/tinify-php/
 /skin/adminhtml/default/default/css/TIG/Tinypng/
 /skin/adminhtml/default/default/images/TIG/Tinypng/
+/app/locale/nl_NL/TIG_Tinypng.csv

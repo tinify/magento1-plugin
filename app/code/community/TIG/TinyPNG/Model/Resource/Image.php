@@ -36,53 +36,15 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
-class TIG_TinyPNG_Block_Adminhtml_System_Config_Form extends Mage_Adminhtml_Block_System_Config_Form
+class TIG_TinyPNG_Model_Resource_Image extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * @var array
-     */
-    protected $_elementTypes = array();
-
-    /**
-     * Add the new form elements
+     * Define main table and id field name.
      *
-     * @return array
+     * @return void
      */
-    protected function _getAdditionalElementTypes()
+    protected function _construct()
     {
-        $this->_elementTypes = parent::_getAdditionalElementTypes();
-
-        $this
-            ->_addRadioButtons()
-            ->_addStatusIndicator()
-        ;
-
-        return $this->_elementTypes;
-    }
-
-    /**
-     * Add the Off/Live/Test radio button list.
-     *
-     * @return $this
-     */
-    protected function _addRadioButtons()
-    {
-        $this->_elementTypes['tinypng_radios'] = Mage::getConfig()
-            ->getBlockClassName('tig_tinypng/adminhtml_system_config_form_field_radios');
-
-        return $this;
-    }
-
-    /**
-     * Add a field that shows the status indicator.
-     *
-     * @return $this
-     */
-    protected function _addStatusIndicator()
-    {
-        $this->_elementTypes['tinypng_status'] = Mage::getConfig()
-            ->getBlockClassName('tig_tinypng/adminhtml_system_config_form_field_status');
-
-        return $this;
+        $this->_init('tig_tinypng/image', 'image_id');
     }
 }

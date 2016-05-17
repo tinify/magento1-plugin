@@ -36,53 +36,68 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
-class TIG_TinyPNG_Block_Adminhtml_System_Config_Form extends Mage_Adminhtml_Block_System_Config_Form
+class TIG_TinyPNG_Model_Image extends Mage_Core_Model_Abstract
 {
     /**
-     * @var array
+     * Class constructor.
      */
-    protected $_elementTypes = array();
+    public function _construct()
+    {
+        $this->_init('tig_tinypng/image');
+    }
 
     /**
-     * Add the new form elements
+     * Get the statistics for the TinyPNG module.
      *
-     * @return array
+     * $options:
+     * - current_month: defaults to true
+     *
+     * @param array $options
+     *
+     * @return Varien_Object
      */
-    protected function _getAdditionalElementTypes()
+    public function getStatistics($options = array())
     {
-        $this->_elementTypes = parent::_getAdditionalElementTypes();
+        $collection = $this->getCollection();
 
-        $this
-            ->_addRadioButtons()
-            ->_addStatusIndicator()
+        /**
+         * Filter by the current month.
+         */
+        if (
+            !isset($options['current_month']) ||
+            (
+                isset($options['current_month']) &&
+                $options['current_month']
+            )
+        ) {
+            $dateFrom = new DateTime('first day of this month');
+            $dateTo   = new DateTime('last day of this month');
+
+            $collection->addFieldToFilter(
+                'processed_at',
+                array(
+                    'from' => $dateFrom->format('Y-m-d'),
+                    'to'   => $dateTo->format('Y-m-d'),
+                )
+            );
+        }
+
+        $collection
+            ->getSelect()
+            ->reset(Zend_Db_Select::COLUMNS)
+            ->columns('count(image_id) as images_count')
+            ->columns('sum(bytes_before) as bytes_before')
+            ->columns('sum(bytes_after) as bytes_after')
         ;
 
-        return $this->_elementTypes;
-    }
+        $data = $collection->getFirstItem();
 
-    /**
-     * Add the Off/Live/Test radio button list.
-     *
-     * @return $this
-     */
-    protected function _addRadioButtons()
-    {
-        $this->_elementTypes['tinypng_radios'] = Mage::getConfig()
-            ->getBlockClassName('tig_tinypng/adminhtml_system_config_form_field_radios');
+        if ($data->images_count > 0) {
+            $data->setData('percentage_saved', (($data->bytes_before - $data->bytes_after) / $data->bytes_before) * 100);
+        } else {
+            $data->setData('percentage_saved', 0);
+        }
 
-        return $this;
-    }
-
-    /**
-     * Add a field that shows the status indicator.
-     *
-     * @return $this
-     */
-    protected function _addStatusIndicator()
-    {
-        $this->_elementTypes['tinypng_status'] = Mage::getConfig()
-            ->getBlockClassName('tig_tinypng/adminhtml_system_config_form_field_status');
-
-        return $this;
+        return $data;
     }
 }

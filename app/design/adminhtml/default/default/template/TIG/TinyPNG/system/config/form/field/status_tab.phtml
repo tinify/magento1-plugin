@@ -40,11 +40,24 @@
 
 <?php $_helper = Mage::helper('tig_tinypng/tinify'); ?>
 
-<tr id="tig_tinypng_status_first">
+<tr id="tig_tinypng_status_status">
     <td class="label">
         <?php echo $_helper->__('Status'); ?>
     </td>
     <td class="value">
         <?php echo $_helper->__('%s image(s) compressed this month.', $_helper->compressionCount()); ?>
+    </td>
+</tr>
+
+<tr id="tig_tinypng_status_api">
+    <td class="label">
+        <?php echo $_helper->__('TinyPNG API Status'); ?>
+    </td>
+    <td class="value">
+        <?php if(TIG_TinyPNG_Helper_Config::isConfigured() && $_helper->validate(TIG_TinyPNG_Helper_Config::getApiKey())): ?>
+            <span class="tinypng_status_success"><?php echo $_helper->__('Operational'); ?></span>
+        <?php else: ?>
+            <span class="tinypng_status_failure"><?php echo $_helper->__('Nonperational'); ?></span>
+        <?php endif; ?>
     </td>
 </tr>

@@ -102,6 +102,22 @@
                         </api_key>
                     </fields>
                 </settings>
+                <status translate="label" module="tig_tinypng">
+                    <label>TinyPNG Status</label>
+                    <sort_order>200</sort_order> <!-- This should always be the first tab -->
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <support>
+                            <sort_order>0</sort_order>
+                            <frontend_model>tig_tinypng/adminhtml_system_config_form_field_statusTab</frontend_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </support>
+                    </fields>
+                </status>
             </groups>
         </tig_tinypng>
     </sections>

@@ -36,15 +36,28 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
-/**
- * Class TIG_Adcurve_Helper_Data
- */
-class TIG_TinyPNG_Helper_Data extends Mage_Core_Helper_Abstract
+class TIG_TinyPNG_Model_System_Config_Source_OnOff
 {
-    public function d__()
+    /**
+     * Source model for on / off selection
+     *
+     * @return array
+     */
+    public function toOptionArray()
     {
-        var_dump($this->_getModuleName());
-        exit;
+        $helper = Mage::helper('tig_tinypng');
+
+        $array = array(
+            array(
+                'value' => 0,
+                'label' => $helper->__('Off')
+            ),
+            array(
+                'value' => 1,
+                'label' => $helper->__('On')
+            ),
+        );
+
+        return $array;
     }
-    
 }

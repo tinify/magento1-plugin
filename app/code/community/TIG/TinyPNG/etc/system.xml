@@ -119,6 +119,42 @@
                         </usage>
                     </fields>
                 </status>
+                <configuration translate="label">
+                    <label>Configuration</label>
+                    <sort_order>120</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <automatic_compression translate="label comment">
+                            <label>Automatic compression for dynamic images and cache elements</label>
+                            <sort_order>10</sort_order>
+                            <source_model>tig_tinypng/system_config_source_onOff</source_model>
+                            <frontend_type>select</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </automatic_compression>
+                        <product_img_compression translate="label comment">
+                            <label>Product images to be compressed</label>
+                            <sort_order>20</sort_order>
+                            <source_model>tig_tinypng/system_config_source_product_imageTypes</source_model>
+                            <frontend_type>multiselect</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </product_img_compression>
+                        <cms_img_compression translate="label comment">
+                            <label>CMS images to be compressed</label>
+                            <sort_order>30</sort_order>
+                            <source_model>tig_tinypng/system_config_source_cms_imageTypes</source_model>
+                            <frontend_type>multiselect</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cms_img_compression>
+                    </fields>
+                </configuration>
             </groups>
         </tig_tinypng>
     </sections>

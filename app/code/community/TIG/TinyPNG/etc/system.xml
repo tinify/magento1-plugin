@@ -112,19 +112,19 @@
                         <usage translate="label comment">
                             <label>Status</label>
                             <sort_order>10</sort_order>
-                            <source_model>tig_tinypng/system_config_source_testlive</source_model>
                             <frontend_type>tinypng_status</frontend_type>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </usage>
-                        <support>
-                            <sort_order>0</sort_order>
-                            <frontend_model>tig_tinypng/adminhtml_system_config_form_field_statusTab</frontend_model>
+                        <api>
+                            <label>TinyPNG API Status</label>
+                            <sort_order>20</sort_order>
+                            <frontend_type>tinypng_api</frontend_type>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </support>
+                        </api>
                     </fields>
                 </status>
                 <configuration translate="label">

@@ -36,25 +36,29 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
-class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_StatusTab extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
+class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Api extends Varien_Data_Form_Element_Abstract
 {
     /**
-     * Template file used
+     * Generate the status for the TinyPNG extension.
      *
-     * @var string
-     */
-    protected $_template = 'TIG/TinyPNG/system/config/form/field/status_tab.phtml';
-
-    /**
-     * Render fieldset html
-     *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
-    public function render(Varien_Data_Form_Element_Abstract $element)
+    public function getElementHtml()
     {
-        $this->setElement($element);
+        $isConfigured = TIG_TinyPNG_Helper_Config::isConfigured();
+        $apiKey = TIG_TinyPNG_Helper_Config::getApiKey();
+        $isValidated = Mage::helper('tig_tinypng/tinify')->validate($apiKey);
 
-        return $this->toHtml();
+        if ($isConfigured && $isValidated) {
+            $message = '<span class="tinypng_status_success">'
+                . Mage::helper('tig_tinypng')->__('Operational')
+                . '</span>';
+        } else {
+            $message = '<span class="tinypng_status_failure">'
+                . Mage::helper('tig_tinypng')->__('Nonoperational')
+                . '</span>';
+        }
+
+        return $message;
     }
 }

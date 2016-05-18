@@ -117,9 +117,17 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </usage>
+                        <saved>
+                            <label>Saved</label>
+                            <sort_order>20</sort_order>
+                            <frontend_type>tinypng_saved</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </saved>
                         <api>
                             <label>TinyPNG API Status</label>
-                            <sort_order>20</sort_order>
+                            <sort_order>30</sort_order>
                             <frontend_type>tinypng_api</frontend_type>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

@@ -44,7 +44,7 @@
 <?php $_kbUrl                   = 'http://servicedesk.tig.nl/hc/nl'; ?>
 <?php $_kbTicketUrl             = 'http://servicedesk.tig.nl/hc/nl/requests/new'; ?>
 <?php $_changelogUrl            = 'https://tig.nl'; ?>
-<?php $_installationManualUrl   = 'https://tig.nl'; ?>
+<?php $_installationManualUrl   = 'http://servicedesk.tig.nl/hc/nl/articles/219422177-TinyPNG-handleiding'; ?>
 <?php $_userGuideUrl            = 'https://tig.nl'; ?>
 <?php $_version                 = Mage::getConfig()->getNode()->modules->TIG_TinyPNG->version; ?>
 
@@ -57,14 +57,46 @@
             <tr>
                 <td class="column">
                     <div class="text-box">
-                        <h4><?php echo $this->__("We urge you to read these instructions before you proceed to use this extension."); ?></h4>
+                        <div class="heading">
+                            <h3 class="heading-title"><?php echo $this->__('Information about the TinyPNG extension');?></h3>
+                            <img class="tiny-logo" alt="TinyPNG" src="<?php echo $this->getSkinUrl('images/TIG/Tinypng/tinypng.png'); ?>" height="20" />
+                        </div>
+                        <div class="content">
+                            <p>
+                                <?php echo $this->__('Branding text - to be continued');?>
+                                <?php echo $this->__('Branding text - to be continued');?>
+                                <?php echo $this->__('Branding text - to be continued');?>
+                                <?php echo $this->__('Branding text - to be continued');?>
+                                <?php echo $this->__('Branding text - to be continued');?>
+                                <?php echo $this->__('Branding text - to be continued');?>
+                                <?php echo $this->__('Branding text - to be continued');?>
+                                <?php echo $this->__('Branding text - to be continued');?>
+                            </p>
+                            <p>
+                                <?php echo $this->__('Branding text - to be continued');?>
+                                <?php echo $this->__('Branding text - to be continued');?>
+                                <?php echo $this->__('Branding text - to be continued');?>
+                                <?php echo $this->__('Branding text - to be continued');?>
+                                <?php echo $this->__('Branding text - to be continued');?>
+                                <?php echo $this->__('Branding text - to be continued');?>
+                                <?php echo $this->__('Branding text - to be continued');?>
+                                <?php echo $this->__('Branding text - to be continued');?>
+                            </p>
+                            <p>
+                                <?php echo $this->__('Branding text - to be continued');?>
+                                <?php echo $this->__('Branding text - to be continued');?>
+                                <?php echo $this->__('Branding text - to be continued');?>
+                                <?php echo $this->__('Branding text - to be continued');?>
+                                <?php echo $this->__('Branding text - to be continued');?>
+                                <?php echo $this->__('Branding text - to be continued');?>
+                                <?php echo $this->__('Branding text - to be continued');?>
+                                <?php echo $this->__('Branding text - to be continued');?>
+                            </p>
+                            <img class="tiny-logo" alt="TinyPNG" src="<?php echo $this->getSkinUrl('images/TIG/Tinypng/panda-chewing-2x.png'); ?>" height="200" />
+                        </div>
                     </div>
 
-                    <div class="text-box">
-                        <ul class="tig-tinypng-config-warning">
-                            <li><?php echo $this->__("Important information one should read before continuing."); ?></li>
-                        </ul>
-                    </div>
+
 
                     <div class="text-box">
                         <h3><?php echo $this->__('Magento & 3rd party version compatibility');?></h3>
@@ -72,9 +104,7 @@
                             <li><?php echo $this->__('Magento Community Edition version');?> v1.9</li>
                             <li><?php echo $this->__('Magento Enterprise Edition version');?> v1.14</li>
                         </ul>
-                        <ul>
-                            <li><?php echo $this->__('We cannot guarantee compatibility with unsupported extensions and versions of Magento.'); ?></li>
-                        </ul>
+
                     </div>
                 </td>
 
@@ -87,23 +117,34 @@
                         <table class="contact">
                             <tr>
                                 <td class="first"><?php echo $this->__('Website:');?></td>
-                                <td class="last"><a target="_blank" href="<?php echo $_tigHomepage; ?>"><?php echo $_tigHomepage; ?></a></td>
+                                <td class="last"><a target="_blank" href="<?php echo $_tigHomepage; ?>"><?php echo $this->__('TIG.nl'); ?></a></td>
                             </tr>
                             <tr>
                                 <td class="first"><?php echo $this->__('Support website:');?></td>
-                                <td class="last"><a target="_blank" href="<?php echo $_kbUrl; ?>"><?php echo $_kbUrl; ?></a></td>
+                                <td class="last"><a target="_blank" href="<?php echo $_kbUrl; ?>"><?php echo $this->__('TIG Knowledgebase'); ?></a></td>
                             </tr>
                         </table>
-                        <h4><em><?php echo $this->__('Extension support and configuration questions');?></em></h4>
-                        <p><?php echo $this->__('For questions about installing and configuring the extension please consult the relevant documentation:');?></p>
-                        <ul class="manual-links">
-                            <li><a target="_blank" href="<?php echo $_kbUrl; ?>" title="<?php echo $this->__('Frequently asked questions');?>"><?php echo $this->__('FAQ');?></a></li>
-                        </ul>
-                        <h4><em><?php echo $this->__('Unable to find the answer you need using the links above?'); ?></em></h4>
-                        <p><?php echo $this->__('Use the button below to request help from the TIG servicedesk.'); ?></p>
-                        <ul class="manual-links">
-                            <li><a target="_blank" href="<?php echo $_kbTicketUrl; ?>" title="<?php echo $this->__('Request help from the servicedesk');?>"><?php echo $this->__('Request help from the servicedesk');?></a></li>
-                        </ul>
+
+                        <div class="block">
+                            <h4><em><?php echo $this->__('Extension support and configuration questions');?></em></h4>
+                            <p><?php echo $this->__('For questions about installing and configuring the extension please consult the relevant documentation:');?></p>
+                            <table>
+                                <tr class="manual-links">
+                                    <td class=""><a target="_blank" href="<?php echo $_kbUrl; ?>" title="<?php echo $this->__('Frequently asked questions');?>"><?php echo $this->__('FAQ');?></a></td>
+                                    <td class=""><a target="_blank" href="<?php echo $_installationManualUrl; ?>" title="<?php echo $this->__('Installation Manual');?>"><?php echo $this->__('Installation Manual');?></a></td>
+                                </tr>
+                            </table>
+
+                        </div>
+
+                        <div class="block">
+                            <h4><em><?php echo $this->__('Do you have any additional questions?'); ?></em></h4>
+                            <p><?php echo $this->__('Please contact the TIG servicedesk for additional questions.'); ?></p>
+                            <ul class="manual-links">
+                                <li><a target="_blank" href="<?php echo $_kbTicketUrl; ?>" title="<?php echo $this->__('Ask your question');?>"><?php echo $this->__('Ask your question');?></a></li>
+                            </ul>
+                        </div>
+
                     </div>
                 </td>
             </tr>

@@ -39,20 +39,14 @@
  */
 -->
 <config>
-    <tabs>
-        <tinypng module="tig_tinypng" translate="label">
-            <label>TIG</label>
-            <sort_order>302</sort_order>
-        </tinypng>
-    </tabs>
     <sections>
         <tig_tinypng translate="label" module="tig_tinypng">
             <label>TIG TinyPNG</label>
-            <tab>tinypng</tab>
+            <tab>general</tab>
             <frontend_model>tig_tinypng/adminhtml_system_config_form</frontend_model>
             <class>tig-tinypng-section</class>
             <frontend_type>text</frontend_type>
-            <sort_order>1000</sort_order>
+            <sort_order>1200</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>

@@ -46,5 +46,5 @@ class TIG_TinyPNG_Helper_Data extends Mage_Core_Helper_Abstract
         var_dump($this->_getModuleName());
         exit;
     }
-    
+
 }

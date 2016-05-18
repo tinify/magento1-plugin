@@ -29,6 +29,11 @@
                     </image>
                 </entities>
             </tig_tinypng_resource>
+            <catalog>
+                <rewrite>
+                    <product_image>TIG_TinyPNG_Model_Product_Image</product_image>
+                </rewrite>
+            </catalog>
         </models>
         <resources>
             <tig_tinypng_setup>
@@ -56,4 +61,11 @@
             </modules>
         </translate>
     </adminhtml>
+    <default>
+        <tig_tinypng>
+            <configuration>
+                <compression_quality>95</compression_quality>
+            </configuration>
+        </tig_tinypng>
+    </default>
 </config>

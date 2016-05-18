@@ -6,3 +6,4 @@ app/etc/modules/TIG_Tinypng.xml
 /skin/adminhtml/default/default/css/TIG/Tinypng/
 /skin/adminhtml/default/default/images/TIG/Tinypng/
 /app/locale/nl_NL/TIG_Tinypng.csv
+/app/locale/en_EN/TIG_Tinypng.csv

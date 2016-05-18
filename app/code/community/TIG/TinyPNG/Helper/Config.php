@@ -45,8 +45,9 @@ class TIG_TinyPNG_Helper_Config extends Mage_Core_Helper_Abstract
     const XPATH_API_KEY              = 'tig_tinypng/settings/api_key';
     const XPATH_AUTO_COMPRESS        = 'tig_tinypng/configuration/automatic_compression';
     const XPATH_COMPRESS_QUALITY     = 'tig_tinypng/configuration/compression_quality';
-    const XPATH_PRODUCT_IMAGES_TYPES = 'tig_tinpyng/configuration/product_img_compression';
-    const XPATH_CMS_IMAGES_TYPES     = 'tig_tinypng/configuration/cms_img_compression';
+    const XPATH_PRODUCT_IMAGES_TYPES = 'tig_tinypng/configuration/product_compression';
+    const XPATH_CMS_IMAGES_TYPES     = 'tig_tinypng/configuration/cms_compression';
+    const XPATH_LOGGING_MODE         = 'tig_tinypng/configuration/logging_mode';
 
     /**
      * Return the enabled modus (off, test or live)
@@ -172,5 +173,17 @@ class TIG_TinyPNG_Helper_Config extends Mage_Core_Helper_Abstract
     public static function getCmsImageTypesToCompress($store = null)
     {
         return Mage::getStoreConfig(self::XPATH_CMS_IMAGES_TYPES, $store);
+    }
+
+    /**
+     * Returns the logging mode.
+     *
+     * @param null $store
+     *
+     * @return mixed
+     */
+    public static function getLoggingMode($store = null)
+    {
+        return Mage::getStoreConfig(self::XPATH_LOGGING_MODE, $store);
     }
 }

@@ -57,7 +57,7 @@ class TIG_TinyPNG_Model_System_Config_Source_Product_ImageTypes
                 'label' => $helper->__('Small Image')
             ),
             array(
-                'value' => 'base_image',
+                'value' => 'image',
                 'label' => $helper->__('Base Image')
             ),
             array(

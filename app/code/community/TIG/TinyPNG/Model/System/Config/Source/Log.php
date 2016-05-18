@@ -36,64 +36,32 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
-/**
- * Class TIG_Adcurve_Helper_Data
- */
-class TIG_TinyPNG_Helper_Data extends Mage_Core_Helper_Abstract
+class TIG_TinyPNG_Model_System_Config_Source_Log
 {
-    /** @var string  */
-    protected $_logFile = 'TIG_TinyPNG_Debug.log';
-
-    public function d__()
-    {
-        var_dump($this->_getModuleName());
-        exit;
-    }
-
     /**
-     * @param $msg
-     * @param $type
-     */
-    public function logMessage($msg, $type = null, $store = null)
-    {
-        $logginModes = $this->_loggingArray($store);
-
-       // Always log exceptions $msg should be an instanceof Exception!
-        if ($msg instanceof Exception ) {
-            $type = 'exception';
-        }
-
-        if (!in_array($type, $logginModes)) {
-            return;
-        }
-
-        Mage::log($msg, null, $this->_logFile, true);
-
-    }
-
-    /**
-     * @param $store
+     * Get the select list for logging mode.
      *
      * @return array
      */
-    protected function _loggingArray($store)
+    public function toOptionArray()
     {
-        switch (TIG_TinyPNG_Helper_Config::getLoggingMode($store))
-        {
-            case 'only_exceptions':
-                $logginArray = array('exception');
-                break;
-            case 'fail_and_exceptions':
-                $logginArray = array('failure', 'exception');
-                break;
-            case 'all':
-                $logginArray = array('info', 'failure', 'exception');
-                break;
-            default:
-                $logginArray = array('exception');
-        }
+        $helper = Mage::helper('tig_tinypng');
 
-        return $logginArray;
+        $array = array(
+            array(
+                'value' => 'only_exceptions',
+                'label' => $helper->__('Exceptions only')
+            ),
+            array(
+                'value' => 'fail_and_exceptions',
+                'label' => $helper->__('Failures and Exceptions')
+            ),
+            array(
+                'value' => 'all',
+                'label' => $helper->__('All logging information')
+            ),
+        );
+
+        return $array;
     }
-
 }

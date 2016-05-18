@@ -38,6 +38,45 @@
  */
 class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
 {
+    /** @var bool $allowCompression */
+    public $allowCompression = false;
+
+    /** @var string $destinationSubdir */
+    public $destinationSubdir = '';
+
+    /** @var string $newFile */
+    public $newFile = '';
+
+    /** @var string $imageWidth */
+    public $imageWidth = '';
+
+    /** @var string $imageHeight */
+    public $imageHeight = '';
+
+    /** @var string $logMessage */
+    public $logMessage;
+
+    /** @var string $compressHash */
+    protected $compressHash = '';
+
+    /** @var int $imageBytes */
+    protected $imageBytes = 0;
+
+    /** @var string  $compressHashAfter */
+    protected $compressHashAfter = '';
+
+    /** @var int  $imageBytesAfter */
+    protected $imageBytesAfter = 0;
+
+    /** @var bool $compression */
+    protected $compression = false;
+
+    /** @var TIG_TinyPNG_Helper_Data $helper */
+    public $helper;
+
+    /** @var  int $storeId */
+    public $storeId = 0;
+
     /**
      * Constructor
      */
@@ -45,6 +84,8 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
         require_once(Mage::getBaseDir('lib') . '/tinify-php/lib/Tinify.php');
 
         spl_autoload_register( array($this, 'load'), true, true );
+
+        $this->helper = Mage::helper('tig_tinypng');
     }
 
     /**
@@ -96,7 +137,7 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
         try {
             \Tinify\validate();
         } catch (\Tinify\Exception $e) {
-            //If this exception is thrown, the validation has failed
+            $this->helper->logMessage($e->getMessage(), null, $this->storeId);
             return false;
         }
 
@@ -104,12 +145,91 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * TODO: compress images through this function
-     *
-     * @param null $store
+     * @return bool
      */
-    public function compress($store = null) {
+    public function compress() {
 
+        if (!$this->allowCompression) {
+            $this->helper->logMessage('Product imagetype not allowed for compression', 'failure', $this->storeId);
+            return false;
+        }
+
+        try {
+            $this->compression = \Tinify\fromFile($this->newFile)->toFile($this->newFile);
+            $this->logMessage .= 'Variant '. $this->destinationSubdir .
+                'allowed ' . $this->allowCompression .
+                'width ' . $this->imageWidth .
+                'height ' . $this->imageHeight .
+                'API ' . ''. // the $this->ApiKey when placed in contructor
+                'JSON Respons : '. json_encode($this->compression);
+        } catch (\Tinify\Exception $e) {
+            $this->helper->logMessage($e->getCode() .': '. $e->getMessage(), null, $this->storeId);
+            return false;
+        }
+
+        $this->saveCompression($this->compression);
+        return true;
+
+    }
+
+    /**
+     * @param Mage_Catalog_Model_Product_Image $image
+     * @param $store
+     *
+     * @return $this
+     */
+    public function setProductImageCompressData($image, $store = null)
+    {
+        if (null !== $store) {
+            $this->storeId = $store;
+        }
+
+        $this->allowCompression  = $this->isCompressionAllowed($image->getDestinationSubdir());
+        $this->destinationSubdir = $image->getDestinationSubdir();
+        $this->newFile           = $image->getNewFile();
+        $this->imageWidth        = $image->getWidth();
+        $this->imageHeight       = $image->getHeight();
+
+        // Gets the core data of file for setting the filesize.
+        $fileInfo = new SplFileInfo($image->getNewFile());
+        if (!$fileInfo->isFile()) {
+            $this->helper->logMessage('Could not load the core image data', 'info', $this->storeId);
+        } else {
+            $this->imageBytes = $fileInfo->getSize();
+        }
+
+        $this->compressHash = md5_file($image->getNewFile());
+
+        return $this;
+    }
+
+    public function saveCompression()
+    {
+        /** @todo save compression in DB */
+    }
+
+    /**
+     * @param $imageDestination
+     *
+     * @return bool
+     */
+    public function isCompressionAllowed($imageDestination)
+    {
+        $typesAllowed = TIG_TinyPNG_Helper_Config::getProductImageTypesToCompress($this->storeId);
+
+        /**
+         * @TODO: Should be inside the constructor.
+         */
+        $apiKey     = TIG_TinyPNG_Helper_Config::getApiKey($this->storeId);
+        $validated  = $this->validate($apiKey);
+
+        if (in_array($imageDestination, explode(',', $typesAllowed))
+            && $validated
+        ) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

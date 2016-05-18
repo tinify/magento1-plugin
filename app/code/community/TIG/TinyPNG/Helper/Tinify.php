@@ -111,13 +111,22 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
 
         /** Get the relative class name */
         $relative_class = substr($class, $len);
+        $relative_class_directory = str_replace('\\', '/', $relative_class);
+
+        /** Tinify has all its exceptions in one file, so take that in account */
+        if (substr($relative_class_directory, -9) == 'Exception') {
+            $class_array = explode('/', $relative_class_directory);
+            $class_array[count($class_array) - 1] = 'Exception';
+
+            $relative_class_directory = implode('/', $class_array);
+        }
 
         /**
          * Replace the namespace prefix with the base directory, replace namespace
          * separators with directory separators in the relative class name, append
          * with .php
          */
-        $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
+        $file = $base_dir . $relative_class_directory . '.php';
 
         /** if the file exists, require it */
         if (file_exists($file)) {

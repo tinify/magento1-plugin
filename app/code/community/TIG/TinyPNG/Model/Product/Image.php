@@ -36,15 +36,7 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
-/**
- * Class TIG_Adcurve_Helper_Data
- */
-class TIG_TinyPNG_Helper_Data extends Mage_Core_Helper_Abstract
+class TIG_TinyPNG_Model_Product_Image extends Mage_Catalog_Model_Product_Image
 {
-    public function d__()
-    {
-        var_dump($this->_getModuleName());
-        exit;
-    }
 
 }

@@ -36,15 +36,68 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
-/**
- * Class TIG_Adcurve_Helper_Data
- */
-class TIG_TinyPNG_Helper_Data extends Mage_Core_Helper_Abstract
+class TIG_TinyPNG_Model_Image extends Mage_Core_Model_Abstract
 {
-    public function d__()
+    /**
+     * Class constructor.
+     */
+    public function _construct()
     {
-        var_dump($this->_getModuleName());
-        exit;
+        $this->_init('tig_tinypng/image');
     }
 
+    /**
+     * Get the statistics for the TinyPNG module.
+     *
+     * $options:
+     * - current_month: defaults to true
+     *
+     * @param array $options
+     *
+     * @return Varien_Object
+     */
+    public function getStatistics($options = array())
+    {
+        $collection = $this->getCollection();
+
+        /**
+         * Filter by the current month.
+         */
+        if (
+            !isset($options['current_month']) ||
+            (
+                isset($options['current_month']) &&
+                $options['current_month']
+            )
+        ) {
+            $dateFrom = new DateTime('first day of this month');
+            $dateTo   = new DateTime('last day of this month');
+
+            $collection->addFieldToFilter(
+                'processed_at',
+                array(
+                    'from' => $dateFrom->format('Y-m-d'),
+                    'to'   => $dateTo->format('Y-m-d'),
+                )
+            );
+        }
+
+        $collection
+            ->getSelect()
+            ->reset(Zend_Db_Select::COLUMNS)
+            ->columns('count(image_id) as images_count')
+            ->columns('sum(bytes_before) as bytes_before')
+            ->columns('sum(bytes_after) as bytes_after')
+        ;
+
+        $data = $collection->getFirstItem();
+
+        if ($data->images_count > 0) {
+            $data->setData('percentage_saved', (($data->bytes_before - $data->bytes_after) / $data->bytes_before) * 100);
+        } else {
+            $data->setData('percentage_saved', 0);
+        }
+
+        return $data;
+    }
 }

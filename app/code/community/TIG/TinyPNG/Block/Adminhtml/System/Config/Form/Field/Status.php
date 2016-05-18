@@ -36,15 +36,21 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
-/**
- * Class TIG_Adcurve_Helper_Data
- */
-class TIG_TinyPNG_Helper_Data extends Mage_Core_Helper_Abstract
+class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Status extends Varien_Data_Form_Element_Abstract
 {
-    public function d__()
+    /**
+     * Generate the status for the TinyPNG extension.
+     *
+     * @return string
+     */
+    public function getElementHtml()
     {
-        var_dump($this->_getModuleName());
-        exit;
-    }
+        $data = Mage::getModel('tig_tinypng/image')->getStatistics();
 
+        return Mage::helper('tig_tinypng')->__(
+            'There are %s compressions done this month. We saved %s%% this month!',
+            $data->images_count,
+            round($data->percentage_saved)
+        );
+    }
 }

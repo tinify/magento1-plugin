@@ -74,7 +74,7 @@
                     </fields>
                 </support>
                 <settings translate="label">
-                    <label>Settings</label>
+                    <label>TinyPNG Settings</label>
                     <sort_order>100</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -95,13 +95,84 @@
                             <frontend_type>text</frontend_type>
                             <backend_model>tig_tinypng/system_config_backend_apiKey</backend_model>
                             <sort_order>30</sort_order>
-                            <validate>validate-alphanum</validate>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </api_key>
                     </fields>
                 </settings>
+
+                <status translate="label">
+                    <label>TinyPNG Status</label>
+                    <sort_order>110</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <usage translate="label comment">
+                            <label>Status</label>
+                            <sort_order>10</sort_order>
+                            <source_model>tig_tinypng/system_config_source_testlive</source_model>
+                            <frontend_type>tinypng_status</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </usage>
+                        <support>
+                            <sort_order>0</sort_order>
+                            <frontend_model>tig_tinypng/adminhtml_system_config_form_field_statusTab</frontend_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </support>
+                    </fields>
+                </status>
+                <configuration translate="label">
+                    <label>Configuration</label>
+                    <sort_order>120</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <automatic_compression translate="label comment">
+                            <label>Automatic compression for dynamic images and cache elements</label>
+                            <sort_order>10</sort_order>
+                            <source_model>tig_tinypng/system_config_source_onOff</source_model>
+                            <frontend_type>select</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </automatic_compression>
+                        <compression_quality traslate="label comment">
+                            <label>Compress quality</label>
+                            <comment>Set image compress quality, TinyPNG compression requires a minimum of 95% and is recommended</comment>
+                            <sort_order>20</sort_order>
+                            <source_model>tig_tinypng/system_config_source_quality</source_model>
+                            <frontend_type>select</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </compression_quality>
+                        <product_img_compression translate="label comment">
+                            <label>Product images to be compressed</label>
+                            <sort_order>30</sort_order>
+                            <source_model>tig_tinypng/system_config_source_product_imageTypes</source_model>
+                            <frontend_type>multiselect</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </product_img_compression>
+                        <cms_img_compression translate="label comment">
+                            <label>CMS images to be compressed</label>
+                            <sort_order>40</sort_order>
+                            <source_model>tig_tinypng/system_config_source_cms_imageTypes</source_model>
+                            <frontend_type>multiselect</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cms_img_compression>
+                    </fields>
+                </configuration>
             </groups>
         </tig_tinypng>
     </sections>

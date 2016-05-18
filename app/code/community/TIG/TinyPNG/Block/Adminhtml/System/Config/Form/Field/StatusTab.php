@@ -36,15 +36,25 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
-/**
- * Class TIG_Adcurve_Helper_Data
- */
-class TIG_TinyPNG_Helper_Data extends Mage_Core_Helper_Abstract
+class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_StatusTab extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
 {
-    public function d__()
-    {
-        var_dump($this->_getModuleName());
-        exit;
-    }
+    /**
+     * Template file used
+     *
+     * @var string
+     */
+    protected $_template = 'TIG/TinyPNG/system/config/form/field/status_tab.phtml';
 
+    /**
+     * Render fieldset html
+     *
+     * @param Varien_Data_Form_Element_Abstract $element
+     * @return string
+     */
+    public function render(Varien_Data_Form_Element_Abstract $element)
+    {
+        $this->setElement($element);
+
+        return $this->toHtml();
+    }
 }

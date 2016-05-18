@@ -2,7 +2,7 @@
 <config>
     <modules>
         <TIG_TinyPNG>
-            <version>0.1.0</version>
+            <version>1.0.0</version>
         </TIG_TinyPNG>
     </modules>
     <global>
@@ -19,8 +19,29 @@
         <models>
             <tig_tinypng>
                 <class>TIG_TinyPNG_Model</class>
-            </tig_tinypng>>
+                <resourceModel>tig_tinypng_resource</resourceModel>
+            </tig_tinypng>
+            <tig_tinypng_resource>
+                <class>TIG_TinyPNG_Model_Resource</class>
+                <entities>
+                    <image>
+                        <table>tig_tinypng_image</table>
+                    </image>
+                </entities>
+            </tig_tinypng_resource>
+            <catalog>
+                <rewrite>
+                    <product_image>TIG_TinyPNG_Model_Product_Image</product_image>
+                </rewrite>
+            </catalog>
         </models>
+        <resources>
+            <tig_tinypng_setup>
+                <setup>
+                    <module>TIG_TinyPNG</module>
+                </setup>
+            </tig_tinypng_setup>
+        </resources>
     </global>
     <adminhtml>
         <layout>
@@ -40,4 +61,11 @@
             </modules>
         </translate>
     </adminhtml>
+    <default>
+        <tig_tinypng>
+            <configuration>
+                <compression_quality>95</compression_quality>
+            </configuration>
+        </tig_tinypng>
+    </default>
 </config>

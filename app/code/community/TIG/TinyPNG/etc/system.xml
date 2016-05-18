@@ -153,7 +153,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </compression_quality>
-                        <product_img_compression translate="label comment">
+                        <product_compression translate="label comment">
                             <label>Product images to be compressed</label>
                             <sort_order>30</sort_order>
                             <source_model>tig_tinypng/system_config_source_product_imageTypes</source_model>
@@ -161,8 +161,8 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </product_img_compression>
-                        <cms_img_compression translate="label comment">
+                        </product_compression>
+                        <cms_compression translate="label comment">
                             <label>CMS images to be compressed</label>
                             <sort_order>40</sort_order>
                             <source_model>tig_tinypng/system_config_source_cms_imageTypes</source_model>
@@ -170,7 +170,17 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </cms_img_compression>
+                        </cms_compression>
+                        <logging_mode translate="label comment">
+                            <label>Messages that sould be logged</label>
+                            <comment>An Exception shall always be logged.</comment>
+                            <sort_order>50</sort_order>
+                            <source_model>tig_tinypng/system_config_source_log</source_model>
+                            <frontend_type>select</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </logging_mode>
                     </fields>
                 </configuration>
             </groups>

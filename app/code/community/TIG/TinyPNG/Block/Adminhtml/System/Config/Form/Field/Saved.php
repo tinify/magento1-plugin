@@ -53,16 +53,4 @@ class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Saved extends Varien_
             round($data->greatest_saving)
         );
     }
-
-    public function getScopeLabel()
-    {
-        $_helper = Mage::helper('tig_tinypng');
-
-        $label = parent::getScopeLabel();
-        $label .= '<a class="manual_links" href="' . 'ha' . '" title="' . $_helper->__('Request help from the servicedesk') . '">'
-                    . $_helper->__('Request help from the servicedesk')
-                . '</a>';
-
-        return $label;
-    }
 }

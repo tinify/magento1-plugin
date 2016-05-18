@@ -61,4 +61,19 @@ class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Api extends Varien_Da
 
         return $message;
     }
+
+    /**
+     * @return string
+     */
+    public function getScopeLabel()
+    {
+        $_helper = Mage::helper('tig_tinypng');
+
+        $label = parent::getScopeLabel();
+        $label .= '<a class="manual-links" href="#" title="' . $_helper->__('Check status') . '">'
+            . $_helper->__('Check status')
+            . '</a>';
+
+        return $label;
+    }
 }

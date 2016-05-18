@@ -41,8 +41,12 @@ class TIG_TinyPNG_Helper_Config extends Mage_Core_Helper_Abstract
     /**
      * Configuration XPATH
      */
-    const XPATH_ENABLED = 'tig_tinypng/settings/enabled';
-    const XPATH_API_KEY = 'tig_tinypng/settings/api_key';
+    const XPATH_ENABLED              = 'tig_tinypng/settings/enabled';
+    const XPATH_API_KEY              = 'tig_tinypng/settings/api_key';
+    const XPATH_AUTO_COMPRESS        = 'tig_tinypng/configuration/automatic_compression';
+    const XPATH_COMPRESS_QUALITY     = 'tig_tinypng/configuration/compression_quality';
+    const XPATH_PRODUCT_IMAGES_TYPES = 'tig_tinpyng/configuration/product_img_compression';
+    const XPATH_CMS_IMAGES_TYPES     = 'tig_tinypng/configuration/cms_img_compression';
 
     /**
      * Return the enabled modus (off, test or live)
@@ -120,5 +124,53 @@ class TIG_TinyPNG_Helper_Config extends Mage_Core_Helper_Abstract
     public static function getApiKey($store = null)
     {
         return Mage::getStoreConfig(self::XPATH_API_KEY, $store);
+    }
+
+    /**
+     * Is automatic compression on or off.
+     *
+     * @param null $store
+     *
+     * @return mixed
+     */
+    public static function isAutomaticCompressionEnabled($store = null)
+    {
+        return Mage::getStoreConfig(self::XPATH_AUTO_COMPRESS, $store);
+    }
+
+    /**
+     * Get the compress quality for TinyPng (min of 95 %)
+     *
+     * @param null $store
+     *
+     * @return mixed
+     */
+    public static function getCompressQuality($store = null)
+    {
+        return Mage::getStoreConfig(self::XPATH_COMPRESS_QUALITY, $store);
+    }
+
+    /**
+     * Returns a comma separeted list of image types that can be compressed by TinyPNG
+     *
+     * @param null $store
+     *
+     * @return mixed
+     */
+    public static function getProductImageTypesToCompress($store = null)
+    {
+        return Mage::getStoreConfig(self::XPATH_PRODUCT_IMAGES_TYPES, $store);
+    }
+
+    /**
+     * Returns a comma separeted list of image types that can be compressed by TinyPNG
+     *
+     * @param null $store
+     *
+     * @return mixed
+     */
+    public static function getCmsImageTypesToCompress($store = null)
+    {
+        return Mage::getStoreConfig(self::XPATH_CMS_IMAGES_TYPES, $store);
     }
 }

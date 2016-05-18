@@ -36,28 +36,33 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
-?>
+class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Saved extends Varien_Data_Form_Element_Abstract
+{
+    /**
+     * Generate the status for the TinyPNG extension.
+     *
+     * @return string
+     */
+    public function getElementHtml()
+    {
+        $data = Mage::getModel('tig_tinypng/image')->getStatistics();
 
-<?php $_helper = Mage::helper('tig_tinypng/tinify'); ?>
+        return Mage::helper('tig_tinypng')->__(
+            'We saved %s%% this month! The greatest compression was %s%%.',
+            round($data->percentage_saved),
+            round($data->greatest_saving)
+        );
+    }
 
-<tr id="tig_tinypng_status_status">
-    <td class="label">
-        <?php echo $_helper->__('Status'); ?>
-    </td>
-    <td class="value">
-        <?php echo $_helper->__('%s image(s) compressed this month.', $_helper->compressionCount()); ?>
-    </td>
-</tr>
+    public function getScopeLabel()
+    {
+        $_helper = Mage::helper('tig_tinypng');
 
-<tr id="tig_tinypng_status_api">
-    <td class="label">
-        <?php echo $_helper->__('TinyPNG API Status'); ?>
-    </td>
-    <td class="value">
-        <?php if(TIG_TinyPNG_Helper_Config::isConfigured() && $_helper->validate(TIG_TinyPNG_Helper_Config::getApiKey())): ?>
-            <span class="tinypng_status_success"><?php echo $_helper->__('Operational'); ?></span>
-        <?php else: ?>
-            <span class="tinypng_status_failure"><?php echo $_helper->__('Nonperational'); ?></span>
-        <?php endif; ?>
-    </td>
-</tr>
+        $label = parent::getScopeLabel();
+        $label .= '<a class="manual_links" href="' . 'ha' . '" title="' . $_helper->__('Request help from the servicedesk') . '">'
+                    . $_helper->__('Request help from the servicedesk')
+                . '</a>';
+
+        return $label;
+    }
+}

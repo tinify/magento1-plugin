@@ -45,12 +45,12 @@ class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Status extends Varien
      */
     public function getElementHtml()
     {
-        $data = Mage::getModel('tig_tinypng/image')->getStatistics();
+        // TODO: Find a method to determine whether to use our or Tinify's compression count
+        $compressionCount = Mage::helper('tig_tinypng/tinify')->compressionCount();
 
         return Mage::helper('tig_tinypng')->__(
-            'There are %s compressions done this month. We saved %s%% this month!',
-            $data->images_count,
-            round($data->percentage_saved)
+            'There are %s compressions done this month.',
+            $compressionCount
         );
     }
 }

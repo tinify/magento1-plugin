@@ -55,6 +55,8 @@ class TIG_TinyPNG_Block_Adminhtml_System_Config_Form extends Mage_Adminhtml_Bloc
         $this
             ->_addRadioButtons()
             ->_addStatusIndicator()
+            ->_addSavedIndicator()
+            ->_addApiIndicator()
         ;
 
         return $this->_elementTypes;
@@ -82,6 +84,32 @@ class TIG_TinyPNG_Block_Adminhtml_System_Config_Form extends Mage_Adminhtml_Bloc
     {
         $this->_elementTypes['tinypng_status'] = Mage::getConfig()
             ->getBlockClassName('tig_tinypng/adminhtml_system_config_form_field_status');
+
+        return $this;
+    }
+
+    /**
+     * Add a field that shows how much has been saved.
+     *
+     * @return $this
+     */
+    protected function _addSavedIndicator()
+    {
+        $this->_elementTypes['tinypng_saved'] = Mage::getConfig()
+            ->getBlockClassName('tig_tinypng/adminhtml_system_config_form_field_saved');
+
+        return $this;
+    }
+
+    /**
+     * Add a field that shows the api status indicator.
+     *
+     * @return $this
+     */
+    protected function _addApiIndicator()
+    {
+        $this->_elementTypes['tinypng_api'] = Mage::getConfig()
+            ->getBlockClassName('tig_tinypng/adminhtml_system_config_form_field_api');
 
         return $this;
     }

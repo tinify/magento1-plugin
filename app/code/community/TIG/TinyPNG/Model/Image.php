@@ -88,6 +88,7 @@ class TIG_TinyPNG_Model_Image extends Mage_Core_Model_Abstract
             ->columns('count(image_id) as images_count')
             ->columns('sum(bytes_before) as bytes_before')
             ->columns('sum(bytes_after) as bytes_after')
+            ->columns('max(((bytes_before - bytes_after) / bytes_before) * 100) as greatest_saving')
         ;
 
         $data = $collection->getFirstItem();

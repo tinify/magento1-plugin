@@ -93,7 +93,6 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
      */
     public function validate($apiKey) {
         \Tinify\setKey($apiKey);
-
         try {
             \Tinify\validate();
         } catch (\Tinify\Exception $e) {
@@ -102,5 +101,36 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
         }
 
         return true;
+    }
+
+    /**
+     * TODO: compress images through this function
+     *
+     * @param null $store
+     */
+    public function compress($store = null) {
+
+    }
+
+    /**
+     * Check how many images have been compressed this month
+     *
+     * @param null $store
+     *
+     * @return int|null
+     */
+    public function compressionCount($store = null) {
+        if(!TIG_TinyPNG_Helper_Config::isConfigured($store)) {
+            return 0;
+        }
+
+        $apiKey = TIG_TinyPNG_Helper_Config::getApiKey($store);
+        $validated = $this->validate($apiKey);
+
+        if (!$validated) {
+            return 0;
+        }
+
+        return \Tinify\compressionCount();
     }
 }

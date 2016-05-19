@@ -42,6 +42,13 @@
 class TIG_TinyPNG_Helper_Data extends Mage_Core_Helper_Abstract
 {
     /**
+     * The name of the logfile.
+     *
+     * @var string
+     */
+    protected $_logFile = 'TIG_TinyPNG.log';
+
+    /**
      * @param $msg
      * @param $type
      */

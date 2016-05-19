@@ -215,6 +215,9 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
     public function saveCompression()
     {
         /** @todo save compression in DB */
+
+        $tinyPNGModel = Mage::getModel('tig_tinypng/image');
+
     }
 
     /**

@@ -51,8 +51,8 @@ class TIG_TinyPNG_Model_Product_Image extends Mage_Catalog_Model_Product_Image
     {
         $this->tinifyHelper = Mage::helper('tig_tinypng/tinify');
 
-        /** Set the minimun required quality for TinyPNG image compression */
-        $this->_quality = TIG_TinyPNG_Helper_Config::getCompressQuality();
+        /** Set the minimun required quality for TinyPNG image compression which is 95 */
+        $this->_quality = 95;
 
         $this->storeId = Mage::app()->getStore()->getStoreId();
     }

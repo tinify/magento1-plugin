@@ -114,7 +114,7 @@
     line-height: 32px;
 }
 
-#tig_tinypng_status a.manual-links,
+#tig_tinypng_status span.manual-links,
 #tig_tinypng_support .manual-links li a,
 #tig_tinypng_support .manual-links td a{
     text-decoration: none;
@@ -143,13 +143,14 @@
     right: 0;
     width: 30px;
 }
-
+#tig_tinypng_status span.manual-links:hover,
 #tig_tinypng_support .manual-links li a:hover,
 #tig_tinypng_support .manual-links td a:hover{
     -moz-box-shadow: none;
          box-shadow: none;
     background:#007f3b;
 }
+#tig_tinypng_status span.manual-links:active,
 #tig_tinypng_support .manual-links li a:active,
 #tig_tinypng_support .manual-links td a:active{
     border-color: #009f3e;
@@ -157,7 +158,8 @@
     top: 1px;
 }
 
-#tig_tinypng_status a.manual-links {
+#tig_tinypng_status span.manual-links {
+    cursor: pointer;
     margin-left: 25px;
 }
 

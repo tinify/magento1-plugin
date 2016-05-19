@@ -36,50 +36,43 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
-class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Api extends Varien_Data_Form_Element_Abstract
+class TIG_TinyPNG_TinypngAdminhtml_StatusController extends Mage_Adminhtml_Controller_Action
 {
-    /**
-     * Generate the status for the TinyPNG extension.
-     *
-     * @return string
-     */
-    public function getElementHtml()
+    protected function _isAllowed()
     {
-        $message = '<span id="tinypng_api_status">Click the button to check the API status</span>';
+        /** @var Mage_Admin_Model_Session $session */
+        $session = Mage::getSingleton('admin/session');
 
-        return $message;
+        return $session->isAllowed('admin/tinypng');
     }
 
-    /**
-     * @return string
-     */
-    public function getScopeLabel()
+    public function getApiStatusAction()
     {
-        $_helper = Mage::helper('tig_tinypng');
+        if (!$this->_validateFormKey()) {
+            return;
+        }
 
-        $button = '<span id="tinypng_check_status" class="manual-links" title="' . $_helper->__('Check status') . '">'
-            . $_helper->__('Check status')
-            . '</span>';
+        $result = array();
 
-        $js = '<script type="text/javascript">
-                    var url = "' . Mage::helper("adminhtml")->getUrl('adminhtml/tinypngAdminhtml_status/getApiStatus') . '";
+        $isConfigured = TIG_TinyPNG_Helper_Config::isConfigured();
+        $apiKey = TIG_TinyPNG_Helper_Config::getApiKey();
+        $isValidated = Mage::helper('tig_tinypng/tinify')->validate($apiKey);
 
-                    $("tinypng_check_status").on("click", function (event, element) {
-                        new Ajax.Request(url,
-                            {
-                                method: "post",
-                                onSuccess: function (data) {
-                                    var result = data.responseText.evalJSON(true);
-                                    if (result.status == "success") {
-                                        $("tinypng_api_status").innerHTML=result.message;
-                                    }
-                                }
-                            })
-                    });
-                </script>';
+        if ($isConfigured && $isValidated) {
+            $message = '<span class="tinypng_status_success">'
+                . Mage::helper('tig_tinypng')->__('Operational')
+                . '</span>';
+        } else {
+            $message = '<span class="tinypng_status_failure">'
+                . Mage::helper('tig_tinypng')->__('Nonoperational')
+                . '</span>';
+        }
 
-        $label = parent::getScopeLabel() . $button . $js;
+        $result['status'] = 'success';
+        $result['message'] = $message;
 
-        return $label;
+        /** @var Mage_Core_Helper_Data $coreHelper */
+        $coreHelper = Mage::helper('core');
+        $this->getResponse()->setBody($coreHelper->jsonEncode($result));
     }
 }

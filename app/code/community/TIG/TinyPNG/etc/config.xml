@@ -43,6 +43,17 @@
             </tig_tinypng_setup>
         </resources>
     </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <tig_tinypng after="Mage_Adminhtml">TIG_TinyPNG</tig_tinypng>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
     <adminhtml>
         <layout>
             <updates>

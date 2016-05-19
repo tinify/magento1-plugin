@@ -36,6 +36,23 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
+
+/**
+ * @method $this setPath(String $path);
+ * @method string|null getPath();
+ * @method $this setHashBefore(String $hash);
+ * @method string|null getHashBefore();
+ * @method $this setHashAfter(String $hash);
+ * @method string|null getHashAfter();
+ * @method $this setBytesBefore(int $bytes);
+ * @method string|null getBytesBefore();
+ * @method $this setBytesAfter(int $bytes);
+ * @method string|null getBytesAfter();
+ * @method $this setUsedAsSource(int $times);
+ * @method string|null getUsedAsSource();
+ * @method $this setProcessedAt(Datetime $date);
+ * @method string|null getProcessedAt();
+ */
 class TIG_TinyPNG_Model_Image extends Mage_Core_Model_Abstract
 {
     /**
@@ -100,5 +117,47 @@ class TIG_TinyPNG_Model_Image extends Mage_Core_Model_Abstract
         }
 
         return $data;
+    }
+
+    /**
+     * Retrieve a model by the hash.
+     *
+     * @param $hash
+     *
+     * @return TIG_TinyPNG_Model_Image|null
+     */
+    public function getByHash($hash)
+    {
+        /** @var TIG_TinyPNG_Model_Resource_Image_Collection $tinyPNGModel */
+        $model = $this->getCollection();
+        $model->addFieldToFilter(
+            array(
+                'hash_before',
+                'hash_after',
+            ),
+            array(
+                array('eq' => $hash),
+                array('eq' => $hash),
+            )
+        );
+
+        $item = $model->getFirstItem();
+        if ($item->getId() !== null) {
+            return $item;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Simple function to add 1 to the used_as_source column.
+     *
+     * @return $this
+     */
+    public function addUsedAsSource()
+    {
+        $this->setUsedAsSource($this->getUsedAsSource() + 1);
+
+        return $this;
     }
 }

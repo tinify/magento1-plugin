@@ -180,6 +180,12 @@
     border: 1px solid #ccc;
 }
 
+#tig_tinypng_compression td {
+    padding-top:2px;
+    padding-bottom:2px;
+    margin:0;
+}
+
 #tig_tinypng_compression .image_path {
     padding-right: 15px;
     border-right: 1px solid #007f3b;
@@ -187,4 +193,14 @@
 
 #tig_tinypng_compression .info_box {
     padding: 0 0 0 25px;
+}
+
+#tig_tinypng_compression .show_less td,
+#tig_tinypng_compression .show_more td {
+    text-align:center;
+}
+
+#tig_tinypng_compression .show_less td a,
+#tig_tinypng_compression .show_more td a {
+    cursor: pointer;
 }

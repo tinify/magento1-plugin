@@ -136,7 +136,7 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <automatic_compression translate="label comment">
+                        <!--<automatic_compression translate="label comment">
                             <label>Automatic compression for dynamic images and cache elements</label>
                             <sort_order>10</sort_order>
                             <source_model>tig_tinypng/system_config_source_onOff</source_model>
@@ -144,17 +144,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </automatic_compression>
-                        <compression_quality traslate="label comment">
-                            <label>Compress quality</label>
-                            <comment>Set image compress quality, TinyPNG compression requires a minimum of 95% and is recommended</comment>
-                            <sort_order>20</sort_order>
-                            <source_model>tig_tinypng/system_config_source_quality</source_model>
-                            <frontend_type>select</frontend_type>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </compression_quality>
+                        </automatic_compression>-->
                         <product_compression translate="label comment">
                             <label>Product images to be compressed</label>
                             <sort_order>30</sort_order>
@@ -164,7 +154,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </product_compression>
-                        <cms_compression translate="label comment">
+                        <!--<cms_compression translate="label comment">
                             <label>CMS images to be compressed</label>
                             <sort_order>40</sort_order>
                             <source_model>tig_tinypng/system_config_source_cms_imageTypes</source_model>
@@ -172,7 +162,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </cms_compression>
+                        </cms_compression>-->
                         <logging_mode translate="label comment">
                             <label>Messages that sould be logged</label>
                             <comment>An Exception shall always be logged.</comment>

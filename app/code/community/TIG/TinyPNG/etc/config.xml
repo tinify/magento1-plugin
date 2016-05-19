@@ -63,8 +63,12 @@
     </adminhtml>
     <default>
         <tig_tinypng>
+            <settings>
+                <enabled>2</enabled>
+            </settings>
             <configuration>
                 <compression_quality>95</compression_quality>
+                <product_compression>thumbnail,small_image,image,media_image</product_compression>
             </configuration>
         </tig_tinypng>
     </default>

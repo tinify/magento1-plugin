@@ -41,15 +41,6 @@
  */
 class TIG_TinyPNG_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    /** @var string  */
-    protected $_logFile = 'TIG_TinyPNG_Debug.log';
-
-    public function d__()
-    {
-        var_dump($this->_getModuleName());
-        exit;
-    }
-
     /**
      * @param $msg
      * @param $type
@@ -58,7 +49,9 @@ class TIG_TinyPNG_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $logginModes = $this->_loggingArray($store);
 
-       // Always log exceptions $msg should be an instanceof Exception!
+        /**
+         * Always log exceptions. $msg should be an instanceof Exception!
+         */
         if ($msg instanceof Exception ) {
             $type = 'exception';
         }
@@ -69,6 +62,7 @@ class TIG_TinyPNG_Helper_Data extends Mage_Core_Helper_Abstract
 
         Mage::log($msg, null, $this->_logFile, true);
 
+        return $this;
     }
 
     /**

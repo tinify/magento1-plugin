@@ -36,65 +36,47 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
-/**
- * Class TIG_Adcurve_Helper_Data
- */
-class TIG_TinyPNG_Helper_Data extends Mage_Core_Helper_Abstract
+class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_LogStatus extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
 {
     /**
-     * The name of the logfile.
+     * Template file used
      *
      * @var string
      */
-    public $logFile = 'TIG_TinyPNG.log';
+    protected $_template = 'TIG/TinyPNG/system/config/form/field/log_status.phtml';
 
     /**
-     * @param $msg
-     * @param $type
-     */
-    public function logMessage($msg, $type = null, $store = null)
-    {
-        $logginModes = $this->_loggingArray($store);
-
-        /**
-         * Always log exceptions. $msg should be an instanceof Exception!
-         */
-        if ($msg instanceof Exception ) {
-            $type = 'exception';
-        }
-
-        if (!in_array($type, $logginModes)) {
-            return;
-        }
-
-        Mage::log($msg, null, $this->logFile, true);
-
-        return $this;
-    }
-
-    /**
-     * @param $store
+     * Render template
      *
-     * @return array
+     * @param Varien_Data_Form_Element_Abstract $element
+     *
+     * @return string
      */
-    protected function _loggingArray($store)
+    public function render(Varien_Data_Form_Element_Abstract $element)
     {
-        switch (TIG_TinyPNG_Helper_Config::getLoggingMode($store))
-        {
-            case 'only_exceptions':
-                $logginArray = array('exception');
-                break;
-            case 'fail_and_exceptions':
-                $logginArray = array('failure', 'exception');
-                break;
-            case 'all':
-                $logginArray = array('info', 'failure', 'exception');
-                break;
-            default:
-                $logginArray = array('exception');
-        }
+        $this->setElement($element);
 
-        return $logginArray;
+        return $this->toHtml();
     }
 
+    /**
+     * Gets the logfile.
+     *
+     * @return bool|string
+     */
+    public function getLogFileLink()
+    {
+        $logDir = Mage::getBaseDir('log');
+
+        /** @var TIG_TinyPNG_Helper_Data $helper */
+        $helper = Mage::helper('tig_tinypng');
+
+        $filePath = $logDir . DS . $helper->logFile;
+
+        if (!@file_exists($filePath)) {
+            return false;
+        }
+
+        return $filePath;
+    }
 }

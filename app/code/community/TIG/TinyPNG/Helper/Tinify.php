@@ -265,4 +265,27 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
 
         return \Tinify\compressionCount();
     }
+
+    /**
+     * Get all the compressions
+     *
+     * @return TIG_TinyPNG_Model_Resource_Image_Collection
+     */
+    public function getCompressionStatus()
+    {
+        $collection = Mage::getModel('tig_tinypng/image')->getCollection();
+
+        $fromDate = Mage::getModel('core/date')->date('Y-m-01');
+        $toDate   = Mage::getModel('core/date')->date('Y-m-t');
+
+        $collection->getSelect()->where('processed_at', array(
+            'from' => $fromDate,
+            'to'   => $toDate,
+            'date' => true
+            )
+        );
+
+        return $collection;
+    }
+
 }

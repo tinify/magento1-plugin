@@ -55,18 +55,33 @@
                     <th class="info_box"><?php echo $this->__('Used as source') ?></th>
                 </tr>
             </thead>
+            <?php $i = 0; ?>
             <?php foreach ($_helper->getCompressionStatus() as $compressedImage) : ?>
-                <tr class="tig_tinypng_log">
-                    <td><?php //echo $compressedImage->getPath(); ?></td>
-                    <td class="image_path"><?php echo $compressedImage->getPath(); ?></td>
-                    <td class="info_box"><?php echo $compressedImage->getBytesBefore(); ?></td>
-                    <td class="info_box"><?php echo $compressedImage->getBytesAfter(); ?></td>
-                    <td class="info_box"><?php echo $compressedImage->getUsedAsSource(); ?></td>
-                </tr>
+                <?php $i++; ?>
+                <?php if ($i > 5) : ?>
+                    <tr class="tig_tinypng_log log_hidden">
+                <?php else : ?>
+                    <tr class="tig_tinypng_log">
+                <?php endif;?>
+                        <td><?php //echo $compressedImage->getPath(); ?></td>
+                        <td class="image_path"><?php echo $compressedImage->getPath(); ?></td>
+                        <td class="info_box"><?php echo $compressedImage->getBytesBefore(); ?></td>
+                        <td class="info_box"><?php echo $compressedImage->getBytesAfter(); ?></td>
+                        <td class="info_box"><?php echo $compressedImage->getUsedAsSource(); ?></td>
+                    </tr>
             <?php endforeach; ?>
+            <?php if ($i > 5 ): ?>
+                <tr class="show_more">
+                    <td colspan = '5'><a id="show_all"><?php echo $this->__('Show more'); ?></a></td>
+                </tr>
+                <tr class="show_less">
+                    <td colspan = '5'><a id="show_less"><?php echo $this->__('Show less'); ?></a></td>
+                </tr>
+            <?php endif; ?>
         </table>
     </td>
 </tr>
+
 <?php if ($this->getLogFileLink()) : ?>
     <tr>
         <td><a href="<?php echo $this->getLogFileLink(); ?>"><?php echo $this->__('Download TinyPNG log file'); ?></a></td>
@@ -74,4 +89,34 @@
 <?php endif; ?>
 
 
+<script type="application/javascript">
 
+    document.observe('dom:loaded', function() {
+        
+        var show_less = $('show_less');
+        var show_all  = $('show_all');
+
+        show_less.hide();
+        $$('.log_hidden').each(function(element) {
+            element.hide();
+        });
+
+        show_all.observe('click', function() {
+            $$('.log_hidden').each(function(element) {
+                element.show();
+            });
+            show_all.hide();
+            show_less.show();
+        });
+
+        show_less.observe('click', function() {
+            $$('.log_hidden').each(function(element) {
+                element.hide();
+            });
+            show_less.hide();
+            show_all.show();
+        });
+
+    });
+
+</script>

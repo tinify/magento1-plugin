@@ -171,3 +171,20 @@
 .text-box .heading .tiny-logo { float:left; }
 
 .block { margin-top: 20px; }
+
+/* Compressions status */
+#tig_tinypng_compression {
+    background: #fff;
+    padding: 9px 16px;
+    margin: 6px 0 10px;
+    border: 1px solid #ccc;
+}
+
+#tig_tinypng_compression .image_path {
+    padding-right: 15px;
+    border-right: 1px solid #007f3b;
+}
+
+#tig_tinypng_compression .info_box {
+    padding: 0 0 0 25px;
+}

@@ -36,35 +36,25 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
-class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_LogStatus extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
+class TIG_TinyPNG_TinypngAdminhtml_ConfigController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Template file used
-     *
-     * @var string
+     * @return bool
      */
-    protected $_template = 'TIG/TinyPNG/system/config/form/field/log_status.phtml';
-
-    /**
-     * Render template
-     *
-     * @param Varien_Data_Form_Element_Abstract $element
-     *
-     * @return string
-     */
-    public function render(Varien_Data_Form_Element_Abstract $element)
+    protected function _isAllowed()
     {
-        $this->setElement($element);
+        /** @var Mage_Admin_Model_Session $session */
+        $session = Mage::getSingleton('admin/session');
 
-        return $this->toHtml();
+        return $session->isAllowed('admin/tinypng');
     }
 
     /**
-     * Returns whether the log file exists or not
+     * Download TinyPNG log file
      *
-     * @return bool
+     * @return $this
      */
-    public function getLogFileExists()
+    public function downloadLogsAction()
     {
         $logDir = Mage::getBaseDir('log');
 
@@ -74,9 +64,18 @@ class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_LogStatus extends Mag
         $filePath = $logDir . DS . $helper->logFile;
 
         if (!@file_exists($filePath)) {
-            return false;
+            return $this;
         }
 
-        return true;
+        $content = array(
+            'type'  => 'filename',
+            'value' => $filePath,
+            'rm'    => false,
+        );
+
+        $this->postDispatch();
+        $this->_prepareDownloadResponse($helper->logFile, $content);
+
+        return $this;
     }
 }

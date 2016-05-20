@@ -50,13 +50,14 @@
                 <tr>
                     <th>&nbsp;</th>
                     <th><?php echo $this->__('File') ?></th>
-                    <th class="info_box"><?php echo $this->__('Bytes Before') ?></th>
-                    <th class="info_box"><?php echo $this->__('Bytes After') ?></th>
-                    <th class="info_box"><?php echo $this->__('Used as source') ?></th>
+                    <th class="info_box"><?php echo $this->__('Bytes Saved') ?></th>
+                    <th class="info_box"><?php echo $this->__('Percentage saved') ?></th>
+                    <th class="info_box"><?php echo $this->__('Time') ?></th>
                 </tr>
             </thead>
             <?php $i = 0; ?>
-            <?php foreach ($_helper->getCompressionStatus() as $compressedImage) : ?>
+            <?php /** @var TIG_TinyPNG_Model_Image $compressedImage */ ?>
+            <?php foreach ($_helper->getCompressionStatus() as $compressedImage): ?>
                 <?php $i++; ?>
                 <?php if ($i > 5) : ?>
                     <tr class="tig_tinypng_log log_hidden">
@@ -64,10 +65,14 @@
                     <tr class="tig_tinypng_log">
                 <?php endif;?>
                         <td><?php //echo $compressedImage->getPath(); ?></td>
-                        <td class="image_path"><?php echo $compressedImage->getPath(); ?></td>
-                        <td class="info_box"><?php echo $compressedImage->getBytesBefore(); ?></td>
-                        <td class="info_box"><?php echo $compressedImage->getBytesAfter(); ?></td>
-                        <td class="info_box"><?php echo $compressedImage->getUsedAsSource(); ?></td>
+                        <td class="image_path">
+                            <a href="<?php echo $compressedImage->getImageUrl(); ?>" target="_BLANK">
+                                <img src="<?php echo $compressedImage->getImageUrl(); ?>">
+                            </a>
+                        </td>
+                        <td class="info_box"><?php echo $compressedImage->getBytesSaved(); ?></td>
+                        <td class="info_box"><?php echo $compressedImage->getPercentageSaved(); ?></td>
+                        <td class="info_box"><?php echo $compressedImage->getTimeAgo(); ?></td>
                     </tr>
             <?php endforeach; ?>
             <?php if ($i > 5 ): ?>
@@ -90,9 +95,7 @@
 
 
 <script type="application/javascript">
-
     document.observe('dom:loaded', function() {
-        
         var show_less = $('show_less');
         var show_all  = $('show_all');
 
@@ -116,7 +119,5 @@
             show_less.hide();
             show_all.show();
         });
-
     });
-
 </script>

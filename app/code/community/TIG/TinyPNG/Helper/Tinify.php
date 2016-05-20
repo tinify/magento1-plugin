@@ -415,16 +415,22 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
     public function getCompressionStatus()
     {
         $collection = Mage::getModel('tig_tinypng/image')->getCollection();
+        $select = $collection->getSelect();
+        $select->limit(100);
 
         $fromDate = Mage::getModel('core/date')->date('Y-m-01');
         $toDate   = Mage::getModel('core/date')->date('Y-m-t');
 
-        $collection->getSelect()->where('processed_at', array(
-            'from' => $fromDate,
-            'to'   => $toDate,
-            'date' => true
+        $select->where(
+            'processed_at',
+            array(
+                'from' => $fromDate,
+                'to'   => $toDate,
+                'date' => true
             )
         );
+
+        $collection->setOrder('processed_at', Varien_Data_Collection_Db::SORT_ORDER_DESC);
 
         return $collection;
     }

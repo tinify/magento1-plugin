@@ -93,7 +93,7 @@ class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Api extends Varien_Da
                                 onSuccess: function (data) {
                                     var result = data.responseText.evalJSON(true);
                                     if (result.status == "success") {
-                                        $("tinypng_api_status").innerHTML=result.message;
+                                        $("tinypng_api_status").innerHTML = result.message;
                                     }
                                 }
                             })

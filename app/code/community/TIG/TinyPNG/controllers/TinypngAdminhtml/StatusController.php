@@ -58,14 +58,26 @@ class TIG_TinyPNG_TinypngAdminhtml_StatusController extends Mage_Adminhtml_Contr
         $apiKey = TIG_TinyPNG_Helper_Config::getApiKey();
         $isValidated = Mage::helper('tig_tinypng/tinify')->validate($apiKey);
 
+        $currentDate = Mage::getModel('core/date')->date();
+        $currentDateFormatted = Mage::helper('core')->formatDate($currentDate, Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
+
+        $cacheData = array();
+        $cacheData['date'] = $currentDateFormatted;
+
         if ($isConfigured && $isValidated) {
             $message = '<span class="tinypng_status_success">'
-                . Mage::helper('tig_tinypng')->__('Operational')
+                . Mage::helper('tig_tinypng')->__('Operational. Last status check was performed at %s.', $currentDateFormatted)
                 . '</span>';
+
+            $cacheData['status'] = 'operational';
+            Mage::app()->saveCache(json_encode($cacheData), 'tig_tinypng_api_status');
         } else {
             $message = '<span class="tinypng_status_failure">'
-                . Mage::helper('tig_tinypng')->__('Nonoperational')
+                . Mage::helper('tig_tinypng')->__('Nonoperational. Last status check was performed at %s.', $currentDateFormatted)
                 . '</span>';
+
+            $cacheData['status'] = 'nonoperational';
+            Mage::app()->saveCache(json_encode($cacheData), 'tig_tinypng_api_status');
         }
 
         $result['status'] = 'success';

@@ -45,16 +45,31 @@
  * @method $this setHashAfter(String $hash);
  * @method string|null getHashAfter();
  * @method $this setBytesBefore(int $bytes);
- * @method string|null getBytesBefore();
+ * @method int|null getBytesBefore();
  * @method $this setBytesAfter(int $bytes);
- * @method string|null getBytesAfter();
+ * @method int|null getBytesAfter();
  * @method $this setUsedAsSource(int $times);
- * @method string|null getUsedAsSource();
- * @method $this setProcessedAt(Datetime $date);
+ * @method int|null getUsedAsSource();
+ * @method $this setProcessedAt(String $date);
  * @method string|null getProcessedAt();
  */
 class TIG_TinyPNG_Model_Image extends Mage_Core_Model_Abstract
 {
+    /**
+     * @var TIG_TinyPNG_Helper_Data
+     */
+    protected $_helper = null;
+
+    /**
+     * The constructer. Loads the helper.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->_helper = Mage::helper('tig_tinypng');
+    }
+
     /**
      * Class constructor.
      */
@@ -87,14 +102,15 @@ class TIG_TinyPNG_Model_Image extends Mage_Core_Model_Abstract
                 $options['current_month']
             )
         ) {
-            $dateFrom = new DateTime('first day of this month');
-            $dateTo   = new DateTime('last day of this month');
+            $dateFrom = Mage::getModel('core/date')->date('Y-m-01');
+            $dateTo   = Mage::getModel('core/date')->date('Y-m-t');
 
             $collection->addFieldToFilter(
                 'processed_at',
                 array(
-                    'from' => $dateFrom->format('Y-m-d'),
-                    'to'   => $dateTo->format('Y-m-d'),
+                    'from' => $dateFrom,
+                    'to'   => $dateTo,
+                    'date' => true
                 )
             );
         }
@@ -159,5 +175,54 @@ class TIG_TinyPNG_Model_Image extends Mage_Core_Model_Abstract
         $this->setUsedAsSource($this->getUsedAsSource() + 1);
 
         return $this;
+    }
+
+    /**
+     * Calculate the url for this image.
+     *
+     * @return string
+     */
+    public function getImageUrl()
+    {
+        $url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+        $url .= ltrim($this->getPath(), '/media');
+
+        return $url;
+    }
+
+    /**
+     * Calculate the bytes saved.
+     *
+     * @return null|string
+     */
+    public function getBytesSaved()
+    {
+        return $this->getBytesBefore() - $this->getBytesAfter();
+    }
+
+    /**
+     * Calculate the percentage saved.
+     *
+     * @return null|string
+     */
+    public function getPercentageSaved()
+    {
+        $bytesSaved = $this->getBytesSaved();
+
+        if ($bytesSaved == 0) {
+            return '0 %';
+        } else {
+            return round(($bytesSaved / $this->getBytesBefore()) * 100) . ' %';
+        }
+    }
+
+    /**
+     * Shows the time ago in human readable format when this image was processed.
+     *
+     * @return string
+     */
+    public function getTimeAgo()
+    {
+        return $this->_helper->timeAgo($this->getProcessedAt());
     }
 }

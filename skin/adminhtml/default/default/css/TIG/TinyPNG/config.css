@@ -191,6 +191,11 @@
     border-right: 1px solid #007f3b;
 }
 
+#tig_tinypng_compression .image_path img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
 #tig_tinypng_compression .info_box {
     padding: 0 0 0 25px;
 }

@@ -36,68 +36,32 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
+
 /**
- * Class TIG_Adcurve_Helper_Data
+ * @var TIG_TinyPNG_Block_Adminhtml_Cache_Warning $this
  */
-class TIG_TinyPNG_Helper_Data extends Mage_Core_Helper_Abstract
-{
-    /**
-     * The name of the logfile.
-     *
-     * @var string
-     */
-    public $logFile = 'TIG_TinyPNG.log';
+$helper = Mage::helper('tig_tinypng');
+
+$message = 'Warning: Flushing the image cache will cause the TinyPNG module to recompress all images. When having a big ' .
+    'catalog this can lead to high costs.\n\nAre you sure you want to continue?';
+
+if (TIG_TinyPNG_Helper_Config::isConfigured()):
+?>
+<script type="text/javascript">
+document.observe('dom:loaded', function () {
+    var element = $$('[onclick*="<?php echo $this->getCleanImagesUrl(); ?>"]');
+    var link = $(element[0]);
 
     /**
-     * @param $msg
-     * @param $type
-     *
-     * @return $this;
+     * Remove the default onclick handler, we cannot override it.
      */
-    public function log($msg, $type = null, $store = null)
-    {
-        $logginModes = $this->_loggingArray($store);
+    link.onclick = null;
 
-        /**
-         * Always log exceptions. $msg should be an instanceof Exception!
-         */
-        if ($msg instanceof Exception) {
-            $type = 'exception';
-            $msg = $msg->__toString();
+    link.observe('click', function (e) {
+        if (confirm('<?php echo $helper->__($message); ?>')) {
+            location.href = '<?php echo $this->getCleanImagesUrl(); ?>';
         }
-
-        if (!in_array($type, $logginModes)) {
-            return $this;
-        }
-
-        Mage::log($msg, null, $this->logFile, true);
-
-        return $this;
-    }
-
-    /**
-     * @param $store
-     *
-     * @return array
-     */
-    protected function _loggingArray($store)
-    {
-        switch (TIG_TinyPNG_Helper_Config::getLoggingMode($store))
-        {
-            case 'only_exceptions':
-                $logginArray = array('exception');
-                break;
-            case 'fail_and_exceptions':
-                $logginArray = array('error', 'exception');
-                break;
-            case 'all':
-                $logginArray = array('info', 'error', 'exception');
-                break;
-            default:
-                $logginArray = array('exception');
-        }
-
-        return $logginArray;
-    }
-
-}
+    });
+});
+</script>
+<?php endif; ?>

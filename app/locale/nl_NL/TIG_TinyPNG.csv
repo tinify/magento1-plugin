@@ -1,1 +1,2 @@
 "TIG_TinyPNG::Enable TinyPNG","Activeer TinyPNG"
+"TIG_TinyPNG::Warning: Flushing the image cache will cause the TinyPNG module to recompress all images. When having a big catalog this can lead to high costs.\n\nAre you sure you want to continue?","Let op: Het flushen van de afbeeldingen cache heeft als gevolg dat de TinyPNG module alle afbeeldingen opnieuw gaat comprimeren. Bij een grote catalogus kan dit leiden tot hoge kosten.\n\nWeet je zeker dat je wilt doorgaan?"

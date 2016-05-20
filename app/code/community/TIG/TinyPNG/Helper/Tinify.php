@@ -38,43 +38,64 @@
  */
 class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
 {
-    /** @var bool $allowCompression */
+    /**
+     * @var bool $allowCompression
+     */
     public $allowCompression = false;
 
-    /** @var string $destinationSubdir */
+    /**
+     * @var string $destinationSubdir
+     */
     public $destinationSubdir = '';
 
-    /** @var SplFileInfo $newFile */
+    /**
+     * @var SplFileInfo $newFile
+     */
     public $newFile = '';
 
-    /** @var string $imageWidth */
+    /**
+     * @var string $imageWidth
+     */
     public $imageWidth = '';
 
-    /** @var string $imageHeight */
+    /**
+     * @var string $imageHeight
+     */
     public $imageHeight = '';
 
-    /** @var string $logMessage */
+    /**
+     * @var string $logMessage
+     */
     public $logMessage;
 
-    /** @var string $hashBefore */
+    /**
+     * @var string $hashBefore
+     */
     protected $hashBefore = '';
 
-    /** @var string  $hashAfter */
+    /**
+     * @var string $hashAfter
+     */
     protected $hashAfter = '';
 
-    /** @var int $bytesBefore */
+    /**
+     * @var int $bytesBefore
+     */
     protected $bytesBefore = 0;
 
-    /** @var int  $bytesAfter */
+    /**
+     * @var int $bytesAfter
+     */
     protected $bytesAfter = 0;
 
-    /** @var bool $compression */
-    protected $compression = false;
-
-    /** @var TIG_TinyPNG_Helper_Data $helper */
+    /**
+     * @var TIG_TinyPNG_Helper_Data $helper
+     */
     public $helper;
 
-    /** @var  int $storeId */
+    /**
+     * @var int $storeId
+     */
     public $storeId = 0;
 
     /**
@@ -166,8 +187,14 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
      */
     public function compress()
     {
+        if (!TIG_TinyPNG_Helper_Config::isEnabled($this->storeId)) {
+            $this->helper->log('The TinyPNG module is disabled, not compressing ' . $this->newFile->getPathname(), 'info', $this->storeId);
+
+            return false;
+        }
+
         if (!$this->allowCompression) {
-            $this->helper->log('Product imagetype not allowed for compression', 'failure', $this->storeId);
+            $this->helper->log('Product imagetype not allowed for compression', 'error', $this->storeId);
 
             return false;
         }
@@ -180,10 +207,23 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
         }
 
         try {
+            $this->logMessage = '';
             $input = \Tinify\fromFile($this->newFile->getPathname());
-            $this->compression = $input->toFile($this->newFile->getPathname());
 
-            $this->logMessage =
+            /**
+             * If test mode is enabled we compress the image, but will not save the result.
+             */
+            if (TIG_TinyPNG_Helper_Config::isTestMode($this->storeId)) {
+                $this->logMessage .= 'TESTMODE - ';
+
+                if (!is_writable($this->newFile->getPathname())) {
+                    throw new TIG_TinyPNG_Exception('The file ' . $this->newFile->getPathname() . ' is not writable!');
+                }
+            } else {
+                $input->toFile($this->newFile->getPathname());
+            }
+
+            $this->logMessage .=
                 'Compressed: ' . $this->newFile->getFilename() . ' - ' .
                 'Variant: '. $this->destinationSubdir . ' - ' .
                 'Size (WxH): ' . $this->imageWidth . 'x' . $this->imageHeight . ' - ' .
@@ -196,7 +236,9 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
             return false;
         }
 
-        $this->saveCompression($this->compression);
+        if (!TIG_TinyPNG_Helper_Config::isTestMode($this->storeId)) {
+            $this->saveCompression();
+        }
 
         return true;
     }
@@ -249,6 +291,12 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
             $this->helper->log('Copying the source file from ' . $sourceFile->getPathname() .
                 ' to ' . $this->newFile->getPathname(), 'info', $this->storeId);
 
+            if (TIG_TinyPNG_Helper_Config::isTestMode($this->store)) {
+                $this->helper->log('Testmode is enabled, no image is copied');
+
+                return true;
+            }
+
             return copy($sourceFile->getPathname(), $this->newFile->getPathname());
         }
     }
@@ -261,13 +309,18 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
      */
     public function setProductImageCompressData($image, $store = null)
     {
+        $this->newFile = new SplFileInfo($image->getNewFile());
+
+        if (!TIG_TinyPNG_Helper_Config::isEnabled($this->storeId)) {
+            return $this;
+        }
+
         if (null !== $store) {
             $this->storeId = $store;
         }
 
         $this->allowCompression  = $this->isCompressionAllowed($image->getDestinationSubdir());
         $this->destinationSubdir = $image->getDestinationSubdir();
-        $this->newFile           = new SplFileInfo($image->getNewFile());
         $this->imageWidth        = $image->getWidth();
         $this->imageHeight       = $image->getHeight();
 

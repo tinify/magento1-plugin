@@ -54,7 +54,7 @@ class TIG_TinyPNG_Model_System_Config_Source_Log
             ),
             array(
                 'value' => 'fail_and_exceptions',
-                'label' => $helper->__('Failures and Exceptions')
+                'label' => $helper->__('Errors and Exceptions')
             ),
             array(
                 'value' => 'all',

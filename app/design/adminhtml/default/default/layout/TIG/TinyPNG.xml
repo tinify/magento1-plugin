@@ -47,4 +47,12 @@
             </action>
         </reference>
     </adminhtml_system_config_edit>
+
+    <adminhtml_cache_index>
+        <reference name="content">
+            <block name="cache.additional">
+                <block type="tig_tinypng/adminhtml_cache_warning" name="tig.tinypng.cache-warning" template="TIG/TinyPNG/Cache/warning.phtml"></block>
+            </block>
+        </reference>
+    </adminhtml_cache_index>
 </layout>

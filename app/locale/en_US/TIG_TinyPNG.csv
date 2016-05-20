@@ -1,1 +1,4 @@
 "TIG_TinyPNG::Enable TinyPNG","Enable TinyPNG"
+"TIG_TinyPNG::Exceptions only","Exceptions only"
+"TIG_TinyPNG::Errors and Exceptions","Errors and Exceptions"
+"TIG_TinyPNG::All logging information","All logging information"

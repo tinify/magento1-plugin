@@ -6,11 +6,12 @@
 
 /* Logos */
 #tig_tinypng_support .content-heading {
-    background-image: url('../../../images/TIG/TinyPNG/tig-logo-32.png') !important;
+    background-image: url('../../../images/TIG/TinyPNG/tinypng.png') !important;
     background-position: 0 0 !important;
     background-repeat: no-repeat !important;
+    background-size: auto 32px;
     line-height: 35px;
-    padding-left: 40px;
+    padding-left: 105px;
     padding-bottom: 5px;
 }
 .tig-tinypng-section {
@@ -18,7 +19,7 @@
     line-height: 24px;
 }
 .tig-tinypng-section span {
-    padding-left: 46px !important;
+    padding-left: 76px !important;
 }
 .tig-tinypng-section:after {
     content: '';
@@ -27,10 +28,11 @@
     top: 0;
     left: 18px;
     height: 30px;
-    width: 24px;
-    background-image: url('../../../images/TIG/TinyPNG/tig-logo-24.png') !important;
-    background-position: 0 3px !important;
+    width: 54px;
+    background-image: url('../../../images/TIG/TinyPNG/tinypng.png') !important;
+    background-position: 0 7px !important;
     background-repeat: no-repeat !important;
+    background-size: auto 17px;
 }
 
 /* General */

@@ -38,23 +38,31 @@
  */
 class TIG_TinyPNG_Model_Product_Image extends Mage_Catalog_Model_Product_Image
 {
-    /** @var TIG_TinyPNG_Helper_Tinify $tinifyHelper */
-    public $tinifyHelper;
+    /**
+     * @var TIG_TinyPNG_Helper_Tinify $tinifyHelper
+     */
+    protected $_tinifyHelper = null;
 
-    /** @var  $storeId */
-    public $storeId;
+    /**
+     * @var int|null $storeId
+     */
+    protected $_storeId = null;
+
+    /**
+     * Set the minimun required quality for TinyPNG image compression which is 95
+     *
+     * @var int
+     */
+    protected $_quality = 95;
 
     /**
      * Init class
      */
     public function __construct()
     {
-        $this->tinifyHelper = Mage::helper('tig_tinypng/tinify');
+        $this->_tinifyHelper = Mage::helper('tig_tinypng/tinify');
 
-        /** Set the minimun required quality for TinyPNG image compression which is 95 */
-        $this->_quality = 95;
-
-        $this->storeId = Mage::app()->getStore()->getStoreId();
+        $this->_storeId = Mage::app()->getStore()->getStoreId();
     }
 
     /**
@@ -67,7 +75,7 @@ class TIG_TinyPNG_Model_Product_Image extends Mage_Catalog_Model_Product_Image
         Mage::helper('core/file_storage_database')->saveFile($filename);
 
         /** Call the tinify helper and */
-        $this->tinifyHelper->setProductImageCompressData($this, $this->storeId)->compress();
+        $this->_tinifyHelper->setProductImageCompressData($this, $this->_storeId)->compress();
 
         return $this;
     }

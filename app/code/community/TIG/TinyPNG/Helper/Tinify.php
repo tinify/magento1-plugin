@@ -44,7 +44,7 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
     /** @var string $destinationSubdir */
     public $destinationSubdir = '';
 
-    /** @var string $newFile */
+    /** @var SplFileInfo $newFile */
     public $newFile = '';
 
     /** @var string $imageWidth */
@@ -56,17 +56,17 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
     /** @var string $logMessage */
     public $logMessage;
 
-    /** @var string $compressHash */
-    protected $compressHash = '';
+    /** @var string $hashBefore */
+    protected $hashBefore = '';
 
-    /** @var int $imageBytes */
-    protected $imageBytes = 0;
+    /** @var string  $hashAfter */
+    protected $hashAfter = '';
 
-    /** @var string  $compressHashAfter */
-    protected $compressHashAfter = '';
+    /** @var int $bytesBefore */
+    protected $bytesBefore = 0;
 
-    /** @var int  $imageBytesAfter */
-    protected $imageBytesAfter = 0;
+    /** @var int  $bytesAfter */
+    protected $bytesAfter = 0;
 
     /** @var bool $compression */
     protected $compression = false;
@@ -86,6 +86,11 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
         spl_autoload_register( array($this, 'load'), true, true );
 
         $this->helper = Mage::helper('tig_tinypng');
+
+        $version = Mage::getVersion();
+        $edition = Mage::getEdition();
+
+        Tinify\setAppIdentifier('Magento ' . $edition . ' ' . $version);
     }
 
     /**
@@ -93,7 +98,7 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
      *
      * @param string $class
      */
-    private static function load( $class )
+    private static function load($class)
     {
         /** Project-specific namespace prefix */
         $prefix = '';
@@ -143,10 +148,11 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
      */
     public function validate($apiKey) {
         \Tinify\setKey($apiKey);
+
         try {
             \Tinify\validate();
         } catch (\Tinify\Exception $e) {
-            $this->helper->logMessage($e->getMessage(), null, $this->storeId);
+            $this->helper->log($e->getMessage(), null, $this->storeId);
             return false;
         }
 
@@ -154,31 +160,97 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Compress the image.
+     *
      * @return bool
      */
-    public function compress() {
-
+    public function compress()
+    {
         if (!$this->allowCompression) {
-            $this->helper->logMessage('Product imagetype not allowed for compression', 'failure', $this->storeId);
+            $this->helper->log('Product imagetype not allowed for compression', 'failure', $this->storeId);
+
             return false;
         }
 
+        /**
+         * Check if this file is compressed before. If that is the case, copy it to this location.
+         */
+        if ($this->_isAlreadyCompressed()) {
+            return true;
+        }
+
         try {
-            $this->compression = \Tinify\fromFile($this->newFile)->toFile($this->newFile);
-            $this->logMessage .= 'Variant '. $this->destinationSubdir .
-                'allowed ' . $this->allowCompression .
-                'width ' . $this->imageWidth .
-                'height ' . $this->imageHeight .
-                'API ' . ''. // the $this->ApiKey when placed in contructor
-                'JSON Respons : '. json_encode($this->compression);
+            $input = \Tinify\fromFile($this->newFile->getPathname());
+            $this->compression = $input->toFile($this->newFile->getPathname());
+
+            $this->logMessage =
+                'Compressed: ' . $this->newFile->getFilename() . ' - ' .
+                'Variant: '. $this->destinationSubdir . ' - ' .
+                'Size (WxH): ' . $this->imageWidth . 'x' . $this->imageHeight . ' - ' .
+                'Bytes saved: ' . ($this->bytesBefore - $this->_getFileSize($this->newFile)) . ' - ' .
+                'Path: ' . $this->newFile->getPath();
+
+            $this->helper->log($this->logMessage, 'info', $this->storeId);
         } catch (\Tinify\Exception $e) {
-            $this->helper->logMessage($e->getCode() .': '. $e->getMessage(), null, $this->storeId);
+            $this->helper->log($e, null, $this->storeId);
             return false;
         }
 
         $this->saveCompression($this->compression);
-        return true;
 
+        return true;
+    }
+
+    /**
+     * Calculates the hash and checks if the file was processed before. If so, it will copy the base file if it still
+     * exists. Otherwise it will delete the record from the database.
+     *
+     * @return bool
+     */
+    protected function _isAlreadyCompressed()
+    {
+        $hash = $this->_getFileHash($this->newFile);
+
+        /** @var TIG_TinyPNG_Model_Image|null $model */
+        $model = Mage::getModel('tig_tinypng/image')->getByHash($hash);
+
+        if ($model !== null) {
+            return $this->_copyExistingFile($model);
+        } else {
+            $this->helper->log('No existing file found with hash ' . $hash, 'info', $this->storeId);
+
+            return false;
+        }
+    }
+
+    /**
+     * Check if the file exists. If so, copy it to the new location to prevent duplicate compressions. If does not
+     * exists anymore, delete the model.
+     *
+     * @param TIG_TinyPNG_Model_Image $model
+     *
+     * @return bool
+     */
+    protected function _copyExistingFile($model)
+    {
+        $sourceFile = new SplFileInfo(Mage::getBaseDir() . $model->getPath());
+
+        if (!$sourceFile->isFile()) {
+            $message = 'Failed: Copying the source file ' . $sourceFile->getPathname() . ' The file does not exists ' .
+                'anymore. Deleting the model (ID: ' . $model->getId() . ').';
+            $this->helper->log($message, 'info', $this->storeId);
+
+            $model->delete();
+
+            return false;
+        } else {
+            $model->addUsedAsSource()->save();
+
+            $this->helper->log('Copying the source file from ' . $sourceFile->getPathname() .
+                ' to ' . $this->newFile->getPathname(), 'info', $this->storeId);
+
+            return copy($sourceFile->getPathname(), $this->newFile->getPathname());
+        }
     }
 
     /**
@@ -195,29 +267,45 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
 
         $this->allowCompression  = $this->isCompressionAllowed($image->getDestinationSubdir());
         $this->destinationSubdir = $image->getDestinationSubdir();
-        $this->newFile           = $image->getNewFile();
+        $this->newFile           = new SplFileInfo($image->getNewFile());
         $this->imageWidth        = $image->getWidth();
         $this->imageHeight       = $image->getHeight();
 
-        // Gets the core data of file for setting the filesize.
-        $fileInfo = new SplFileInfo($image->getNewFile());
-        if (!$fileInfo->isFile()) {
-            $this->helper->logMessage('Could not load the core image data', 'info', $this->storeId);
-        } else {
-            $this->imageBytes = $fileInfo->getSize();
+        if (!$this->newFile->isFile()) {
+            $this->helper->log('Could not load the core image data', 'info', $this->storeId);
+
+            return $this;
         }
 
-        $this->compressHash = md5_file($image->getNewFile());
+        $this->hashBefore = $this->_getFileHash($this->newFile);
+        $this->bytesBefore = $this->_getFileSize($this->newFile);
 
         return $this;
     }
 
+    /**
+     * Save the file meta info to the database. This way we can prevent duplicate compressions.
+     *
+     * @return $this
+     */
     public function saveCompression()
     {
-        /** @todo save compression in DB */
+        $this->hashAfter = $this->_getFileHash($this->newFile);
+        $this->bytesAfter = $this->_getFileSize($this->newFile);
+        $path = str_replace(Mage::getBaseDir(), '', $this->newFile->getPathname());
 
-        $tinyPNGModel = Mage::getModel('tig_tinypng/image');
+        /** @var TIG_TinyPNG_Model_Image $tinyPNGModel */
+        $model = Mage::getModel('tig_tinypng/image');
+        $model->setPath($path);
+        $model->setHashBefore($this->hashBefore);
+        $model->setHashAfter($this->hashAfter);
+        $model->setBytesBefore($this->bytesBefore);
+        $model->setBytesAfter($this->bytesAfter);
+        $model->setProcessedAt(Varien_Date::now());
+        $model->setUsedAsSource(1);
+        $model->save();
 
+        return $this;
     }
 
     /**
@@ -288,4 +376,36 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
         return $collection;
     }
 
+    /**
+     * Generic function so we can change the hash function easily.
+     *
+     * @param SplFileInfo $file
+     *
+     * @return string
+     */
+    protected function _getFileHash(SplFileInfo $file)
+    {
+        if (!$file->isFile()) {
+            return false;
+        }
+
+        return md5_file($file->getPathname());
+    }
+
+    /**
+     * Get the filesize for the specified file.
+     *
+     * @param SplFileInfo $file
+     *
+     * @return bool|int
+     */
+    protected function _getFileSize(SplFileInfo $file)
+    {
+        if (!$file->isFile())
+        {
+            return false;
+        }
+
+        return $file->getSize();
+    }
 }

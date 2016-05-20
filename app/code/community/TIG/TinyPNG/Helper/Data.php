@@ -51,20 +51,23 @@ class TIG_TinyPNG_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * @param $msg
      * @param $type
+     *
+     * @return $this;
      */
-    public function logMessage($msg, $type = null, $store = null)
+    public function log($msg, $type = null, $store = null)
     {
         $logginModes = $this->_loggingArray($store);
 
         /**
          * Always log exceptions. $msg should be an instanceof Exception!
          */
-        if ($msg instanceof Exception ) {
+        if ($msg instanceof Exception) {
             $type = 'exception';
+            $msg = $msg->__toString();
         }
 
         if (!in_array($type, $logginModes)) {
-            return;
+            return $this;
         }
 
         Mage::log($msg, null, $this->logFile, true);

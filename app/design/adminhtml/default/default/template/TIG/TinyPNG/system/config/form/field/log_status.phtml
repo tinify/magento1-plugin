@@ -89,7 +89,7 @@
 
 <?php if (Mage::helper('tig_tinypng')->getLogFileExists()) : ?>
     <?php $downloadUrl = Mage::helper("adminhtml")->getUrl('adminhtml/tinypngAdminhtml_config/downloadLogs'); ?>
-    <tr>
+    <tr class="manual-links">
         <td><a href="#!" onclick="setLocation('<?php echo $downloadUrl; ?>')"><?php echo $this->__('Download TinyPNG log file'); ?></a></td>
     </tr>
 <?php endif; ?>

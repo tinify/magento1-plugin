@@ -56,12 +56,9 @@ class TIG_TinyPNG_TinypngAdminhtml_ConfigController extends Mage_Adminhtml_Contr
      */
     public function downloadLogsAction()
     {
-        $logDir = Mage::getBaseDir('log');
-
         /** @var TIG_TinyPNG_Helper_Data $helper */
         $helper = Mage::helper('tig_tinypng');
-
-        $filePath = $logDir . DS . $helper->logFile;
+        $filePath = $helper->getLogFilePath();
 
         if (!@file_exists($filePath)) {
             return $this;

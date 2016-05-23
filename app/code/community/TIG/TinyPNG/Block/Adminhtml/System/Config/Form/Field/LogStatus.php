@@ -58,25 +58,4 @@ class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_LogStatus extends Mag
 
         return $this->toHtml();
     }
-
-    /**
-     * Returns whether the log file exists or not
-     *
-     * @return bool
-     */
-    public function getLogFileExists()
-    {
-        $logDir = Mage::getBaseDir('log');
-
-        /** @var TIG_TinyPNG_Helper_Data $helper */
-        $helper = Mage::helper('tig_tinypng');
-
-        $filePath = $logDir . DS . $helper->logFile;
-
-        if (!@file_exists($filePath)) {
-            return false;
-        }
-
-        return true;
-    }
 }

@@ -41,7 +41,7 @@
 <config>
     <sections>
         <tig_tinypng translate="label" module="tig_tinypng">
-            <label>TIG TinyPNG</label>
+            <label>TinyPNG</label>
             <tab>general</tab>
             <frontend_model>tig_tinypng/adminhtml_system_config_form</frontend_model>
             <class>tig-tinypng-section</class>

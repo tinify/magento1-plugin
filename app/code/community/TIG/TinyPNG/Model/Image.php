@@ -225,4 +225,19 @@ class TIG_TinyPNG_Model_Image extends Mage_Core_Model_Abstract
     {
         return $this->_helper->timeAgo($this->getProcessedAt());
     }
+
+    /**
+     * Delete all models
+     *
+     * @return $this
+     */
+    public function deleteAll()
+    {
+        $models = $this->getCollection();
+        Mage::getSingleton('core/resource_iterator')->walk($models->getSelect(), array( function ($args) {
+            Mage::getModel('tig_tinypng/image')->load($args['row']['image_id'])->delete();
+        }));
+
+        return $this;
+    }
 }

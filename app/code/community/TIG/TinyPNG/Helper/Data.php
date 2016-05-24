@@ -93,8 +93,9 @@ class TIG_TinyPNG_Helper_Data extends Mage_Core_Helper_Abstract
             case 'all':
                 $logginArray = array('info', 'error', 'exception');
                 break;
+            case 'off':
             default:
-                $logginArray = array('exception');
+                $logginArray = array('');
         }
 
         return $logginArray;
@@ -201,5 +202,21 @@ class TIG_TinyPNG_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         return $res;
+    }
+
+    /**
+     * Retrieve a human readable file size.
+     * Copied from http://jeffreysambells.com/2012/10/25/human-readable-filesize-php
+     *
+     * @param $file
+     *
+     * @return string
+     */
+    public function fileSize($bytes)
+    {
+        $size = array('B','kB','MB','GB','TB','PB','EB','ZB','YB');
+        $factor = floor((strlen($bytes) - 1) / 3);
+
+        return sprintf('%.0f ', $bytes / pow(1024, $factor)) . @$size[$factor];
     }
 }

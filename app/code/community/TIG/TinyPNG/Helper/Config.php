@@ -43,11 +43,8 @@ class TIG_TinyPNG_Helper_Config extends Mage_Core_Helper_Abstract
      */
     const XPATH_ENABLED              = 'tig_tinypng/settings/enabled';
     const XPATH_API_KEY              = 'tig_tinypng/settings/api_key';
-    const XPATH_AUTO_COMPRESS        = 'tig_tinypng/configuration/automatic_compression';
-    const XPATH_COMPRESS_QUALITY     = 'tig_tinypng/configuration/compression_quality';
-    const XPATH_PRODUCT_IMAGES_TYPES = 'tig_tinypng/configuration/product_compression';
-    const XPATH_CMS_IMAGES_TYPES     = 'tig_tinypng/configuration/cms_compression';
-    const XPATH_LOGGING_MODE         = 'tig_tinypng/configuration/logging_mode';
+    const XPATH_PRODUCT_IMAGES_TYPES = 'tig_tinypng/settings/product_compression';
+    const XPATH_LOGGING_MODE         = 'tig_tinypng/settings/logging_mode';
 
     /**
      * Return the enabled modus (off, test or live)

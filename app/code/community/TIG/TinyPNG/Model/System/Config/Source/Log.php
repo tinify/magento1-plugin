@@ -49,6 +49,10 @@ class TIG_TinyPNG_Model_System_Config_Source_Log
 
         $array = array(
             array(
+                'value' => 'off',
+                'label' => $helper->__('Logging disabled')
+            ),
+            array(
                 'value' => 'only_exceptions',
                 'label' => $helper->__('Exceptions only')
             ),

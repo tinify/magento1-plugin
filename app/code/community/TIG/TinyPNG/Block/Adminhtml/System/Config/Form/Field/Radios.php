@@ -103,4 +103,16 @@ class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Radios extends Varien
 
         return $html;
     }
+
+    /**
+     * Wrap the output in a container div.
+     *
+     * @return string
+     */
+    public function getElementHtml()
+    {
+        $html = parent::getElementHtml();
+
+        return '<div class="radio-container">' . $html . '</div>';
+    }
 }

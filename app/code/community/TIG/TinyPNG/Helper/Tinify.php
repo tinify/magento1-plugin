@@ -64,11 +64,6 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
     public $imageHeight = '';
 
     /**
-     * @var string $logMessage
-     */
-    public $logMessage;
-
-    /**
      * @var string $hashBefore
      */
     protected $hashBefore = '';
@@ -207,38 +202,38 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
         }
 
         try {
-            $this->logMessage = '';
+            $message = '';
             $input = \Tinify\fromFile($this->newFile->getPathname());
 
             /**
              * If test mode is enabled we compress the image, but will not save the result.
              */
             if (TIG_TinyPNG_Helper_Config::isTestMode($this->storeId)) {
-                $this->logMessage .= 'TESTMODE - ';
+                $message .= 'TESTMODE - ';
+                $this->bytesAfter = ord($input->toBuffer());
 
                 if (!is_writable($this->newFile->getPathname())) {
                     throw new TIG_TinyPNG_Exception('The file ' . $this->newFile->getPathname() . ' is not writable!');
                 }
             } else {
                 $input->toFile($this->newFile->getPathname());
+                $this->bytesAfter = $this->_getFileSize($this->newFile);
             }
 
-            $this->logMessage .=
+            $message .=
                 'Compressed: ' . $this->newFile->getFilename() . ' - ' .
                 'Variant: '. $this->destinationSubdir . ' - ' .
                 'Size (WxH): ' . $this->imageWidth . 'x' . $this->imageHeight . ' - ' .
-                'Bytes saved: ' . ($this->bytesBefore - $this->_getFileSize($this->newFile)) . ' - ' .
+                'Bytes saved: ' . ($this->bytesBefore - $this->bytesAfter) . ' - ' .
                 'Path: ' . $this->newFile->getPath();
 
-            $this->helper->log($this->logMessage, 'info', $this->storeId);
+            $this->helper->log($message, 'info', $this->storeId);
         } catch (\Tinify\Exception $e) {
             $this->helper->log($e, null, $this->storeId);
             return false;
         }
 
-        if (!TIG_TinyPNG_Helper_Config::isTestMode($this->storeId)) {
-            $this->saveCompression();
-        }
+        $this->saveCompression();
 
         return true;
     }
@@ -307,7 +302,7 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
      *
      * @return $this
      */
-    public function setProductImageCompressData($image, $store = null)
+    public function setProductImage($image, $store = null)
     {
         $this->newFile = new SplFileInfo($image->getNewFile());
 
@@ -344,7 +339,7 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
     public function saveCompression()
     {
         $this->hashAfter = $this->_getFileHash($this->newFile);
-        $this->bytesAfter = $this->_getFileSize($this->newFile);
+        $this->helper->log('Bytes after filesize: ' . $this->bytesAfter);
         $path = str_replace(Mage::getBaseDir(), '', $this->newFile->getPathname());
 
         /** @var TIG_TinyPNG_Model_Image $tinyPNGModel */
@@ -416,7 +411,7 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
     {
         $collection = Mage::getModel('tig_tinypng/image')->getCollection();
         $select = $collection->getSelect();
-        $select->limit(100);
+        $select->limit(50);
 
         $fromDate = Mage::getModel('core/date')->date('Y-m-01');
         $toDate   = Mage::getModel('core/date')->date('Y-m-t');
@@ -464,6 +459,11 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
         {
             return false;
         }
+
+        /**
+         * Flush PHP's internal cache so we always have use a fresh copy of the file.
+         */
+        clearstatcache();
 
         return $file->getSize();
     }

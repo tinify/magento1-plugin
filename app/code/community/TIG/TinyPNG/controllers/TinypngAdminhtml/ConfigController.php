@@ -60,7 +60,7 @@ class TIG_TinyPNG_TinypngAdminhtml_ConfigController extends Mage_Adminhtml_Contr
         $helper = Mage::helper('tig_tinypng');
         $filePath = $helper->getLogFilePath();
 
-        if (!@$helper->getLogFileExists()) {
+        if (!$helper->getLogFileExists()) {
             return $this;
         }
 

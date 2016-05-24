@@ -51,7 +51,7 @@
                             <config>
                                 <children>
                                     <tig_tinypng translate="title">
-                                        <title>TIG TinyPNG</title>
+                                        <title>TinyPNG</title>
                                         <sort_order>500</sort_order>
                                     </tig_tinypng>
                                 </children>

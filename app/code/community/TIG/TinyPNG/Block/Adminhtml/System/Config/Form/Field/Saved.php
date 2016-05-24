@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-**
+<?php
+/**
  *                  ___________       __            __
  *                  \__    ___/____ _/  |_ _____   |  |
  *                    |    |  /  _ \\   __\\__  \  |  |
@@ -37,22 +36,21 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
--->
-<layout>
-    <adminhtml_system_config_edit>
-        <reference name="head">
-            <action method="addItem">
-                <type>skin_css</type>
-                <name>css/TIG/TinyPNG/config.css</name>
-            </action>
-        </reference>
-    </adminhtml_system_config_edit>
+class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Saved extends Varien_Data_Form_Element_Abstract
+{
+    /**
+     * Generate the status for the TinyPNG extension.
+     *
+     * @return string
+     */
+    public function getElementHtml()
+    {
+        $data = Mage::getModel('tig_tinypng/image')->getStatistics();
 
-    <adminhtml_cache_index>
-        <reference name="content">
-            <block name="cache.additional">
-                <block type="tig_tinypng/adminhtml_cache_warning" name="tig.tinypng.cache-warning" template="TIG/TinyPNG/Cache/warning.phtml"></block>
-            </block>
-        </reference>
-    </adminhtml_cache_index>
-</layout>
+        return Mage::helper('tig_tinypng')->__(
+            'We saved %s%% this month! The greatest compression was %s%%.',
+            round($data->percentage_saved),
+            round($data->greatest_saving)
+        );
+    }
+}

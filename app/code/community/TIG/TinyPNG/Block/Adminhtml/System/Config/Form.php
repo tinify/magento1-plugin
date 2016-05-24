@@ -39,17 +39,78 @@
 class TIG_TinyPNG_Block_Adminhtml_System_Config_Form extends Mage_Adminhtml_Block_System_Config_Form
 {
     /**
-     * Add a new element types.
+     * @var array
+     */
+    protected $_elementTypes = array();
+
+    /**
+     * Add the new form elements
      *
      * @return array
      */
     protected function _getAdditionalElementTypes()
     {
-        $elementTypes = parent::_getAdditionalElementTypes();
+        $this->_elementTypes = parent::_getAdditionalElementTypes();
 
-        $elementTypes['tinypng_radios'] = Mage::getConfig()
+        $this
+            ->_addRadioButtons()
+            ->_addStatusIndicator()
+            ->_addSavedIndicator()
+            ->_addApiIndicator()
+        ;
+
+        return $this->_elementTypes;
+    }
+
+    /**
+     * Add the Off/Live/Test radio button list.
+     *
+     * @return $this
+     */
+    protected function _addRadioButtons()
+    {
+        $this->_elementTypes['tinypng_radios'] = Mage::getConfig()
             ->getBlockClassName('tig_tinypng/adminhtml_system_config_form_field_radios');
 
-        return $elementTypes;
+        return $this;
+    }
+
+    /**
+     * Add a field that shows the status indicator.
+     *
+     * @return $this
+     */
+    protected function _addStatusIndicator()
+    {
+        $this->_elementTypes['tinypng_status'] = Mage::getConfig()
+            ->getBlockClassName('tig_tinypng/adminhtml_system_config_form_field_status');
+
+        return $this;
+    }
+
+    /**
+     * Add a field that shows how much has been saved.
+     *
+     * @return $this
+     */
+    protected function _addSavedIndicator()
+    {
+        $this->_elementTypes['tinypng_saved'] = Mage::getConfig()
+            ->getBlockClassName('tig_tinypng/adminhtml_system_config_form_field_saved');
+
+        return $this;
+    }
+
+    /**
+     * Add a field that shows the api status indicator.
+     *
+     * @return $this
+     */
+    protected function _addApiIndicator()
+    {
+        $this->_elementTypes['tinypng_api'] = Mage::getConfig()
+            ->getBlockClassName('tig_tinypng/adminhtml_system_config_form_field_api');
+
+        return $this;
     }
 }

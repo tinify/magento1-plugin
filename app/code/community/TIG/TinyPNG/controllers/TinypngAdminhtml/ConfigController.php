@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-**
+<?php
+/**
  *                  ___________       __            __
  *                  \__    ___/____ _/  |_ _____   |  |
  *                    |    |  /  _ \\   __\\__  \  |  |
@@ -37,22 +36,43 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
--->
-<layout>
-    <adminhtml_system_config_edit>
-        <reference name="head">
-            <action method="addItem">
-                <type>skin_css</type>
-                <name>css/TIG/TinyPNG/config.css</name>
-            </action>
-        </reference>
-    </adminhtml_system_config_edit>
+class TIG_TinyPNG_TinypngAdminhtml_ConfigController extends Mage_Adminhtml_Controller_Action
+{
+    /**
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        /** @var Mage_Admin_Model_Session $session */
+        $session = Mage::getSingleton('admin/session');
 
-    <adminhtml_cache_index>
-        <reference name="content">
-            <block name="cache.additional">
-                <block type="tig_tinypng/adminhtml_cache_warning" name="tig.tinypng.cache-warning" template="TIG/TinyPNG/Cache/warning.phtml"></block>
-            </block>
-        </reference>
-    </adminhtml_cache_index>
-</layout>
+        return $session->isAllowed('admin/tinypng');
+    }
+
+    /**
+     * Download TinyPNG log file
+     *
+     * @return $this
+     */
+    public function downloadLogsAction()
+    {
+        /** @var TIG_TinyPNG_Helper_Data $helper */
+        $helper = Mage::helper('tig_tinypng');
+        $filePath = $helper->getLogFilePath();
+
+        if (!$helper->getLogFileExists()) {
+            return $this;
+        }
+
+        $content = array(
+            'type'  => 'filename',
+            'value' => $filePath,
+            'rm'    => false,
+        );
+
+        $this->postDispatch();
+        $this->_prepareDownloadResponse($helper->logFile, $content);
+
+        return $this;
+    }
+}

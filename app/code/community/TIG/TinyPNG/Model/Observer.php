@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-**
+<?php
+/**
  *                  ___________       __            __
  *                  \__    ___/____ _/  |_ _____   |  |
  *                    |    |  /  _ \\   __\\__  \  |  |
@@ -37,22 +36,41 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
--->
-<layout>
-    <adminhtml_system_config_edit>
-        <reference name="head">
-            <action method="addItem">
-                <type>skin_css</type>
-                <name>css/TIG/TinyPNG/config.css</name>
-            </action>
-        </reference>
-    </adminhtml_system_config_edit>
+class TIG_TinyPNG_Model_Observer
+{
+    /**
+     * @var null|TIG_TinyPNG_Helper_Tinify
+     */
+    protected $_tinifyHelper = null;
 
-    <adminhtml_cache_index>
-        <reference name="content">
-            <block name="cache.additional">
-                <block type="tig_tinypng/adminhtml_cache_warning" name="tig.tinypng.cache-warning" template="TIG/TinyPNG/Cache/warning.phtml"></block>
-            </block>
-        </reference>
-    </adminhtml_cache_index>
-</layout>
+    /**
+     * The image cache is flushed, so all images are deleted. Therefore delete all models.
+     *
+     * @return $this
+     */
+    public function imageCacheFlush()
+    {
+        Mage::getModel('tig_tinypng/image')->deleteAll();
+
+        return $this;
+    }
+
+    /**
+     * Compress product images
+     *
+     * @param $observer
+     *
+     * @return $this
+     */
+    public function catalogProductImageSaveAfter($observer)
+    {
+        if ($this->_tinifyHelper === null) {
+            $this->_tinifyHelper = Mage::helper('tig_tinypng/tinify');
+        }
+
+        $storeId = Mage::app()->getStore()->getStoreId();
+        $this->_tinifyHelper->setProductImage($observer->getObject(), $storeId)->compress();
+
+        return $this;
+    }
+}

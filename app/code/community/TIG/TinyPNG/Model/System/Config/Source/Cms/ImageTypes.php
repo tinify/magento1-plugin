@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-**
+<?php
+/**
  *                  ___________       __            __
  *                  \__    ___/____ _/  |_ _____   |  |
  *                    |    |  /  _ \\   __\\__  \  |  |
@@ -37,22 +36,32 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
--->
-<layout>
-    <adminhtml_system_config_edit>
-        <reference name="head">
-            <action method="addItem">
-                <type>skin_css</type>
-                <name>css/TIG/TinyPNG/config.css</name>
-            </action>
-        </reference>
-    </adminhtml_system_config_edit>
+class TIG_TinyPNG_Model_System_Config_Source_Cms_ImageTypes
+{
+    /**
+     * Source cms model for collecting the image types.
+     *
+     * @return array
+     */
+    public function toOptionArray()
+    {
+        $helper = Mage::helper('tig_tinypng');
 
-    <adminhtml_cache_index>
-        <reference name="content">
-            <block name="cache.additional">
-                <block type="tig_tinypng/adminhtml_cache_warning" name="tig.tinypng.cache-warning" template="TIG/TinyPNG/Cache/warning.phtml"></block>
-            </block>
-        </reference>
-    </adminhtml_cache_index>
-</layout>
+        $array = array(
+            array(
+                'value' => 'category_images',
+                'label' => $helper->__('Category images')
+            ),
+            array(
+                'value' => 'block_images',
+                'label' => $helper->__('Block images')
+            ),
+            array(
+                'value' => 'cms_images',
+                'label' => $helper->__('CMS page images')
+            ),
+        );
+
+        return $array;
+    }
+}

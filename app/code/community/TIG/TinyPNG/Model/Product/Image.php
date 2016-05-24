@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-**
+<?php
+/**
  *                  ___________       __            __
  *                  \__    ___/____ _/  |_ _____   |  |
  *                    |    |  /  _ \\   __\\__  \  |  |
@@ -37,22 +36,24 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
--->
-<layout>
-    <adminhtml_system_config_edit>
-        <reference name="head">
-            <action method="addItem">
-                <type>skin_css</type>
-                <name>css/TIG/TinyPNG/config.css</name>
-            </action>
-        </reference>
-    </adminhtml_system_config_edit>
+class TIG_TinyPNG_Model_Product_Image extends Mage_Catalog_Model_Product_Image
+{
+    /**
+     * Set the minimun required quality for TinyPNG image compression which is 95
+     *
+     * @var int
+     */
+    protected $_quality = 95;
 
-    <adminhtml_cache_index>
-        <reference name="content">
-            <block name="cache.additional">
-                <block type="tig_tinypng/adminhtml_cache_warning" name="tig.tinypng.cache-warning" template="TIG/TinyPNG/Cache/warning.phtml"></block>
-            </block>
-        </reference>
-    </adminhtml_cache_index>
-</layout>
+    /**
+     * @return Mage_Catalog_Model_Product_Image $this
+     */
+    public function saveFile()
+    {
+        parent::saveFile();
+
+        Mage::dispatchEvent('catalog_product_image_save_after', array($this->_eventObject => $this));
+
+        return $this;
+    }
+}

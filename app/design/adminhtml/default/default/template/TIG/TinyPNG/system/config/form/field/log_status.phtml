@@ -1,0 +1,145 @@
+<?php
+/**
+ *                  ___________       __            __
+ *                  \__    ___/____ _/  |_ _____   |  |
+ *                    |    |  /  _ \\   __\\__  \  |  |
+ *                    |    | |  |_| ||  |   / __ \_|  |__
+ *                    |____|  \____/ |__|  (____  /|____/
+ *                                              \/
+ *          ___          __                                   __
+ *         |   |  ____ _/  |_   ____ _______   ____    ____ _/  |_
+ *         |   | /    \\   __\_/ __ \\_  __ \ /    \ _/ __ \\   __\
+ *         |   ||   |  \|  |  \  ___/ |  | \/|   |  \\  ___/ |  |
+ *         |___||___|  /|__|   \_____>|__|   |___|  / \_____>|__|
+ *                  \/                           \/
+ *                  ________
+ *                 /  _____/_______   ____   __ __ ______
+ *                /   \  ___\_  __ \ /  _ \ |  |  \\____ \
+ *                \    \_\  \|  | \/|  |_| ||  |  /|  |_| |
+ *                 \______  /|__|    \____/ |____/ |   __/
+ *                        \/                       |__|
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Creative Commons License.
+ * It is available through the world-wide-web at this URL:
+ * http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
+ * If you are unable to obtain it through the world-wide-web, please send an email
+ * to servicedesk@totalinternetgroup.nl so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this module to newer
+ * versions in the future. If you wish to customize this module for your
+ * needs please contact servicedesk@totalinternetgroup.nl for more information.
+ *
+ * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
+ * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
+ */
+
+/**
+ * @var TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_LogStatus $this
+ */
+
+/** @var TIG_TinyPNG_Helper_Tinify $_tinify */
+$_tinify = Mage::helper('tig_tinypng/tinify');
+
+/** @var TIG_TinyPNG_Helper_Data $_helper */
+$_helper = Mage::helper('tig_tinypng');
+
+/** @var TIG_TinyPNG_Model_Image $image */
+$images = $_tinify->getCompressionStatus();
+?>
+<tr>
+    <td colspan="4">
+        <table id="tig_tinypng_compression">
+            <thead>
+                <tr>
+                    <th><?php echo $this->__('File') ?></th>
+                    <th class="info_box"><?php echo $this->__('File size') ?></th>
+                    <th class="info_box"><?php echo $this->__('Bytes Saved') ?></th>
+                    <th class="info_box"><?php echo $this->__('Percentage saved') ?></th>
+                    <th class="info_box"><?php echo $this->__('Time') ?></th>
+                </tr>
+            </thead>
+            <?php $i = 0; ?>
+            <?php if ($images->count()): ?>
+                <?php foreach ($images as $image): ?>
+                    <?php $i++; ?>
+                    <?php if ($i > 5): ?>
+                        <tr class="tig_tinypng_log log_hidden">
+                    <?php else : ?>
+                        <tr class="tig_tinypng_log">
+                    <?php endif;?>
+                        <td class="image_path">
+                            <a href="<?php echo $image->getImageUrl(); ?>" target="_BLANK">
+                                <img src="<?php echo $image->getImageUrl(); ?>">
+                            </a>
+                        </td>
+                        <td class="info_box"><?php echo $_helper->fileSize($image->getBytesAfter()); ?></td>
+                        <td class="info_box"><?php echo $_helper->fileSize($image->getBytesSaved()); ?></td>
+                        <td class="info_box"><?php echo $image->getPercentageSaved(); ?></td>
+                        <td class="info_box"><?php echo $image->getTimeAgo(); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr class="tig_tinypng_log log_hidden centered">
+                    <td colspan="5"><?php echo $_helper->__('There are no saved compressions available.'); ?></td>
+                </tr>
+            <?php endif; ?>
+            <?php if ($images->getSize() > $images->count()): ?>
+            <tr class="tig_tinypng_log log_hidden centered">
+                <td colspan="5"><?php echo $_helper->__('...and %d more images', $images->getSize() - $images->count()); ?></td>
+            </tr>
+            <?php endif; ?>
+            <?php if ($i > 5 ): ?>
+                <tr class="centered">
+                    <td colspan="5"><a id="show_all" href="#"><?php echo $this->__('Show more'); ?></a></td>
+                </tr>
+                <tr class="centered">
+                    <td colspan="5"><a id="show_less" href="#"><?php echo $this->__('Show less'); ?></a></td>
+                </tr>
+            <?php endif; ?>
+        </table>
+    </td>
+</tr>
+
+<?php if (Mage::helper('tig_tinypng')->getLogFileExists()) : ?>
+    <?php $downloadUrl = Mage::helper("adminhtml")->getUrl('adminhtml/tinypngAdminhtml_config/downloadLogs'); ?>
+    <tr class="manual-links">
+        <td><a href="#!" onclick="setLocation('<?php echo $downloadUrl; ?>')"><?php echo $this->__('Download TinyPNG log file'); ?></a></td>
+    </tr>
+<?php endif; ?>
+
+
+<script type="application/javascript">
+    document.observe('dom:loaded', function() {
+        var show_less = $('show_less');
+        var show_all  = $('show_all');
+
+        show_less.hide();
+        $$('.log_hidden').each(function(element) {
+            element.hide();
+        });
+
+        show_all.observe('click', function(e) {
+            Event.stop(e);
+
+            $$('.log_hidden').each(function(element) {
+                element.show();
+            });
+            show_all.hide();
+            show_less.show();
+        });
+
+        show_less.observe('click', function(e) {
+            Event.stop(e);
+
+            $$('.log_hidden').each(function(element) {
+                element.hide();
+            });
+            show_less.hide();
+            show_all.show();
+        });
+    });
+</script>

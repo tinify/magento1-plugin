@@ -54,6 +54,17 @@
             </catalog_product_image_save_after>
         </events>
     </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <tig_tinypng after="Mage_Adminhtml">TIG_TinyPNG</tig_tinypng>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
     <adminhtml>
         <layout>
             <updates>

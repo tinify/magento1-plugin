@@ -106,7 +106,7 @@
                             <show_in_store>1</show_in_store>
                         </product_compression>
                         <logging_mode translate="label comment">
-                            <label>Messages that sould be logged</label>
+                            <label>Messages that should be logged</label>
                             <sort_order>40</sort_order>
                             <source_model>tig_tinypng/system_config_source_log</source_model>
                             <tooltip>When set to all, the log file can become huge. Recommended setting for production servers is Errors and Exceptions.</tooltip>

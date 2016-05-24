@@ -35,7 +35,7 @@
     left: 18px;
     height: 30px;
     width: 54px;
-    background-image: url('../../../images/TIG/TinyPNG/tinypng.png') !important;
+    background-image: url('../../../images/TIG/TinyPNG/tinypng_small.png') !important;
     background-position: 0 7px !important;
     background-repeat: no-repeat !important;
     background-size: auto 17px;
@@ -125,7 +125,7 @@
 
 a.manual-links,
 #tig_tinypng_status span.manual-links,
-#tig_tinypng_compress_status .manual-links td a,
+#tig_tinypng_status .manual-links td a,
 #tig_tinypng_support .manual-links li a,
 #tig_tinypng_support .manual-links td a{
     text-decoration: none;
@@ -161,7 +161,7 @@ a.manual-links {
 }
 
 #tig_tinypng_status span.manual-links:hover,
-#tig_tinypng_compress_status .manual-links td a:hover,
+#tig_tinypng_status .manual-links td a:hover,
 #tig_tinypng_support .manual-links li a:hover,
 #tig_tinypng_support .manual-links td a:hover{
     -moz-box-shadow: none;
@@ -170,7 +170,7 @@ a.manual-links {
 }
 
 #tig_tinypng_status span.manual-links:active,
-#tig_tinypng_compress_status .manual-links td a:active,
+#tig_tinypng_status .manual-links td a:active,
 #tig_tinypng_support .manual-links li a:active,
 #tig_tinypng_support .manual-links td a:active{
     border-color: #009f3e;
@@ -181,14 +181,6 @@ a.manual-links {
 #tig_tinypng_status span.manual-links {
     cursor: pointer;
     margin-left: 25px;
-}
-
-.radio-container {
-    display: inline-block;
-}
-
-.radio-container + .field-tooltip {
-    float: right;
 }
 
 /* Modus radios */
@@ -235,10 +227,12 @@ a.manual-links {
     padding: 0 0 0 25px;
 }
 
-#tig_tinypng_compression .centered td {
+#tig_tinypng_compression .show_less td,
+#tig_tinypng_compression .show_more td {
     text-align:center;
 }
 
+<<<<<<< HEAD
 #tinypng_check_status {
     margin-left: 0 !important;
 }
@@ -257,4 +251,9 @@ a.manual-links {
 .orange-button {
     border-color: orange !important;
     background: orange !important;
+=======
+#tig_tinypng_compression .show_less td a,
+#tig_tinypng_compression .show_more td a {
+    cursor: pointer;
+>>>>>>> sprint34
 }

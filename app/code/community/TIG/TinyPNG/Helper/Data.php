@@ -101,6 +101,36 @@ class TIG_TinyPNG_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Returns whether the log file exists or not
+     *
+     * @return bool
+     */
+    public function getLogFileExists()
+    {
+        $filePath = $this->getLogFilePath();
+
+        if (!@file_exists($filePath)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Returns the file path of the log file
+     *
+     * @return string
+     */
+    public function getLogFilePath()
+    {
+        $logDir = Mage::getBaseDir('log');
+
+        $filePath = $logDir . DS . $this->logFile;
+
+        return $filePath;
+    }
+
+    /**
      * Copied from https://gist.github.com/jblyberg/1572386
      *
      * @param     $datefrom

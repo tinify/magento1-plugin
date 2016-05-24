@@ -118,7 +118,7 @@
 
 
 #tig_tinypng_status span.manual-links,
-#tig_tinypng_compress_status .manual-links td a,
+#tig_tinypng_status .manual-links td a,
 #tig_tinypng_support .manual-links li a,
 #tig_tinypng_support .manual-links td a{
     text-decoration: none;
@@ -149,7 +149,7 @@
 }
 
 #tig_tinypng_status span.manual-links:hover,
-#tig_tinypng_compress_status .manual-links td a:hover,
+#tig_tinypng_status .manual-links td a:hover,
 #tig_tinypng_support .manual-links li a:hover,
 #tig_tinypng_support .manual-links td a:hover{
     -moz-box-shadow: none;
@@ -158,7 +158,7 @@
 }
 
 #tig_tinypng_status span.manual-links:active,
-#tig_tinypng_compress_status .manual-links td a:active,
+#tig_tinypng_status .manual-links td a:active,
 #tig_tinypng_support .manual-links li a:active,
 #tig_tinypng_support .manual-links td a:active{
     border-color: #009f3e;

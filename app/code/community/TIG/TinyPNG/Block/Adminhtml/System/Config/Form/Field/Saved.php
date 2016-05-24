@@ -48,7 +48,7 @@ class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Saved extends Varien_
         $data = Mage::getModel('tig_tinypng/image')->getStatistics();
 
         return Mage::helper('tig_tinypng')->__(
-            'We saved %s%% this month! The greatest compression was %s%%.',
+            'We saved %s%% this month! The greatest image compression was %s%%.',
             round($data->percentage_saved),
             round($data->greatest_saving)
         );

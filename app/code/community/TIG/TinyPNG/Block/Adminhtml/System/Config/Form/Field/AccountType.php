@@ -36,7 +36,7 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
-class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Status extends Varien_Data_Form_Element_Abstract
+class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_AccountType extends Varien_Data_Form_Element_Abstract
 {
     /**
      * Generate the status for the TinyPNG extension.
@@ -45,18 +45,8 @@ class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Status extends Varien
      */
     public function getElementHtml()
     {
-        $button = '<a href="https://tinypng.com/developers/subscription" target="_blank" class="manual-links orange-button">Upgrade</a>';
+        $button = '<a href="https://tinypng.com/developers/subscription" target="_blank" class="manual-links">Credits</a>';
 
-        return '<span style="color: red">Compressie on hold. 500 gratis afbeeldingen gebruikt deze maand.</span>
-        Upgrade uw account om meer afbeeldingen te comprimeren.
-            <br>' . $button;
-
-        // TODO: Find a method to determine whether to use our or Tinify's compression count
-        $compressionCount = Mage::helper('tig_tinypng/tinify')->compressionCount();
-
-        return Mage::helper('tig_tinypng')->__(
-            'There are %s compressions done this month.',
-            $compressionCount
-        );
+        return Mage::helper('tig_tinypng')->__('Free (tot 500 afbeeldingen per maand)<br>' . $button);
     }
 }

@@ -55,18 +55,18 @@ $images = $_tinify->getCompressionStatus();
         <table id="tig_tinypng_compression">
             <thead>
                 <tr>
-                    <th><?php echo $this->__('File') ?></th>
-                    <th class="info_box"><?php echo $this->__('File size') ?></th>
-                    <th class="info_box"><?php echo $this->__('Bytes Saved') ?></th>
-                    <th class="info_box"><?php echo $this->__('Percentage saved') ?></th>
-                    <th class="info_box"><?php echo $this->__('Time') ?></th>
+                    <th class="title-file"><?php echo $this->__('File') ?></th>
+                    <th class="info_box title-original"><?php echo $this->__('Original') ?></th>
+                    <th class="info_box title-now"><?php echo $this->__('Now') ?></th>
+                    <th class="info_box title-saved"><?php echo $this->__('Saved') ?></th>
+                    <th class="info_box title-time"><?php echo $this->__('Time') ?></th>
                 </tr>
             </thead>
             <?php $i = 0; ?>
             <?php if ($images->count()): ?>
                 <?php foreach ($images as $image): ?>
                     <?php $i++; ?>
-                    <?php if ($i > 5): ?>
+                    <?php if ($i > 10): ?>
                         <tr class="tig_tinypng_log log_hidden">
                     <?php else : ?>
                         <tr class="tig_tinypng_log">
@@ -76,15 +76,15 @@ $images = $_tinify->getCompressionStatus();
                                 <img src="<?php echo $image->getImageUrl(); ?>">
                             </a>
                         </td>
+                        <td class="info_box"><?php echo $_helper->fileSize($image->getBytesBefore()); ?></td>
                         <td class="info_box"><?php echo $_helper->fileSize($image->getBytesAfter()); ?></td>
-                        <td class="info_box"><?php echo $_helper->fileSize($image->getBytesSaved()); ?></td>
-                        <td class="info_box"><?php echo $image->getPercentageSaved(); ?></td>
+                        <td class="info_box tig_tinypng_saved"><?php echo $image->getPercentageSaved(); ?></td>
                         <td class="info_box"><?php echo $image->getTimeAgo(); ?></td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
                 <tr class="tig_tinypng_log log_hidden centered">
-                    <td colspan="5"><?php echo $_helper->__('There are no saved compressions available.'); ?></td>
+                    <td colspan="5"><?php echo $_helper->__('There are no saved compressions available yet.'); ?></td>
                 </tr>
             <?php endif; ?>
             <?php if ($images->getSize() > $images->count()): ?>
@@ -106,8 +106,20 @@ $images = $_tinify->getCompressionStatus();
 
 <?php if (Mage::helper('tig_tinypng')->getLogFileExists()) : ?>
     <?php $downloadUrl = Mage::helper("adminhtml")->getUrl('adminhtml/tinypngAdminhtml_config/downloadLogs'); ?>
-    <tr class="manual-links">
-        <td><a href="#!" onclick="setLocation('<?php echo $downloadUrl; ?>')"><?php echo $this->__('Download TinyPNG log file'); ?></a></td>
+
+    <tr>
+        <td colspan="5">
+            <table cellspacing="0" class="form-list">
+                <tr id="row_tig_tinypng_status_usage">
+                    <td class="label">
+                        <label for="tig_tinypng_status_usage">Download TinyPNG log file</label>
+                    </td>
+                    <td class="value">
+                        <a class="manual-links" href="<?php echo $downloadUrl; ?>" target="_BLANK"><?php echo $this->__('Download log file'); ?></a>
+                    </td>
+                </tr>
+            </table>
+        </td>
     </tr>
 <?php endif; ?>
 

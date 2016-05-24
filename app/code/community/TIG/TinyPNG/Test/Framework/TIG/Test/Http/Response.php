@@ -25,38 +25,71 @@
  * It is available through the world-wide-web at this URL:
  * http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  * If you are unable to obtain it through the world-wide-web, please send an email
- * to servicedesk@totalinternetgroup.nl so we can send you a copy immediately.
+ * to servicedesk@tig.nl so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade this module to newer
  * versions in the future. If you wish to customize this module for your
- * needs please contact servicedesk@totalinternetgroup.nl for more information.
+ * needs please contact servicedesk@tig.nl for more information.
  *
- * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
+ * @copyright   Copyright (c) 2015 Total Internet Group B.V. (http://www.tig.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
-class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Status extends Varien_Data_Form_Element_Abstract
+class TIG_TinyPNG_Test_Framework_TIG_Test_Http_Response extends Mage_Core_Controller_Response_Http
 {
     /**
-     * Generate the status for the TinyPNG extension.
-     *
-     * @return string
+     * @var bool
      */
-    public function getElementHtml()
+    protected $_headersSent = false;
+
+    /**
+     * @param boolean $headersSent
+     *
+     * @return TIG_Test_Http_Response
+     */
+    public function setHeadersSent($headersSent)
     {
-        $button = '<a href="https://tinypng.com/developers/subscription" target="_blank" class="manual-links orange-button">Upgrade</a>';
+        $this->_headersSent = $headersSent;
 
-        return '<span style="color: red">Compressie on hold. 500 gratis afbeeldingen gebruikt deze maand.</span>
-        Upgrade uw account om meer afbeeldingen te comprimeren.
-            <br>' . $button;
-
-        // TODO: Find a method to determine whether to use our or Tinify's compression count
-        $compressionCount = Mage::helper('tig_tinypng/tinify')->compressionCount();
-
-        return Mage::helper('tig_tinypng')->__(
-            'There are %s compressions done this month.',
-            $compressionCount
-        );
+        return $this;
     }
+
+    /**
+     * @return boolean
+     */
+    public function getHeadersSent()
+    {
+        return $this->_headersSent;
+    }
+
+    /**
+     * @param bool $throw
+     *
+     * @return bool
+     */
+    public function canSendHeaders($throw = false)
+    {
+        $canSendHeaders = !$this->getHeadersSent();
+        return $canSendHeaders;
+    }
+
+    /**
+     * @return Mage_Core_Controller_Response_Http
+     */
+    public function sendHeaders()
+    {
+        $this->setHeadersSent(true);
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function sendResponse()
+    {
+        return $this;
+    }
+
 }

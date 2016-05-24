@@ -66,14 +66,14 @@ class TIG_TinyPNG_TinypngAdminhtml_StatusController extends Mage_Adminhtml_Contr
 
         if ($isConfigured && $isValidated) {
             $message = '<span class="tinypng_status_success">'
-                . Mage::helper('tig_tinypng')->__('Operational. Last status check was performed at %s.', $currentDateFormatted)
+                . Mage::helper('tig_tinypng')->__('Operational', $currentDateFormatted)
                 . '</span>';
 
             $cacheData['status'] = 'operational';
             Mage::app()->saveCache(json_encode($cacheData), 'tig_tinypng_api_status');
         } else {
             $message = '<span class="tinypng_status_failure">'
-                . Mage::helper('tig_tinypng')->__('Nonoperational. Last status check was performed at %s.', $currentDateFormatted)
+                . Mage::helper('tig_tinypng')->__('Non-operational', $currentDateFormatted)
                 . '</span>';
 
             $cacheData['status'] = 'nonoperational';

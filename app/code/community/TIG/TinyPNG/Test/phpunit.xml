@@ -1,0 +1,21 @@
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.0/phpunit.xsd"
+         bootstrap="bootstrap.php"
+         colors="true">
+
+    <testsuites>
+        <testsuite>
+            <directory>.</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>../../TinyPNG/Block</directory>
+            <directory>../../TinyPNG/controllers</directory>
+            <directory>../../TinyPNG/Helper</directory>
+            <directory>../../TinyPNG/Model</directory>
+            <file>../../TinyPNG/Exception.php</file>
+        </whitelist>
+    </filter>
+</phpunit>

@@ -41,7 +41,7 @@
 ?>
 
 <?php $_tigHomepage             = 'https://tig.nl'; ?>
-<?php $_kbUrl                   = 'http://servicedesk.tig.nl/hc/nl'; ?>
+<?php $_kbUrl                   = 'http://servicedesk.tig.nl/hc/nl/categories/202720888-TinyPNG'; ?>
 <?php $_kbTicketUrl             = 'http://servicedesk.tig.nl/hc/nl/requests/new'; ?>
 <?php $_changelogUrl            = 'https://tig.nl'; ?>
 <?php $_installationManualUrl   = 'http://servicedesk.tig.nl/hc/nl/articles/219422177-TinyPNG-handleiding'; ?>
@@ -59,40 +59,28 @@
                     <div class="text-box">
                         <div class="heading">
                             <h3 class="heading-title"><?php echo $this->__('Information about the TinyPNG extension');?></h3>
-                            <img class="tiny-logo" alt="TinyPNG" src="<?php echo $this->getSkinUrl('images/TIG/TinyPNG/tinypng.png'); ?>" height="20" />
                         </div>
                         <div class="content">
+                            <img class="tiny-logo" alt="TinyPNG" src="<?php echo $this->getSkinUrl('images/TIG/TinyPNG/panda-chewing-2x.png'); ?>" />
+                            <strong>
+                                What does TinyPNG do?
+                            </strong>
                             <p>
-                                <?php echo $this->__('Branding text - to be continued');?>
-                                <?php echo $this->__('Branding text - to be continued');?>
-                                <?php echo $this->__('Branding text - to be continued');?>
-                                <?php echo $this->__('Branding text - to be continued');?>
-                                <?php echo $this->__('Branding text - to be continued');?>
-                                <?php echo $this->__('Branding text - to be continued');?>
-                                <?php echo $this->__('Branding text - to be continued');?>
-                                <?php echo $this->__('Branding text - to be continued');?>
+                                TinyPNG uses smart lossy compression techniques to reduce the file size of your PNG files. By selectively decreasing the number of colors in the image, fewer bytes are required to store the data. The effect is nearly invisible but it makes a very large difference in file size!
                             </p>
+
+                            <strong>
+                                Why should I use TinyPNG?
+                            </strong>
                             <p>
-                                <?php echo $this->__('Branding text - to be continued');?>
-                                <?php echo $this->__('Branding text - to be continued');?>
-                                <?php echo $this->__('Branding text - to be continued');?>
-                                <?php echo $this->__('Branding text - to be continued');?>
-                                <?php echo $this->__('Branding text - to be continued');?>
-                                <?php echo $this->__('Branding text - to be continued');?>
-                                <?php echo $this->__('Branding text - to be continued');?>
-                                <?php echo $this->__('Branding text - to be continued');?>
+                                PNG is useful because it's the only widely supported format that can store partially transparent images. The format uses compression, but the files can still be large. Use TinyPNG to shrink images for your apps and sites. It will use less bandwidth and load faster.
                             </p>
+
+                            <strong>How does the extension work?</strong>
                             <p>
-                                <?php echo $this->__('Branding text - to be continued');?>
-                                <?php echo $this->__('Branding text - to be continued');?>
-                                <?php echo $this->__('Branding text - to be continued');?>
-                                <?php echo $this->__('Branding text - to be continued');?>
-                                <?php echo $this->__('Branding text - to be continued');?>
-                                <?php echo $this->__('Branding text - to be continued');?>
-                                <?php echo $this->__('Branding text - to be continued');?>
-                                <?php echo $this->__('Branding text - to be continued');?>
+                                When a users visits the store view, the TinyPNG will automatically compress the images on the fly. This only applies for images that are not already cached. So in order to optimize all images, <a target="_blank" href="">flush your entire images cache</a> so your whole images database will be optimized.
+                                When test mode is enabled, the images will also be compressed on the fly, however, compressed images will not be saved to disk. The result can be found in the status log, which can be downloaded in the <a href="#tig_tinypng_logging-head">Log section</a> tab of this extension.
                             </p>
-                            <img class="tiny-logo" alt="TinyPNG" src="<?php echo $this->getSkinUrl('images/TIG/TinyPNG/panda-chewing-2x.png'); ?>" height="200" />
                         </div>
                     </div>
 
@@ -101,8 +89,8 @@
                     <div class="text-box">
                         <h3><?php echo $this->__('Magento & 3rd party version compatibility');?></h3>
                         <ul>
-                            <li><?php echo $this->__('Magento Community Edition version');?> v1.9</li>
-                            <li><?php echo $this->__('Magento Enterprise Edition version');?> v1.14</li>
+                            <li><?php echo $this->__('Magento Community Edition version');?> 1.9</li>
+                            <li><?php echo $this->__('Magento Enterprise Edition version');?> 1.14</li>
                         </ul>
 
                     </div>
@@ -113,11 +101,27 @@
                 <td class="column">
                     <div class="text-box">
                         <h3><?php echo $this->__('Support');?></h3>
+
+                        <h4>Algemene instellingen en accountgegevens.</h4>
+                        <p>Voor ondersteuning bij het instellen van uw accountgegevens neem contact op met TinyPNG:</p>
+                        <table class="contact">
+                            <tbody><tr>
+                                    <td class="first">TinyPNG:</td>
+                                    <td class="last" width="100"><a target="_blank" href="https://www.tinypng.com/">www.tinypng.com</a></td>
+                                    <td rowspan="2" class="logo-cell"><img src="<?php echo $this->getSkinUrl('images/TIG/TinyPNG/tinypng_medium.png'); ?>"></td>
+                                </tr>
+                                <tr>
+                                    <td class="first">E-mail:</td>
+                                    <td class="last"><a href="mailto:info@tinypng.com">info@tinypng.com</a></td>
+                                </tr>
+                            </tbody></table>
+
                         <p><?php echo $this->__('The extension is developed by TIG.');?></p>
                         <table class="contact">
                             <tr>
                                 <td class="first"><?php echo $this->__('Website:');?></td>
-                                <td class="last"><a target="_blank" href="<?php echo $_tigHomepage; ?>"><?php echo $this->__('TIG.nl'); ?></a></td>
+                                <td class="last" width="100"><a target="_blank" href="<?php echo $_tigHomepage; ?>"><?php echo $this->__('TIG.nl'); ?></a></td>
+                                <td rowspan="2" class="logo-cell"><img src="<?php echo $this->getSkinUrl('images/TIG/TinyPNG/tig_logo_medium.png'); ?>"></td>
                             </tr>
                             <tr>
                                 <td class="first"><?php echo $this->__('Support website:');?></td>
@@ -134,7 +138,6 @@
                                     <td class=""><a target="_blank" href="<?php echo $_installationManualUrl; ?>" title="<?php echo $this->__('Installation Manual');?>"><?php echo $this->__('Installation Manual');?></a></td>
                                 </tr>
                             </table>
-
                         </div>
 
                         <div class="block">

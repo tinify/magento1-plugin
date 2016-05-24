@@ -4,6 +4,12 @@
     color:#253033;
 }
 
+#tig_tinypng_support .content {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+.content .tiny-logo { float:right; height: 200px; margin-left: 10px; margin-bottom: 10px; }
+
 /* Logos */
 #tig_tinypng_support .content-heading {
     background-image: url('../../../images/TIG/TinyPNG/tinypng.png') !important;
@@ -91,7 +97,7 @@
     margin: 0 0 25px -1px;
 }
 #tig_tinypng_support table.contact td {
-    padding: 0;
+    padding-right: 20px;
 }
 #tig_tinypng_support table.contact td.first {
     width: 150px;
@@ -117,6 +123,7 @@
 }
 
 
+a.manual-links,
 #tig_tinypng_status span.manual-links,
 #tig_tinypng_compress_status .manual-links td a,
 #tig_tinypng_support .manual-links li a,
@@ -134,8 +141,13 @@
          box-shadow: 0 2px 4px 1px rgba(0,0,0,0.14);
     position:relative;
     margin-right: 15px;
-
+    font-size: 12px;
 }
+
+a.manual-links {
+    margin-top: 5px;
+}
+
 #tig_tinypng_support .manual-links li a:after,
 #tig_tinypng_support .manual-links td a:after{
     background: url('../../../images/TIG/Tinypng/glyph_go.png') 13px 11px no-repeat;
@@ -191,32 +203,32 @@
 /* information block */
 .text-box .heading { float:left; width: 100%; }
 .text-box .heading .heading-title { float:left; margin:0 0.5em 0.5em 0; }
-.text-box .heading .tiny-logo { float:left; }
+.text-box .heading .tiny-logo { float:right; height: 200px; margin-left: 10px; marign-bottom: 10px; }
 
 .block { margin-top: 20px; }
 
 /* Compressions status */
 #tig_tinypng_compression {
-    background: #fff;
     padding: 9px 16px;
     margin: 6px 0 10px;
-    border: 1px solid #ccc;
 }
 
 #tig_tinypng_compression td {
     padding-top:2px;
     padding-bottom:2px;
     margin:0;
+    vertical-align:middle;
 }
 
 #tig_tinypng_compression .image_path {
-    padding-right: 15px;
-    border-right: 1px solid #007f3b;
+    border: 1px solid lightgrey;
+    text-align: center;
 }
 
 #tig_tinypng_compression .image_path img {
-    max-width: 100px;
-    max-height: 100px;
+    max-width: 20px;
+    max-height: 20px;
+    display: block;
 }
 
 #tig_tinypng_compression .info_box {
@@ -225,4 +237,24 @@
 
 #tig_tinypng_compression .centered td {
     text-align:center;
+}
+
+#tinypng_check_status {
+    margin-left: 0 !important;
+}
+
+.tig_tinypng_saved {
+    color: white;
+    background: #009f3e;
+}
+
+.title-file { width: 25px; }
+.title-original { width: 65px; }
+.title-now { width: 50px; }
+
+#tinypng_api_status { color: #009f3e; }
+
+.orange-button {
+    border-color: orange !important;
+    background: orange !important;
 }

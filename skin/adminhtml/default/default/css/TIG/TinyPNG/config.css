@@ -215,6 +215,7 @@
     padding: 0 0 0 25px;
 }
 
+#tig_tinypng_compression .centered td,
 #tig_tinypng_compression .show_less td,
 #tig_tinypng_compression .show_more td {
     text-align:center;
@@ -223,4 +224,12 @@
 #tig_tinypng_compression .show_less td a,
 #tig_tinypng_compression .show_more td a {
     cursor: pointer;
+}
+
+.radio-container {
+    display: inline-block;
+}
+
+.radio-container + .field-tooltip {
+    float:right;
 }

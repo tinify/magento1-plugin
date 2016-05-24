@@ -183,7 +183,7 @@
 /* information block */
 .text-box .heading { float:left; width: 100%; }
 .text-box .heading .heading-title { float:left; margin:0 0.5em 0.5em 0; }
-.text-box .heading .tiny-logo { float:left; }
+.text-box .heading .tiny-logo { float:left; margin-top:3px; }
 
 .block { margin-top: 20px; }
 

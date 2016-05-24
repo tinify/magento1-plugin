@@ -36,23 +36,40 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
-class TIG_TinyPNG_Model_Product_Image extends Mage_Catalog_Model_Product_Image
+class TIG_TinyPNG_Model_Observer
 {
     /**
-     * Set the minimun required quality for TinyPNG image compression which is 95
-     *
-     * @var int
+     * @var null|TIG_TinyPNG_Helper_Tinify
      */
-    protected $_quality = 95;
+    protected $_tinifyHelper = null;
 
     /**
-     * @return Mage_Catalog_Model_Product_Image $this
+     * The image cache is flushed, so all images are deleted. Therefore delete all models.
+     *
+     * @return $this
      */
-    public function saveFile()
+    public function imageCacheFlush()
     {
-        parent::saveFile();
+        Mage::getModel('tig_tinypng/image')->deleteAll();
 
-        Mage::dispatchEvent('catalog_product_image_save_after', array($this->_eventObject => $this));
+        return $this;
+    }
+
+    /**
+     * Compress product images
+     *
+     * @param $observer
+     *
+     * @return $this
+     */
+    public function catalogProductImageSaveAfter($observer)
+    {
+        if ($this->_tinifyHelper === null) {
+            $this->_tinifyHelper = Mage::helper('tig_tinypng/tinify');
+        }
+
+        $storeId = Mage::app()->getStore()->getStoreId();
+        $this->_tinifyHelper->setProductImage($observer->getObject(), $storeId)->compress();
 
         return $this;
     }

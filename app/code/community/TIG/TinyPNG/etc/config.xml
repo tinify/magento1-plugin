@@ -42,18 +42,18 @@
                 </setup>
             </tig_tinypng_setup>
         </resources>
+        <events>
+            <catalog_product_image_save_after>
+                <observers>
+                    <tig_tinypng_compress_product_image>
+                        <type>singleton</type>
+                        <class>TIG_TinyPNG_Model_Observer</class>
+                        <method>catalogProductImageSaveAfter</method>
+                    </tig_tinypng_compress_product_image>
+                </observers>
+            </catalog_product_image_save_after>
+        </events>
     </global>
-    <admin>
-        <routers>
-            <adminhtml>
-                <args>
-                    <modules>
-                        <tig_tinypng after="Mage_Adminhtml">TIG_TinyPNG</tig_tinypng>
-                    </modules>
-                </args>
-            </adminhtml>
-        </routers>
-    </admin>
     <adminhtml>
         <layout>
             <updates>
@@ -71,6 +71,17 @@
                 </TIG_TinyPNG>
             </modules>
         </translate>
+        <events>
+            <clean_catalog_images_cache_after>
+                <observers>
+                    <!-- Delete models after clearing the image cache -->
+                    <tig_tinypng_delete_models>
+                        <class>TIG_TinyPNG_Model_Observer</class>
+                        <method>imageCacheFlush</method>
+                    </tig_tinypng_delete_models>
+                </observers>
+            </clean_catalog_images_cache_after>
+        </events>
     </adminhtml>
     <default>
         <tig_tinypng>

@@ -36,24 +36,26 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
-class TIG_TinyPNG_Model_Product_Image extends Mage_Catalog_Model_Product_Image
+class TIG_TinyPNG_Model_System_Config_Backend_Enabled extends Mage_Core_Model_Config_Data
 {
     /**
-     * Set the minimun required quality for TinyPNG image compression which is 95
+     * Check if the mode is changed. If it was test mode, we delete all models.
      *
-     * @var int
+     * @return Mage_Core_Model_Abstract
+     * @throws Mage_Exception
      */
-    protected $_quality = 95;
-
-    /**
-     * @return Mage_Catalog_Model_Product_Image $this
-     */
-    public function saveFile()
+    protected function _beforeSave()
     {
-        parent::saveFile();
+        $value = $this->getValue();
+        $oldValue = $this->getOldValue();
 
-        Mage::dispatchEvent('catalog_product_image_save_after', array($this->_eventObject => $this));
+        /**
+         * Changing from test mode to a other mode. Delete all models.
+         */
+        if ($value != $oldValue && $oldValue == 1) {
+            Mage::getModel('tig_tinypng/image')->deleteAll();
+        }
 
-        return $this;
+        return parent::_beforeSave();
     }
 }

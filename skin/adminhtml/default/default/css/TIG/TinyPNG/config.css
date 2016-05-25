@@ -12,21 +12,27 @@
 
 /* Logos */
 #tig_tinypng_support .content-heading {
-    background-image: url('../../../images/TIG/TinyPNG/tinypng.png') !important;
+    /*background-image: url('../../../images/TIG/TinyPNG/tinypng.png') !important;*/
+    background-image: url('../../../images/TIG/TinyPNG/tig-logo-medium.png') !important;
     background-position: 0 0 !important;
     background-repeat: no-repeat !important;
     background-size: auto 32px;
     line-height: 35px;
-    padding-left: 105px;
+    /*padding-left: 105px;*/
+    padding-left: 40px;
     padding-bottom: 5px;
 }
+
 .tig-tinypng-section {
     position: relative;
     line-height: 24px;
 }
+
 .tig-tinypng-section span {
-    padding-left: 76px !important;
+    /*padding-left: 76px !important;*/
+    padding-left: 40px !important;
 }
+
 .tig-tinypng-section:after {
     content: '';
     display: block;
@@ -34,8 +40,10 @@
     top: 0;
     left: 18px;
     height: 30px;
-    width: 54px;
-    background-image: url('../../../images/TIG/TinyPNG/tinypng_small.png') !important;
+    /*width: 54px;*/
+    width: 17px;
+    background-image: url('../../../images/TIG/TinyPNG/tig-logo-24.png') !important;
+    /*background-image: url('../../../images/TIG/TinyPNG/tinypng_small.png') !important;*/
     background-position: 0 7px !important;
     background-repeat: no-repeat !important;
     background-size: auto 17px;
@@ -80,13 +88,6 @@
     text-decoration:none;
 }
 
-#tig_tinypng_support a.pdf {
-    display: inline-block;
-    height: 16px;
-    line-height: 16px;
-    padding: 0 0 0 21px;
-    background: url('../../../images/TIG/TinyPNG/glyph_go.png') no-repeat;
-}
 #tig_tinypng_support .text-box {
     background: #fff;
     padding: 9px 16px;
@@ -116,18 +117,15 @@
 }
 
 /* Support-tab Buttons */
-
-
 #tig_tinypng_support .manual-links li {
     line-height: 32px;
 }
 
-
 a.manual-links,
 #tig_tinypng_status span.manual-links,
-#tig_tinypng_status .manual-links td a,
-#tig_tinypng_support .manual-links li a,
-#tig_tinypng_support .manual-links td a{
+#tig_tinypng_status .manual-links a,
+#tig_tinypng_support .manual-links a,
+#tig_tinypng_support .manual-links a {
     text-decoration: none;
     display: inline-block;
     background: #009f3e;
@@ -148,9 +146,12 @@ a.manual-links {
     margin-top: 5px;
 }
 
-#tig_tinypng_support .manual-links li a:after,
-#tig_tinypng_support .manual-links td a:after{
-    background: url('../../../images/TIG/Tinypng/glyph_go.png') 13px 11px no-repeat;
+#tig_tinypng_support .manual-links a {
+    padding-right: 20px;
+}
+
+#tig_tinypng_support .manual-links a:after {
+    background: url('../../../images/TIG/TinyPNG/glyph_go.png') 13px 11px no-repeat;
     content: ' ';
     height: 31px;
     line-height: 31px;
@@ -226,6 +227,7 @@ a.manual-links {
     padding: 0 0 0 20px;
 }
 
+#tig_tinypng_compression .centered td,
 #tig_tinypng_compression .show_less td,
 #tig_tinypng_compression .show_more td {
     text-align:center;
@@ -253,4 +255,12 @@ a.manual-links {
 
 #row_tig_tinypng_status_usage .label {
     vertical-align: middle;
+}
+
+.radio-container {
+    display: inline-block;
+}
+
+.radio-container + .field-tooltip {
+    float:right;
 }

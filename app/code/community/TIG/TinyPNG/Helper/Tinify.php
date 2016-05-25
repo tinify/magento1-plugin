@@ -286,7 +286,7 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
             $this->helper->log('Copying the source file from ' . $sourceFile->getPathname() .
                 ' to ' . $this->newFile->getPathname(), 'info', $this->storeId);
 
-            if (TIG_TinyPNG_Helper_Config::isTestMode($this->store)) {
+            if (TIG_TinyPNG_Helper_Config::isTestMode($this->storeId)) {
                 $this->helper->log('Testmode is enabled, no image is copied');
 
                 return true;
@@ -339,7 +339,6 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
     public function saveCompression()
     {
         $this->hashAfter = $this->_getFileHash($this->newFile);
-        $this->helper->log('Bytes after filesize: ' . $this->bytesAfter);
         $path = str_replace(Mage::getBaseDir(), '', $this->newFile->getPathname());
 
         /** @var TIG_TinyPNG_Model_Image $tinyPNGModel */

@@ -96,25 +96,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </api_key>
-                        <product_compression translate="label comment">
-                            <label>Product images to be compressed</label>
-                            <sort_order>30</sort_order>
-                            <source_model>tig_tinypng/system_config_source_product_imageTypes</source_model>
-                            <frontend_type>multiselect</frontend_type>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </product_compression>
-                        <logging_mode translate="label comment">
-                            <label>Messages that should be logged</label>
-                            <sort_order>40</sort_order>
-                            <source_model>tig_tinypng/system_config_source_log</source_model>
-                            <tooltip>When set to all, the log file can become huge. Recommended setting for production servers is Errors and Exceptions.</tooltip>
-                            <frontend_type>select</frontend_type>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </logging_mode>
                     </fields>
                 </settings>
                 <status translate="label">
@@ -124,14 +105,6 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <account_type translate="label comment">
-                            <label>Account type</label>
-                            <frontend_type>tinypng_account_type</frontend_type>
-                            <sort_order>0</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </account_type>
                         <usage translate="label comment">
                             <label>Status</label>
                             <sort_order>10</sort_order>
@@ -156,15 +129,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </api>
-                    </fields>
-                </status>
-                <logging translate="label">
-                    <label>TinyPNG Log</label>
-                    <sort_order>40</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                    <fields>
                         <log_status>
                             <sort_order>40</sort_order>
                             <frontend_model>tig_tinypng/adminhtml_system_config_form_field_logStatus</frontend_model>
@@ -173,7 +137,34 @@
                             <show_in_store>1</show_in_store>
                         </log_status>
                     </fields>
-                </logging>
+                </status>
+                <advanced translate="label">
+                    <label>Advanced</label>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <product_compression translate="label comment">
+                            <label>Product images to be compressed</label>
+                            <sort_order>30</sort_order>
+                            <source_model>tig_tinypng/system_config_source_product_imageTypes</source_model>
+                            <frontend_type>multiselect</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </product_compression>
+                        <logging_mode translate="label comment">
+                            <label>Messages that sould be logged</label>
+                            <sort_order>40</sort_order>
+                            <source_model>tig_tinypng/system_config_source_log</source_model>
+                            <frontend_type>select</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </logging_mode>
+                    </fields>
+                </advanced>
             </groups>
         </tig_tinypng>
     </sections>

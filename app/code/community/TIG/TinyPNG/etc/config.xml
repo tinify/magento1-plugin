@@ -3,6 +3,7 @@
     <modules>
         <TIG_TinyPNG>
             <version>1.1.0</version>
+            <stability>beta</stability>
         </TIG_TinyPNG>
     </modules>
     <global>
@@ -98,12 +99,11 @@
         <tig_tinypng>
             <settings>
                 <enabled>2</enabled>
-                <logging_mode>all</logging_mode>
             </settings>
-            <configuration>
-                <compression_quality>95</compression_quality>
+            <advanced>
+                <logging_mode>all</logging_mode>
                 <product_compression>thumbnail,small_image,image,media_image</product_compression>
-            </configuration>
+            </advanced>
         </tig_tinypng>
     </default>
 </config>

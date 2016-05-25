@@ -61,4 +61,28 @@ class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_SupportTab
         return $this->toHtml();
     }
 
+    /**
+     * Get the current version of the PostNL extension's code base.
+     *
+     * @return string
+     */
+    public function getModuleVersion()
+    {
+        $version = (string) Mage::getConfig()->getModuleConfig('TIG_TinyPNG')->version;
+
+        return $version;
+    }
+
+    /**
+     * Get the current stability of the PostNL extension's code base.
+     *
+     * @return string
+     */
+    public function getModuleStability()
+    {
+        $stability = (string) Mage::getConfig()->getModuleConfig('TIG_TinyPNG')->stability;
+//        $stability = (string)$stability[0];
+
+        return $stability;
+    }
 }

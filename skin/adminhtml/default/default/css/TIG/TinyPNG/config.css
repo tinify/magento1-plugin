@@ -201,8 +201,7 @@ a.manual-links {
 
 /* Compressions status */
 #tig_tinypng_compression {
-    padding: 9px 16px;
-    margin: 6px 0 10px;
+    padding: 9px 0;
 }
 
 #tig_tinypng_compression td {
@@ -220,11 +219,11 @@ a.manual-links {
 #tig_tinypng_compression .image_path img {
     max-width: 20px;
     max-height: 20px;
-    display: block;
+    display: inline-block;
 }
 
 #tig_tinypng_compression .info_box {
-    padding: 0 0 0 25px;
+    padding: 0 0 0 20px;
 }
 
 #tig_tinypng_compression .show_less td,
@@ -232,7 +231,6 @@ a.manual-links {
     text-align:center;
 }
 
-<<<<<<< HEAD
 #tinypng_check_status {
     margin-left: 0 !important;
 }
@@ -251,9 +249,8 @@ a.manual-links {
 .orange-button {
     border-color: orange !important;
     background: orange !important;
-=======
-#tig_tinypng_compression .show_less td a,
-#tig_tinypng_compression .show_more td a {
-    cursor: pointer;
->>>>>>> sprint34
+}
+
+#row_tig_tinypng_status_usage .label {
+    vertical-align: middle;
 }

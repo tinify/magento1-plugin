@@ -84,10 +84,6 @@
     color: #0088cc;
 }
 
-#tig_tinypng_support a:hover {
-    text-decoration:none;
-}
-
 #tig_tinypng_support .text-box {
     background: #fff;
     padding: 9px 16px;
@@ -116,16 +112,8 @@
     padding: 0 5px;
 }
 
-/* Support-tab Buttons */
-#tig_tinypng_support .manual-links li {
+.tig-tinypng-button {
     line-height: 32px;
-}
-
-a.manual-links,
-#tig_tinypng_status span.manual-links,
-#tig_tinypng_status .manual-links a,
-#tig_tinypng_support .manual-links a,
-#tig_tinypng_support .manual-links a {
     text-decoration: none;
     display: inline-block;
     background: #009f3e;
@@ -136,21 +124,38 @@ a.manual-links,
     border-radius: 2px;
     padding: 0 11px 0 11px;
     -moz-box-shadow: 0 2px 4px 1px rgba(0,0,0,0.14);
-         box-shadow: 0 2px 4px 1px rgba(0,0,0,0.14);
+    box-shadow: 0 2px 4px 1px rgba(0,0,0,0.14);
     position:relative;
     margin-right: 15px;
     font-size: 12px;
-}
-
-a.manual-links {
     margin-top: 5px;
+    cursor: pointer;
+    text-decoration:none;
 }
 
-#tig_tinypng_support .manual-links a {
+.tig-tinypng-button-orange {
+    border-color: orange !important;
+    background: orange !important;
+}
+
+.tig-tinypng-button:hover {
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background:#007f3b;
+    text-decoration:none;
+}
+
+.tig-tinypng-button:active {
+    border-color: #009f3e;
+    position: relative;
+    top: 1px;
+}
+
+.tig-tinypng-button.external-link {
     padding-right: 20px;
 }
 
-#tig_tinypng_support .manual-links a:after {
+.tig-tinypng-button.external-link:after {
     background: url('../../../images/TIG/TinyPNG/glyph_go.png') 13px 11px no-repeat;
     content: ' ';
     height: 31px;
@@ -159,29 +164,6 @@ a.manual-links {
     top: -2px;
     right: 0;
     width: 30px;
-}
-
-#tig_tinypng_status span.manual-links:hover,
-#tig_tinypng_status .manual-links td a:hover,
-#tig_tinypng_support .manual-links li a:hover,
-#tig_tinypng_support .manual-links td a:hover{
-    -moz-box-shadow: none;
-         box-shadow: none;
-    background:#007f3b;
-}
-
-#tig_tinypng_status span.manual-links:active,
-#tig_tinypng_status .manual-links td a:active,
-#tig_tinypng_support .manual-links li a:active,
-#tig_tinypng_support .manual-links td a:active{
-    border-color: #009f3e;
-    position: relative;
-    top: 1px;
-}
-
-#tig_tinypng_status span.manual-links {
-    cursor: pointer;
-    margin-left: 25px;
 }
 
 /* Modus radios */
@@ -247,11 +229,6 @@ a.manual-links {
 .title-now { width: 50px; }
 
 #tinypng_api_status { color: #009f3e; }
-
-.orange-button {
-    border-color: orange !important;
-    background: orange !important;
-}
 
 #row_tig_tinypng_status_usage .label {
     vertical-align: middle;

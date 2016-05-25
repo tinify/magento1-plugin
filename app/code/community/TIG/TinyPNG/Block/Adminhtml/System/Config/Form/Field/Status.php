@@ -45,7 +45,7 @@ class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Status extends Varien
      */
     public function getElementHtml()
     {
-        $button = '<a href="https://tinypng.com/developers/subscription" target="_blank" class="manual-links orange-button">Upgrade</a>';
+        $button = '<a href="https://tinypng.com/developers/subscription" target="_blank" class="tig-tinypng-button tig-tinypng-button-orange">Upgrade</a>';
 
         return '<span style="color: red">Compressie on hold. 500 gratis afbeeldingen gebruikt deze maand.</span>
         Upgrade uw account om meer afbeeldingen te comprimeren.

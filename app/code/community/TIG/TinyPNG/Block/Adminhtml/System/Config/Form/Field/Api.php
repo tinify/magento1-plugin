@@ -67,7 +67,7 @@ class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Api extends Varien_Da
             }
         }
 
-        $button = '<a href="#" id="tinypng_check_status" class="manual-links" title="' . $_helper->__('Check status') . '">'
+        $button = '<a href="#" id="tinypng_check_status" class="tig-tinypng-button" title="' . $_helper->__('Check status') . '">'
             . $_helper->__('Check status')
             . '</a>';
 

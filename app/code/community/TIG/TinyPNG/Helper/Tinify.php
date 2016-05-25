@@ -286,7 +286,7 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
             $this->helper->log('Copying the source file from ' . $sourceFile->getPathname() .
                 ' to ' . $this->newFile->getPathname(), 'info', $this->storeId);
 
-            if (TIG_TinyPNG_Helper_Config::isTestMode($this->store)) {
+            if (TIG_TinyPNG_Helper_Config::isTestMode($this->storeId)) {
                 $this->helper->log('Testmode is enabled, no image is copied');
 
                 return true;

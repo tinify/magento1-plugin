@@ -112,10 +112,10 @@ $images = $_tinify->getCompressionStatus();
             <table cellspacing="0" class="form-list">
                 <tr id="row_tig_tinypng_status_usage">
                     <td class="label">
-                        <label for="tig_tinypng_status_usage">Download TinyPNG log file</label>
+                        <label for="tig_tinypng_status_usage"><?php echo $this->__('Download TinyPNG log file'); ?></label>
                     </td>
                     <td class="value">
-                        <a class="tig-tinypng-button" href="<?php echo $downloadUrl; ?>" target="_BLANK"><?php echo $this->__('Download log file'); ?></a>
+                        <a class="tig-tinypng-button" href="<?php echo $downloadUrl; ?>"><?php echo $this->__('Download log file'); ?></a>
                     </td>
                 </tr>
             </table>

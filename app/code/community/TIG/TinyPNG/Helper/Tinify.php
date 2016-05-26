@@ -41,27 +41,32 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
     /**
      * @var bool $allowCompression
      */
-    public $allowCompression = false;
+    protected $allowCompression;
+
+    /**
+     * @var bool $isProductTypeAllowed
+     */
+    protected $isProductTypeAllowed = true;
 
     /**
      * @var string $destinationSubdir
      */
-    public $destinationSubdir = '';
+    protected $destinationSubdir = '';
 
     /**
      * @var SplFileInfo $newFile
      */
-    public $newFile = '';
+    protected $newFile = '';
 
     /**
      * @var string $imageWidth
      */
-    public $imageWidth = '';
+    protected $imageWidth = '';
 
     /**
      * @var string $imageHeight
      */
-    public $imageHeight = '';
+    protected $imageHeight = '';
 
     /**
      * @var string $hashBefore
@@ -86,27 +91,59 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
     /**
      * @var TIG_TinyPNG_Helper_Data $helper
      */
-    public $helper;
+    protected $helper;
 
     /**
      * @var int $storeId
      */
-    public $storeId = 0;
+    protected $storeId = 0;
+
+    /**
+     * @var TIG_TinyPNG_Helper_Config
+     */
+    protected $configHelper;
 
     /**
      * Constructor
      */
     public function __construct() {
+        $this->_registerAutoloader();
+        $this->_setIdentifier();
+
+        $this->helper = Mage::helper('tig_tinypng');
+        $this->configHelper = Mage::helper('tig_tinypng/config');
+
+        $apiKey = $this->configHelper->getApiKey($this->storeId);
+        $this->allowCompression = $this->validate($apiKey);
+    }
+
+    /**
+     * Register our custom autoloader, this is needed because Magento can't handle PHP's namespaces.
+     *
+     * @return $this
+     */
+    protected function _registerAutoloader()
+    {
         require_once(Mage::getBaseDir('lib') . '/tinify-php/lib/Tinify.php');
 
         spl_autoload_register( array($this, 'load'), true, true );
 
-        $this->helper = Mage::helper('tig_tinypng');
+        return $this;
+    }
 
+    /**
+     * Set the app identifier
+     *
+     * @return $this
+     */
+    protected function _setIdentifier()
+    {
         $version = Mage::getVersion();
         $edition = Mage::getEdition();
 
         Tinify\setAppIdentifier('Magento ' . $edition . ' ' . $version);
+
+        return $this;
     }
 
     /**
@@ -114,32 +151,38 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
      *
      * @param string $class
      */
-    private static function load($class)
+    protected static function load($class)
     {
-        /** Project-specific namespace prefix */
-        $prefix = '';
+        /**
+         * Project-specific namespace prefix
+         */
+        $prefix = 'Tinify';
 
-        /** Base directory for the namespace prefix */
+        /**
+         * Base directory for the namespace prefix
+         */
         $base_dir = Mage::getBaseDir('lib') . '/tinify-php/lib/';
 
-        /** Does the class use the namespace prefix? */
-        $len = strlen($prefix);
-
-        if (strncmp($prefix, $class, $len) !== 0) {
-            /** No, move to the next registered autoloader */
+        if (strpos($class, $prefix) !== 0) {
+            /**
+             * No, move to the next registered autoloader
+             */
             return;
         }
 
-        /** Get the relative class name */
-        $relative_class = substr($class, $len);
-        $relative_class_directory = str_replace('\\', '/', $relative_class);
+        /**
+         * Get the relative class name
+         */
+        $class_directory = str_replace('\\', '/', $class);
 
-        /** Tinify has all its exceptions in one file, so take that in account */
-        if (substr($relative_class_directory, -9) == 'Exception') {
-            $class_array = explode('/', $relative_class_directory);
+        /**
+         * Tinify has all its exceptions in one file, so take that in account
+         */
+        if (substr($class_directory, -9) == 'Exception') {
+            $class_array = explode('/', $class_directory);
             $class_array[count($class_array) - 1] = 'Exception';
 
-            $relative_class_directory = implode('/', $class_array);
+            $class_directory = implode('/', $class_array);
         }
 
         /**
@@ -147,9 +190,11 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
          * separators with directory separators in the relative class name, append
          * with .php
          */
-        $file = $base_dir . $relative_class_directory . '.php';
+        $file = $base_dir . $class_directory . '.php';
 
-        /** if the file exists, require it */
+        /**
+         * if the file exists, require it
+         */
         if (file_exists($file)) {
             require $file;
         }
@@ -179,17 +224,18 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
      * Compress the image.
      *
      * @return bool
+     * @throws TIG_TinyPNG_Exception
      */
     public function compress()
     {
-        if (!TIG_TinyPNG_Helper_Config::isEnabled($this->storeId)) {
+        if (!$this->configHelper->isEnabled($this->storeId)) {
             $this->helper->log('The TinyPNG module is disabled, not compressing ' . $this->newFile->getPathname(), 'info', $this->storeId);
 
             return false;
         }
 
-        if (!$this->allowCompression) {
-            $this->helper->log('Product imagetype not allowed for compression', 'error', $this->storeId);
+        if (!$this->_isCompressionAllowed()) {
+            $this->helper->log('Compression is not allowed at this moment.', 'info', $this->storeId);
 
             return false;
         }
@@ -208,7 +254,7 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
             /**
              * If test mode is enabled we compress the image, but will not save the result.
              */
-            if (TIG_TinyPNG_Helper_Config::isTestMode($this->storeId)) {
+            if ($this->configHelper->isTestMode($this->storeId)) {
                 $message .= 'TESTMODE - ';
                 $this->bytesAfter = ord($input->toBuffer());
 
@@ -233,7 +279,7 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
             return false;
         }
 
-        $this->saveCompression();
+        $this->_saveCompression();
 
         return true;
     }
@@ -286,7 +332,7 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
             $this->helper->log('Copying the source file from ' . $sourceFile->getPathname() .
                 ' to ' . $this->newFile->getPathname(), 'info', $this->storeId);
 
-            if (TIG_TinyPNG_Helper_Config::isTestMode($this->storeId)) {
+            if ($this->configHelper->isTestMode($this->storeId)) {
                 $this->helper->log('Testmode is enabled, no image is copied');
 
                 return true;
@@ -294,7 +340,7 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
 
             $this->bytesAfter  = $model->getBytesAfter();
             $this->bytesBefore = $model->getBytesBefore();
-            
+
             $this->setTotalSavings();
 
             return copy($sourceFile->getPathname(), $this->newFile->getPathname());
@@ -303,35 +349,39 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
 
     /**
      * @param Mage_Catalog_Model_Product_Image $image
-     * @param $store
+     * @param $storeId
      *
      * @return $this
      */
-    public function setProductImage($image, $store = null)
+    public function setProductImage($image, $storeId = null)
     {
         $this->newFile = new SplFileInfo($image->getNewFile());
+        $this->hashBefore = $this->_getFileHash($this->newFile);
+        $this->bytesBefore = $this->_getFileSize($this->newFile);
 
-        if (!TIG_TinyPNG_Helper_Config::isEnabled($this->storeId)) {
+        if ($storeId !== null) {
+            $this->storeId = $storeId;
+        }
+
+        if (!$this->configHelper->isEnabled($this->storeId)) {
             return $this;
         }
 
-        if (null !== $store) {
-            $this->storeId = $store;
+        if ($this->_isProductImageAllowed($image->getDestinationSubdir())) {
+            $this->helper->log('Product imagetype not allowed for compression', 'error', $this->storeId);
+
+            return $this;
         }
 
-        $this->allowCompression  = $this->isCompressionAllowed($image->getDestinationSubdir());
-        $this->destinationSubdir = $image->getDestinationSubdir();
-        $this->imageWidth        = $image->getWidth();
-        $this->imageHeight       = $image->getHeight();
+        $this->destinationSubdir    = $image->getDestinationSubdir();
+        $this->imageWidth           = $image->getWidth();
+        $this->imageHeight          = $image->getHeight();
 
         if (!$this->newFile->isFile()) {
             $this->helper->log('Could not load the core image data', 'info', $this->storeId);
 
             return $this;
         }
-
-        $this->hashBefore = $this->_getFileHash($this->newFile);
-        $this->bytesBefore = $this->_getFileSize($this->newFile);
 
         return $this;
     }
@@ -341,10 +391,9 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
      *
      * @return $this
      */
-    public function saveCompression()
+    protected function _saveCompression()
     {
         $this->hashAfter = $this->_getFileHash($this->newFile);
-        $this->helper->log('Bytes after filesize: ' . $this->bytesAfter);
         $path = str_replace(Mage::getBaseDir(), '', $this->newFile->getPathname());
 
         /** @var TIG_TinyPNG_Model_Image */
@@ -427,23 +476,37 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Check if we are allowed to compress images.
+     *
+     * @return bool
+     */
+    protected function _isCompressionAllowed()
+    {
+        if (!$this->allowCompression) {
+            return false;
+        }
+
+        if (!$this->isProductTypeAllowed) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * @param $imageDestination
      *
      * @return bool
      */
-    public function isCompressionAllowed($imageDestination)
+    protected function _isProductImageAllowed($imageDestination)
     {
-        $typesAllowed = TIG_TinyPNG_Helper_Config::getProductImageTypesToCompress($this->storeId);
+        if (!$this->allowCompression) {
+            return false;
+        }
 
-        /**
-         * @TODO: Should be inside the constructor.
-         */
-        $apiKey     = TIG_TinyPNG_Helper_Config::getApiKey($this->storeId);
-        $validated  = $this->validate($apiKey);
+        $typesAllowed = $this->configHelper->getProductImageTypesToCompress($this->storeId);
 
-        if (in_array($imageDestination, explode(',', $typesAllowed))
-            && $validated
-        ) {
+        if (in_array($imageDestination, explode(',', $typesAllowed))) {
             return true;
         }
 
@@ -458,11 +521,11 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
      * @return int|null
      */
     public function compressionCount($store = null) {
-        if(!TIG_TinyPNG_Helper_Config::isConfigured($store)) {
+        if(!$this->configHelper->isConfigured($store)) {
             return 0;
         }
 
-        $apiKey = TIG_TinyPNG_Helper_Config::getApiKey($store);
+        $apiKey = $this->configHelper->getApiKey($store);
         $validated = $this->validate($apiKey);
 
         if (!$validated) {

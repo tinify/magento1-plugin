@@ -51,23 +51,29 @@ class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Api extends Varien_Da
 
         if ($apiStatusCache !== false) {
             $apiStatusCacheData = json_decode($apiStatusCache, true);
-            $apiStatusDate = $apiStatusCacheData['date'];
 
             switch ($apiStatusCacheData['status']) {
                 case 'operational':
                     $message = '<span class="tinypng_status_success">'
-                        . Mage::helper('tig_tinypng')->__('Operational. Last status check was performed at %s.', $apiStatusDate)
+                        . Mage::helper('tig_tinypng')->__('Operational')
                         . '</span>';
                     break;
                 case 'nonoperational':
                     $message = '<span class="tinypng_status_failure">'
-                        . Mage::helper('tig_tinypng')->__('Nonoperational. Last status check was performed at %s.', $apiStatusDate)
+                        . Mage::helper('tig_tinypng')->__('Non-operational')
                         . '</span>';
                     break;
             }
         }
 
-        $message = '<span id="tinypng_api_status">' . $message . '</span>';
+        $button = '<a href="#" id="tinypng_check_status" class="tig-tinypng-button" title="' . $_helper->__('Check status') . '">'
+            . $_helper->__('Check status')
+            . '</a>';
+
+        $message = '<span id="tinypng_api_status"><span class="tinypng_status_success">'
+            . Mage::helper('tig_tinypng')->__('Operational')
+            . '</span></span><br>';
+        $message .= $button;
 
         return $message;
     }
@@ -79,14 +85,12 @@ class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Api extends Varien_Da
     {
         $_helper = Mage::helper('tig_tinypng');
 
-        $button = '<span id="tinypng_check_status" class="manual-links" title="' . $_helper->__('Check status') . '">'
-            . $_helper->__('Check status')
-            . '</span>';
-
         $js = '<script type="text/javascript">
                     var url = "' . Mage::helper("adminhtml")->getUrl('adminhtml/tinypngAdminhtml_status/getApiStatus') . '";
 
                     $("tinypng_check_status").on("click", function (event, element) {
+                        Event.stop(event);
+
                         new Ajax.Request(url,
                             {
                                 method: "post",
@@ -100,7 +104,7 @@ class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Api extends Varien_Da
                     });
                 </script>';
 
-        $label = parent::getScopeLabel() . $button . $js;
+        $label = parent::getScopeLabel() . $js;
 
         return $label;
     }

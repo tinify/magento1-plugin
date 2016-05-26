@@ -57,6 +57,7 @@ class TIG_TinyPNG_Block_Adminhtml_System_Config_Form extends Mage_Adminhtml_Bloc
             ->_addStatusIndicator()
             ->_addSavedIndicator()
             ->_addApiIndicator()
+            ->_addAccountType()
         ;
 
         return $this->_elementTypes;
@@ -110,6 +111,19 @@ class TIG_TinyPNG_Block_Adminhtml_System_Config_Form extends Mage_Adminhtml_Bloc
     {
         $this->_elementTypes['tinypng_api'] = Mage::getConfig()
             ->getBlockClassName('tig_tinypng/adminhtml_system_config_form_field_api');
+
+        return $this;
+    }
+
+    /**
+     * Add a field that shows the api status indicator.
+     *
+     * @return $this
+     */
+    protected function _addAccountType()
+    {
+        $this->_elementTypes['tinypng_account_type'] = Mage::getConfig()
+            ->getBlockClassName('tig_tinypng/adminhtml_system_config_form_field_accountType');
 
         return $this;
     }

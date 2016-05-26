@@ -43,7 +43,7 @@
 "TIG_TinyPNG::Check status","Controleer API status"
 "TIG_TinyPNG::TinyPNG API Status","TinyPNG API Status"
 "TIG_TinyPNG::We saved %s%% this month! The greatest compression was %s%%.","We hebben deze maand %s bespaard! De grootste compressie was %s%%."
-"TIG_TinyPNG::There are %s compressions done this month.","Er is deze maand %s compressies uitgevoerd."
+"TIG_TinyPNG::There are %s compressions done this month.","Er zijn deze maand %s compressies uitgevoerd."
 "TIG_TinyPNG::TinyPNG Settings","TinyPNG Instellingen"
 "TIG_TinyPNG::On","Aan"
 "TIG_TinyPNG::Off","Uit"

@@ -292,6 +292,11 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
                 return true;
             }
 
+            $this->bytesAfter  = $model->getBytesAfter();
+            $this->bytesBefore = $model->getBytesBefore();
+            
+            $this->setTotalSavings();
+
             return copy($sourceFile->getPathname(), $this->newFile->getPathname());
         }
     }

@@ -292,6 +292,11 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
                 return true;
             }
 
+            $this->bytesAfter  = $model->getBytesAfter();
+            $this->bytesBefore = $model->getBytesBefore();
+            
+            $this->setTotalSavings();
+
             return copy($sourceFile->getPathname(), $this->newFile->getPathname());
         }
     }
@@ -342,7 +347,7 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
         $this->helper->log('Bytes after filesize: ' . $this->bytesAfter);
         $path = str_replace(Mage::getBaseDir(), '', $this->newFile->getPathname());
 
-        /** @var TIG_TinyPNG_Model_Image $tinyPNGModel */
+        /** @var TIG_TinyPNG_Model_Image */
         $model = Mage::getModel('tig_tinypng/image');
         $model->setPath($path);
         $model->setHashBefore($this->hashBefore);
@@ -353,7 +358,72 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
         $model->setUsedAsSource(1);
         $model->save();
 
+        $this->setTotalSavings();
+
         return $this;
+    }
+
+    /**
+     * Save the file meta for the total month savings.
+     *
+     * @return $this
+     */
+    public function setTotalSavings()
+    {
+        $model      = Mage::getModel('tig_tinypng/totals');
+        $collection = $model->getCollection()->setOrder('entity_id', 'DESC');
+
+        /** @var TIG_TinyPNG_Model_Totals $latest */
+        $latest = $collection->getFirstItem();
+
+        $bytesBefore      = $this->bytesBefore;
+        $bytesAfter       = $this->bytesAfter;
+        $totalCompression = 1;
+
+        if ($this->isBetweenDates($latest->getDateFrom(),$latest->getDateTo())) {
+            $bytesBefore      = $bytesBefore + $latest->getTotalBytesBefore();
+            $bytesAfter       = $bytesAfter  + $latest->getTotalBytesAfter();
+            $totalCompression = $totalCompression + $latest->getTotalCompressions();
+            $dateFrom         = $latest->getDateFrom();
+            $dateTo           = $latest->getDateTo();
+
+            // Load the latest record for updates.
+            $model->load($latest->getEntityId());
+
+        } else {
+            $dateFrom = Mage::getModel('core/date')->date('Y-m-01');
+            $dateTo   = Mage::getModel('core/date')->date('Y-m-t');
+        }
+
+        $model->setTotalBytesBefore($bytesBefore);
+        $model->setTotalBytesAfter($bytesAfter);
+        $model->setTotalCompressions($totalCompression);
+        $model->setDateFrom($dateFrom);
+        $model->setDateTo($dateTo);
+        $model->setUpdatedAt(Varien_Date::now());
+
+        $model->save();
+
+        return $this;
+    }
+
+    /**
+     * @param $from
+     * @param $to
+     *
+     * @return bool
+     */
+    public function isBetweenDates($from, $to)
+    {
+        $between = false;
+
+        if ((Varien_Date::now() > $from)
+            && (Varien_Date::now() < $to)
+        ) {
+            $between = true;
+        }
+
+        return $between;
     }
 
     /**

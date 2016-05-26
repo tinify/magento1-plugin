@@ -36,22 +36,15 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
-class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Saved extends Varien_Data_Form_Element_Abstract
+
+/**
+ * Class TIG_TinyPNG_Model_Resource_Totals_Collection
+ */
+class TIG_TinyPNG_Model_Resource_Totals_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
-    /**
-     * Generate the status for the TinyPNG extension.
-     *
-     * @return string
-     */
-    public function getElementHtml()
+    public function _construct()
     {
-        $data = Mage::getModel('tig_tinypng/totals')->getTotalCompressionInformation();
-
-        return Mage::helper('tig_tinypng')->__(
-            'Saved %s%% over a total of %s compressions',
-            $data['percentageSaved'],
-            $data['totalCompressions']
-        );
-
+        parent::_construct();
+        $this->_init('tig_tinypng/totals');
     }
 }

@@ -27,6 +27,9 @@
                     <image>
                         <table>tig_tinypng_image</table>
                     </image>
+                    <totals>
+                        <table>tig_tinypng_totals</table>
+                    </totals>
                 </entities>
             </tig_tinypng_resource>
             <catalog>

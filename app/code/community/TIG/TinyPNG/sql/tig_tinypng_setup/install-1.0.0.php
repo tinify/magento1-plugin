@@ -128,4 +128,76 @@ $table = $connection
 
 $connection->createTable($table);
 
+$table = $connection
+    ->newTable($installer->getTable('tig_tinypng/totals'))
+    ->addColumn(
+        'entity_id',
+        Varien_Db_Ddl_Table::TYPE_INTEGER,
+        null,
+        array(
+            'identity'  => true,
+            'unsigned'  => true,
+            'nullable'  => false,
+            'primary'   => true,
+        ),
+        'ID'
+    )
+    ->addColumn(
+        'total_bytes_before',
+        Varien_Db_Ddl_Table::TYPE_INTEGER,
+        null,
+        array(
+            'nullable' => false,
+        ),
+        'The number of bytes before processing'
+    )
+    ->addColumn(
+        'total_bytes_after',
+        Varien_Db_Ddl_Table::TYPE_INTEGER,
+        null,
+        array(
+            'nullable' => false,
+        ),
+        'The number of bytes after processing'
+    )
+    ->addColumn(
+        'total_compressions',
+        Varien_Db_Ddl_Table::TYPE_INTEGER,
+        null,
+        array(
+            'nullable' => false,
+        ),
+        'The number of compressions'
+    )
+    ->addColumn(
+        'date_from',
+        Varien_Db_Ddl_Table::TYPE_DATETIME,
+        null,
+        array(
+            'nullable' => false,
+        ),
+        'First day of the month'
+    )
+    ->addColumn(
+        'date_to',
+        Varien_Db_Ddl_Table::TYPE_DATETIME,
+        null,
+        array(
+            'nullable' => false,
+        ),
+        'Last day of the month'
+    )
+    ->addColumn(
+        'updated_at',
+        Varien_Db_Ddl_Table::TYPE_DATETIME,
+        null,
+        array(
+            'nullable' => false,
+        ),
+        'Processed At'
+    )
+;
+
+$connection->createTable($table);
+
 $installer->endSetup();

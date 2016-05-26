@@ -74,3 +74,4 @@
 "TIG_TinyPNG::Show more","Show more"
 "TIG_TinyPNG::Show less","Show less"
 "TIG_TinyPNG::Download TinyPNG log file","Download TinyPNG log file"
+"TIG_TinyPNG::Saved %s%% over a total of %s compressions", "Saved %s%% over a total of %s compressions"

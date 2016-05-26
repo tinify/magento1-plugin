@@ -351,6 +351,8 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
     public function setProductImage($image, $storeId = null)
     {
         $this->newFile = new SplFileInfo($image->getNewFile());
+        $this->hashBefore = $this->_getFileHash($this->newFile);
+        $this->bytesBefore = $this->_getFileSize($this->newFile);
 
         if ($storeId !== null) {
             $this->storeId = $storeId;
@@ -375,9 +377,6 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
 
             return $this;
         }
-
-        $this->hashBefore = $this->_getFileHash($this->newFile);
-        $this->bytesBefore = $this->_getFileSize($this->newFile);
 
         return $this;
     }

@@ -45,8 +45,10 @@ class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_AccountType extends V
      */
     public function getElementHtml()
     {
-        $button = '<a href="https://tinypng.com/developers/subscription" target="_blank" class="manual-links">Credits</a>';
+        $button = '<a href="https://tinypng.com/developers/subscription" target="_blank" class="manual-links">';
+            $button .= Mage::helper('tig_tinypng')->__('Credits');
+        $button .= '</a>';
 
-        return Mage::helper('tig_tinypng')->__('Free (tot 500 afbeeldingen per maand)<br>' . $button);
+        return Mage::helper('tig_tinypng')->__('Free (A maximum of 500 images per month)<br>' . $button);
     }
 }

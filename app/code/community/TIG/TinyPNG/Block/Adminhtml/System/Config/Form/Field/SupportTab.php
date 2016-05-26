@@ -81,7 +81,6 @@ class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_SupportTab
     public function getModuleStability()
     {
         $stability = (string) Mage::getConfig()->getModuleConfig('TIG_TinyPNG')->stability;
-//        $stability = (string)$stability[0];
 
         return $stability;
     }

@@ -51,17 +51,16 @@ class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Api extends Varien_Da
 
         if ($apiStatusCache !== false) {
             $apiStatusCacheData = json_decode($apiStatusCache, true);
-            $apiStatusDate = $apiStatusCacheData['date'];
 
             switch ($apiStatusCacheData['status']) {
                 case 'operational':
                     $message = '<span class="tinypng_status_success">'
-                        . Mage::helper('tig_tinypng')->__('Operational. Last status check was performed at %s.', $apiStatusDate)
+                        . Mage::helper('tig_tinypng')->__('Operational')
                         . '</span>';
                     break;
                 case 'nonoperational':
                     $message = '<span class="tinypng_status_failure">'
-                        . Mage::helper('tig_tinypng')->__('Nonoperational. Last status check was performed at %s.', $apiStatusDate)
+                        . Mage::helper('tig_tinypng')->__('Non-operational')
                         . '</span>';
                     break;
             }

@@ -224,7 +224,7 @@
     background: #009f3e;
 }
 
-.title-file { width: 25px; }
+.title-file { width: 45px; }
 .title-original { width: 65px; }
 .title-now { width: 50px; }
 
@@ -240,4 +240,8 @@
 
 .radio-container + .field-tooltip {
     float:right;
+}
+
+.tinypng-api-deactivated {
+    color: red;
 }

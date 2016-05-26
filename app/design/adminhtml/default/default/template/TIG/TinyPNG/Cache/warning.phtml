@@ -41,11 +41,12 @@
  * @var TIG_TinyPNG_Block_Adminhtml_Cache_Warning $this
  */
 $helper = Mage::helper('tig_tinypng');
+$configHelper = Mage::helper('tig_tinypng/config');
 
 $message = 'Note: When flushing the image cache, the TinyPNG extension will re-optimize all product images that ' .
     'are shown on the store view(s).';
 
-if (TIG_TinyPNG_Helper_Config::isConfigured()):
+if ($configHelper->isConfigured()):
 ?>
 <script type="text/javascript">
 document.observe('dom:loaded', function () {

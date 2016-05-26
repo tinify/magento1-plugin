@@ -39,22 +39,41 @@
 class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Status extends Varien_Data_Form_Element_Abstract
 {
     /**
+     * @var TIG_TinyPNG_Helper_Data
+     */
+    protected $_helper = null;
+
+    /**
+     * The constructor
+     */
+    public function __construct($attributes = array())
+    {
+        parent::__construct($attributes);
+
+        $this->_helper = Mage::helper('tig_tinypng');
+    }
+
+    /**
      * Generate the status for the TinyPNG extension.
      *
      * @return string
      */
     public function getElementHtml()
     {
-        $button = '<a href="https://tinypng.com/developers/subscription" target="_blank" class="tig-tinypng-button tig-tinypng-button-orange tig-tinypng-button-external">Upgrade</a>';
-
-        return '<span style="color: red">Compressie on hold. 500 gratis afbeeldingen gebruikt deze maand.</span>
-        Upgrade uw account om meer afbeeldingen te comprimeren.
-            <br>' . $button;
-
         // TODO: Find a method to determine whether to use our or Tinify's compression count
         $compressionCount = Mage::helper('tig_tinypng/tinify')->compressionCount();
 
-        return Mage::helper('tig_tinypng')->__(
+        if ($compressionCount == 0 || $compressionCount == 500) {
+            $button
+                = '<a href="https://tinypng.com/developers/subscription" target="_blank" class="tig-tinypng-button tig-tinypng-button-orange tig-tinypng-button-external">Upgrade</a>';
+
+            $onhold = $this->_helper->__('Compression on hold. 500 free images compressed this month.');
+            $upgrade = $this->_helper->__('Upgrade your account to compress more images');
+
+            return '<span class="tinypng-api-deactivated">' . $onhold . '</span>' . $upgrade . '<br>' . $button;
+        }
+
+        return $this->_helper->__(
             'There are %s compressions done this month.',
             $compressionCount
         );

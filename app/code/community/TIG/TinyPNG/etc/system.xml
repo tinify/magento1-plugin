@@ -68,7 +68,7 @@
                     </fields>
                 </support>
                 <settings translate="label">
-                    <label>TinyPNG Settings</label>
+                    <label>Settings</label>
                     <sort_order>20</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -99,7 +99,7 @@
                     </fields>
                 </settings>
                 <status translate="label">
-                    <label>TinyPNG Status</label>
+                    <label>Status</label>
                     <sort_order>30</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>

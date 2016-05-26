@@ -71,7 +71,7 @@ class TIG_TinyPNG_TinypngAdminhtml_ConfigController extends Mage_Adminhtml_Contr
         );
 
         $this->postDispatch();
-        $this->_prepareDownloadResponse($helper->logFile, $content);
+        $this->_prepareDownloadResponse($helper->getLogFilename(), $content);
 
         return $this;
     }

@@ -132,6 +132,16 @@ class TIG_TinyPNG_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Get the name of the logfile.
+     *
+     * @return string
+     */
+    public function getLogFilename()
+    {
+        return $this->logFile;
+    }
+
+    /**
      * Copied from https://gist.github.com/jblyberg/1572386
      *
      * @param     $datefrom
@@ -208,7 +218,7 @@ class TIG_TinyPNG_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieve a human readable file size.
      * Copied from http://jeffreysambells.com/2012/10/25/human-readable-filesize-php
      *
-     * @param $file
+     * @param $bytes
      *
      * @return string
      */

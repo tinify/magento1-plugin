@@ -36,46 +36,71 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
-class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Status extends Varien_Data_Form_Element_Abstract
+
+/**
+
+ * @method string|null getEntityId();
+ * @method $this setDateFrom(String $date);
+ * @method string|null getDateFrom();
+ * @method $this setDateTo(String $date);
+ * @method string|null getDateTo();
+ * @method $this setTotalBytesBefore(int $bytes);
+ * @method int|null getTotalBytesBefore();
+ * @method $this setTotalBytesAfter(int $bytes);
+ * @method int|null getTotalBytesAfter();
+ * @method $this setTotalCompressions(int $compressions);
+ * @method string|null getTotalCompressions();
+ * @method $this setUpdatedAt(String $date);
+ * @method string|null getUpdatedAt();
+ */
+class TIG_TinyPNG_Model_Totals extends Mage_Core_Model_Abstract
 {
     /**
-     * @var TIG_TinyPNG_Helper_Data
+     * Constructor load his parent.
      */
-    protected $_helper = null;
-
-    /**
-     * The constructor
-     */
-    public function __construct($attributes = array())
+    public function __construct()
     {
-        parent::__construct($attributes);
-
-        $this->_helper = Mage::helper('tig_tinypng');
+        parent::__construct();
     }
 
     /**
-     * Generate the status for the TinyPNG extension.
-     *
-     * @return string
+     * Class constructor.
      */
-    public function getElementHtml()
+    public function _construct()
     {
-        // TODO: Find a method to determine whether to use our or Tinify's compression count
-        $compressionCount = Mage::helper('tig_tinypng/tinify')->compressionCount();
+        $this->_init('tig_tinypng/totals');
+    }
 
-        if ($compressionCount == 0 || $compressionCount == 500) {
-            $button
-                = '<a href="https://tinypng.com/developers/subscription" target="_blank" class="tig-tinypng-button tig-tinypng-button-orange tig-tinypng-button-external">Upgrade</a>';
+    /**
+     * Gets the compression information over the total data.
+     *
+     * @return array
+     */
+    public function getTotalCompressionInformation()
+    {
+        $collection = $this->getCollection();
 
-            $onhold = $this->_helper->__('Compression on hold. 500 free images compressed this month.');
-            $upgrade = $this->_helper->__('Upgrade your account to compress more images');
+        $totalCompressions = 0;
+        $totalBytesBefore  = 0;
+        $totalBytesAfter   = 0;
 
-            return '<span class="tinypng-api-deactivated">' . $onhold . '</span>' . $upgrade . '<br>' . $button;
+        /** @var TIG_TinyPNG_Model_Totals $record */
+        foreach ($collection as $record) {
+            $totalCompressions = $record->getTotalCompressions() + $totalCompressions;
+            $totalBytesBefore  = $record->getTotalBytesBefore()  + $totalBytesBefore;
+            $totalBytesAfter   = $record->getTotalBytesAfter()   + $totalBytesAfter;
         }
 
-        return $this->_helper->__(
-            'There are %s compressions done this month.',
-            $compressionCount
+        $bytesSaved      = $totalBytesBefore - $totalBytesAfter;
+        $percantageSaved = 0;
+
+        if ($bytesSaved !== 0) {
+            $percantageSaved = round(($bytesSaved / $totalBytesBefore) * 100);
+        }
+
+        return array(
+            'percentageSaved'   => $percantageSaved,
+            'totalCompressions' => $totalCompressions
         );
     }
 }

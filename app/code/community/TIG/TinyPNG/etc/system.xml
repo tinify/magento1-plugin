@@ -68,7 +68,7 @@
                     </fields>
                 </support>
                 <settings translate="label">
-                    <label>TinyPNG Settings</label>
+                    <label>Settings</label>
                     <sort_order>20</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -96,28 +96,10 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </api_key>
-                        <product_compression translate="label comment">
-                            <label>Product images to be compressed</label>
-                            <sort_order>30</sort_order>
-                            <source_model>tig_tinypng/system_config_source_product_imageTypes</source_model>
-                            <frontend_type>multiselect</frontend_type>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </product_compression>
-                        <logging_mode translate="label comment">
-                            <label>Messages that sould be logged</label>
-                            <sort_order>40</sort_order>
-                            <source_model>tig_tinypng/system_config_source_log</source_model>
-                            <frontend_type>select</frontend_type>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </logging_mode>
                     </fields>
                 </settings>
                 <status translate="label">
-                    <label>TinyPNG Status</label>
+                    <label>Status</label>
                     <sort_order>30</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -156,6 +138,33 @@
                         </log_status>
                     </fields>
                 </status>
+                <advanced translate="label">
+                    <label>Advanced</label>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <product_compression translate="label comment">
+                            <label>Product images to be compressed</label>
+                            <sort_order>30</sort_order>
+                            <source_model>tig_tinypng/system_config_source_product_imageTypes</source_model>
+                            <frontend_type>multiselect</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </product_compression>
+                        <logging_mode translate="label comment">
+                            <label>Messages that sould be logged</label>
+                            <sort_order>40</sort_order>
+                            <source_model>tig_tinypng/system_config_source_log</source_model>
+                            <frontend_type>select</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </logging_mode>
+                    </fields>
+                </advanced>
             </groups>
         </tig_tinypng>
     </sections>

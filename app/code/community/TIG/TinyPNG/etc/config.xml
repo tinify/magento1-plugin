@@ -2,7 +2,8 @@
 <config>
     <modules>
         <TIG_TinyPNG>
-            <version>1.0.0</version>
+            <version>1.1.0</version>
+            <stability>beta</stability>
         </TIG_TinyPNG>
     </modules>
     <global>
@@ -27,6 +28,9 @@
                     <image>
                         <table>tig_tinypng_image</table>
                     </image>
+                    <totals>
+                        <table>tig_tinypng_totals</table>
+                    </totals>
                 </entities>
             </tig_tinypng_resource>
             <catalog>
@@ -54,6 +58,17 @@
             </catalog_product_image_save_after>
         </events>
     </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <tig_tinypng after="Mage_Adminhtml">TIG_TinyPNG</tig_tinypng>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
     <adminhtml>
         <layout>
             <updates>
@@ -88,10 +103,10 @@
             <settings>
                 <enabled>2</enabled>
             </settings>
-            <configuration>
-                <compression_quality>95</compression_quality>
+            <advanced>
+                <logging_mode>all</logging_mode>
                 <product_compression>thumbnail,small_image,image,media_image</product_compression>
-            </configuration>
+            </advanced>
         </tig_tinypng>
     </default>
 </config>

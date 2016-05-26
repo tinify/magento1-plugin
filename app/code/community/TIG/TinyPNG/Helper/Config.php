@@ -53,7 +53,7 @@ class TIG_TinyPNG_Helper_Config extends Mage_Core_Helper_Abstract
      *
      * @return int
      */
-    protected static function getEnabled($store = null)
+    protected function _getEnabled($store = null)
     {
         return Mage::getStoreConfig(self::XPATH_ENABLED, $store);
     }
@@ -65,9 +65,9 @@ class TIG_TinyPNG_Helper_Config extends Mage_Core_Helper_Abstract
      *
      * @return bool
      */
-    public static function isEnabled($store = null)
+    public function isEnabled($store = null)
     {
-        $enabledValue = self::getEnabled($store);
+        $enabledValue = $this->_getEnabled($store);
 
         if ($enabledValue != 0) {
             return true;
@@ -83,9 +83,9 @@ class TIG_TinyPNG_Helper_Config extends Mage_Core_Helper_Abstract
      *
      * @return bool
      */
-    public static function isTestMode($store = null)
+    public function isTestMode($store = null)
     {
-        $enabledValue = self::getEnabled($store);
+        $enabledValue = $this->_getEnabled($store);
 
         if ($enabledValue == 1) {
             return true;
@@ -99,13 +99,13 @@ class TIG_TinyPNG_Helper_Config extends Mage_Core_Helper_Abstract
      *
      * @return bool
      */
-    public static function isConfigured($store = null)
+    public function isConfigured($store = null)
     {
-        if (!self::isEnabled($store)) {
+        if (!$this->isEnabled($store)) {
             return false;
         }
 
-        if (!self::getApiKey($store)) {
+        if (!$this->getApiKey($store)) {
             return false;
         }
 
@@ -119,7 +119,7 @@ class TIG_TinyPNG_Helper_Config extends Mage_Core_Helper_Abstract
      *
      * @return string
      */
-    public static function getApiKey($store = null)
+    public function getApiKey($store = null)
     {
         return Mage::getStoreConfig(self::XPATH_API_KEY, $store);
     }
@@ -131,7 +131,7 @@ class TIG_TinyPNG_Helper_Config extends Mage_Core_Helper_Abstract
      *
      * @return mixed
      */
-    public static function isAutomaticCompressionEnabled($store = null)
+    public function isAutomaticCompressionEnabled($store = null)
     {
         return Mage::getStoreConfig(self::XPATH_AUTO_COMPRESS, $store);
     }
@@ -143,7 +143,7 @@ class TIG_TinyPNG_Helper_Config extends Mage_Core_Helper_Abstract
      *
      * @return mixed
      */
-    public static function getCompressQuality($store = null)
+    public function getCompressQuality($store = null)
     {
         return Mage::getStoreConfig(self::XPATH_COMPRESS_QUALITY, $store);
     }
@@ -155,7 +155,7 @@ class TIG_TinyPNG_Helper_Config extends Mage_Core_Helper_Abstract
      *
      * @return mixed
      */
-    public static function getProductImageTypesToCompress($store = null)
+    public function getProductImageTypesToCompress($store = null)
     {
         return Mage::getStoreConfig(self::XPATH_PRODUCT_IMAGES_TYPES, $store);
     }
@@ -167,7 +167,7 @@ class TIG_TinyPNG_Helper_Config extends Mage_Core_Helper_Abstract
      *
      * @return mixed
      */
-    public static function getCmsImageTypesToCompress($store = null)
+    public function getCmsImageTypesToCompress($store = null)
     {
         return Mage::getStoreConfig(self::XPATH_CMS_IMAGES_TYPES, $store);
     }
@@ -179,7 +179,7 @@ class TIG_TinyPNG_Helper_Config extends Mage_Core_Helper_Abstract
      *
      * @return mixed
      */
-    public static function getLoggingMode($store = null)
+    public function getLoggingMode($store = null)
     {
         return Mage::getStoreConfig(self::XPATH_LOGGING_MODE, $store);
     }

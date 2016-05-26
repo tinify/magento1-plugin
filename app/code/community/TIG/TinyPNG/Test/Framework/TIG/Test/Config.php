@@ -33,55 +33,77 @@
  * versions in the future. If you wish to customize this module for your
  * needs please contact servicedesk@tig.nl for more information.
  *
- * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.tig.nl)
+ * @copyright   Copyright (c) 2015 Total Internet Group B.V. (http://www.tig.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
-class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_SupportTab
-    extends Mage_Adminhtml_Block_Abstract
-    implements Varien_Data_Form_Element_Renderer_Interface
+class TIG_TinyPNG_Test_Framework_TIG_Test_Config extends Mage_Core_Model_Config
 {
+    /**
+     * @var array
+     */
+    protected $_mockModels = array();
 
     /**
-     * Template file used
-     *
-     * @var string
+     * @var array
      */
-    protected $_template = 'TIG/TinyPNG/system/config/form/field/support_tab.phtml';
+    protected $_mockResourceModels = array();
 
     /**
-     * Render fieldset html
+     * @param string $modelClass
+     * @param object $mock
      *
-     * @param Varien_Data_Form_Element_Abstract $element
-     * @return string
+     * @return $this
      */
-    public function render(Varien_Data_Form_Element_Abstract $element)
+    public function setModelMock($modelClass, $mock)
     {
-        $this->setElement($element);
-
-        return $this->toHtml();
+        $this->_mockModels[$modelClass] = $mock;
+        return $this;
     }
 
     /**
-     * Get the current version of the PostNL extension's code base.
+     * @param string $modelClass
+     * @param object $mock
      *
-     * @return string
+     * @return $this
      */
-    public function getModuleVersion()
+    public function setResourceModelMock($modelClass, $mock)
     {
-        $version = (string) Mage::getConfig()->getModuleConfig('TIG_TinyPNG')->version;
-
-        return $version;
+        $this->_mockResourceModels[$modelClass] = $mock;
+        return $this;
     }
 
     /**
-     * Get the current stability of the PostNL extension's code base.
+     * @param string $modelClass
+     * @param array  $constructArguments
      *
-     * @return string
+     * @return false|Mage_Core_Model_Abstract
      */
-    public function getModuleStability()
+    public function getModelInstance($modelClass = '', $constructArguments = array())
     {
-        $stability = (string) Mage::getConfig()->getModuleConfig('TIG_TinyPNG')->stability;
+        $modelClass = (string) $modelClass;
 
-        return $stability;
+        if (array_key_exists($modelClass, $this->_mockModels)) {
+            return $this->_mockModels[$modelClass];
+        }
+
+        return parent::getModelInstance($modelClass, $constructArguments);
+    }
+
+    /**
+     * Get resource model object by alias
+     *
+     * @param   string $modelClass
+     * @param   array $constructArguments
+     * @return  object
+     */
+    public function getResourceModelInstance($modelClass='', $constructArguments = array())
+    {
+        $modelClass = (string) $modelClass;
+
+        if (array_key_exists($modelClass, $this->_mockResourceModels)) {
+            return $this->_mockResourceModels[$modelClass];
+        }
+
+        return parent::getResourceModelInstance($modelClass, $constructArguments);
     }
 }

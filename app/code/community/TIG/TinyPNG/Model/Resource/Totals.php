@@ -36,46 +36,15 @@
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
-class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Status extends Varien_Data_Form_Element_Abstract
+class TIG_TinyPNG_Model_Resource_Totals extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * @var TIG_TinyPNG_Helper_Data
-     */
-    protected $_helper = null;
-
-    /**
-     * The constructor
-     */
-    public function __construct($attributes = array())
-    {
-        parent::__construct($attributes);
-
-        $this->_helper = Mage::helper('tig_tinypng');
-    }
-
-    /**
-     * Generate the status for the TinyPNG extension.
+     * Define main table and id field name.
      *
-     * @return string
+     * @return void
      */
-    public function getElementHtml()
+    protected function _construct()
     {
-        // TODO: Find a method to determine whether to use our or Tinify's compression count
-        $compressionCount = Mage::helper('tig_tinypng/tinify')->compressionCount();
-
-        if ($compressionCount == 0 || $compressionCount == 500) {
-            $button
-                = '<a href="https://tinypng.com/developers/subscription" target="_blank" class="tig-tinypng-button tig-tinypng-button-orange tig-tinypng-button-external">Upgrade</a>';
-
-            $onhold = $this->_helper->__('Compression on hold. 500 free images compressed this month.');
-            $upgrade = $this->_helper->__('Upgrade your account to compress more images');
-
-            return '<span class="tinypng-api-deactivated">' . $onhold . '</span>' . $upgrade . '<br>' . $button;
-        }
-
-        return $this->_helper->__(
-            'There are %s compressions done this month.',
-            $compressionCount
-        );
+        $this->_init('tig_tinypng/totals', 'entity_id');
     }
 }

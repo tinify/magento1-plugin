@@ -45,12 +45,13 @@ class TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_Saved extends Varien_
      */
     public function getElementHtml()
     {
-        $data = Mage::getModel('tig_tinypng/image')->getStatistics();
+        $data = Mage::getModel('tig_tinypng/totals')->getTotalCompressionInformation();
 
         return Mage::helper('tig_tinypng')->__(
-            'We saved %s%% this month! The greatest compression was %s%%.',
-            round($data->percentage_saved),
-            round($data->greatest_saving)
+            'Saved %s%% over a total of %s compressions',
+            $data['percentageSaved'],
+            $data['totalCompressions']
         );
+
     }
 }

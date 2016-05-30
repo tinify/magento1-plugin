@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<config>
-    <modules>
-        <TIG_TinyPNG>
-            <active>true</active>
-            <codePool>community</codePool>
-        </TIG_TinyPNG>
-    </modules>
-</config>

@@ -43,7 +43,7 @@ class TIG_TinyPNG_Model_Product_Image extends Mage_Catalog_Model_Product_Image
      *
      * @var int
      */
-    protected $_quality = 95;
+    protected $_quality = 85;
 
     /**
      * @return Mage_Catalog_Model_Product_Image $this

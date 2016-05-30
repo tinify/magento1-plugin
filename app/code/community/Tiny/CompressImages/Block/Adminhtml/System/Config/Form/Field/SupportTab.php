@@ -68,7 +68,7 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_SupportTab
      */
     public function getModuleVersion()
     {
-        $version = (string) Mage::getConfig()->getModuleConfig('TIG_TinyPNG')->version;
+        $version = (string) Mage::getConfig()->getModuleConfig('Tiny_CompressImages')->version;
 
         return $version;
     }
@@ -80,7 +80,7 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_SupportTab
      */
     public function getModuleStability()
     {
-        $stability = (string) Mage::getConfig()->getModuleConfig('TIG_TinyPNG')->stability;
+        $stability = (string) Mage::getConfig()->getModuleConfig('Tiny_CompressImages')->stability;
 
         return $stability;
     }

@@ -53,7 +53,7 @@
     <td>
         <h2 class="content-heading">
             <?php echo $this->__('TinyPNG %s', $_version);?>
-            <?php if ($_stability != 'stable'): ?>
+            <?php if (!empty($_stability) && $_stability != 'stable'): ?>
             - <?php echo $_stability; ?>
             <?php endif; ?>
         </h2>

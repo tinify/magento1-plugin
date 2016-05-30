@@ -4,6 +4,6 @@ app/design/adminhtml/default/default/template/TIG/TinyPNG/
 app/etc/modules/Tiny_CompressImages.xml
 app/locale/en_US/TIG_TinyPNG.csv
 app/locale/nl_NL/TIG_TinyPNG.csv
-lib/tinify-php/
+lib/TinyCompress/
 skin/adminhtml/default/default/css/TIG/TinyPNG/
 skin/adminhtml/default/default/images/TIG/TinyPNG/

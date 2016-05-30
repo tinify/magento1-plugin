@@ -42,6 +42,7 @@
         <resources>
             <tig_tinypng_setup>
                 <setup>
+                    <class>Tiny_CompressImages_Model_Resource_Setup</class>
                     <module>Tiny_CompressImages</module>
                 </setup>
             </tig_tinypng_setup>

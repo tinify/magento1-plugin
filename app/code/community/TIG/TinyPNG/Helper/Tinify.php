@@ -405,6 +405,11 @@ class TIG_TinyPNG_Helper_Tinify extends Mage_Core_Helper_Abstract
         $model->setBytesAfter($this->bytesAfter);
         $model->setProcessedAt(Varien_Date::now());
         $model->setUsedAsSource(1);
+
+        if ($this->configHelper->isTestMode($this->storeId)) {
+            $model->setIsTest(1);
+        }
+
         $model->save();
 
         $this->setTotalSavings();

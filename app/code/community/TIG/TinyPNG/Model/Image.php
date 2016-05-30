@@ -52,6 +52,8 @@
  * @method int|null getUsedAsSource();
  * @method $this setProcessedAt(String $date);
  * @method string|null getProcessedAt();
+ * @method $this setIsTest(int $testMode);
+ * @method string|null getIsTest();
  */
 class TIG_TinyPNG_Model_Image extends Mage_Core_Model_Abstract
 {
@@ -233,8 +235,26 @@ class TIG_TinyPNG_Model_Image extends Mage_Core_Model_Abstract
      */
     public function deleteAll()
     {
-        $models = $this->getCollection();
-        Mage::getSingleton('core/resource_iterator')->walk($models->getSelect(), array( function ($args) {
+        $collection = $this->getCollection();
+
+        Mage::getSingleton('core/resource_iterator')->walk($collection->getSelect(), array( function ($args) {
+            Mage::getModel('tig_tinypng/image')->load($args['row']['image_id'])->delete();
+        }));
+
+        return $this;
+    }
+
+    /**
+     * Delete all models
+     *
+     * @return $this
+     */
+    public function deleteTest()
+    {
+        $collection = $this->getCollection();
+        $collection->addFieldToFilter('is_test', '1');
+
+        Mage::getSingleton('core/resource_iterator')->walk($collection->getSelect(), array( function ($args) {
             Mage::getModel('tig_tinypng/image')->load($args['row']['image_id'])->delete();
         }));
 

@@ -53,7 +53,7 @@ class TIG_TinyPNG_Model_System_Config_Backend_Enabled extends Mage_Core_Model_Co
          * Changing from test mode to a other mode. Delete all models.
          */
         if ($value != $oldValue && $oldValue == 1) {
-            Mage::getModel('tig_tinypng/image')->deleteAll();
+            Mage::getModel('tig_tinypng/image')->deleteTest();
         }
 
         return parent::_beforeSave();

@@ -255,7 +255,7 @@ class ImageTest extends TIG_TinyPNG_Test_Framework_TIG_Test_TestCase
     }
 
     /**
-     * Test the deleteAll method.
+     * Test the deleteTest method.
      */
     public function testDeleteAll()
     {

@@ -124,7 +124,7 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
      */
     protected function _registerAutoloader()
     {
-        require_once(Mage::getBaseDir('lib') . '/tinify-php/lib/Tinify.php');
+        require_once(Mage::getBaseDir('lib') . '/TinyCompress/lib/Tinify.php');
 
         spl_autoload_register( array($this, 'load'), true, true );
 
@@ -161,7 +161,7 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
         /**
          * Base directory for the namespace prefix
          */
-        $base_dir = Mage::getBaseDir('lib') . '/tinify-php/lib/';
+        $base_dir = Mage::getBaseDir('lib') . '/TinyCompress/lib/';
 
         if (strpos($class, $prefix) !== 0) {
             /**

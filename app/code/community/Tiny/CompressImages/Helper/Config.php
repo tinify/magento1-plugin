@@ -36,7 +36,6 @@ class Tiny_CompressImages_Helper_Config extends Mage_Core_Helper_Abstract
      */
     const XPATH_ENABLED              = 'tig_tinypng/settings/enabled';
     const XPATH_API_KEY              = 'tig_tinypng/settings/api_key';
-    //const XPATH_PRODUCT_IMAGES_TYPES = 'tig_tinypng/settings/product_compression';
     const XPATH_IMAGE_TYPE_BASE     = 'tig_tinypng/settings/base_images';
     const XPATH_IMAGE_TYPE_SMALL     = 'tig_tinypng/settings/small_images';
     const XPATH_IMAGE_TYPE_THUMBNAIL = 'tig_tinypng/settings/thumbnails';

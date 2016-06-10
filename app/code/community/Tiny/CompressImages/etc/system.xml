@@ -91,6 +91,56 @@
                         </api_key>
                     </fields>
                 </settings>
+                <image_types translate="label">
+                    <label>Image Types to Optimize</label>
+                    <comment>Choose which generated image types should be optimized with TinyPNG or TinyJPG. Each selected image size counts as one compression in your compression total.</comment>
+                    <sort_order>25</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <base_images translate="label comment tooltip">
+                            <label>Base Images</label>
+                            <frontend_type>select</frontend_type>
+                            <comment>Large images on product pages.</comment>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </base_images>
+                        <small_images translate="label comment tooltip">
+                            <label>Small Images</label>
+                            <comment>Smaller images on category pages, in list of recently viewed product, new product lists, upsells, wish lists, etc.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </small_images>
+                        <thumbnails translate="label comment tooltip">
+                            <label>Thumbnails</label>
+                            <comment>Thumbnail-sized images in product image galleries, sidebars, widgets, RSS feeds, etc.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </thumbnails>
+                        <swatches>
+                            <label>Swatches</label>
+                            <comment>Small images used to select product attributes.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </swatches>
+                    </fields>
+                </image_types>
                 <status translate="label">
                     <label>Status</label>
                     <sort_order>30</sort_order>
@@ -138,15 +188,6 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <product_compression translate="label comment">
-                            <label>Product images to be compressed</label>
-                            <sort_order>30</sort_order>
-                            <source_model>tig_tinypng/system_config_source_product_imageTypes</source_model>
-                            <frontend_type>multiselect</frontend_type>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </product_compression>
                         <logging_mode translate="label comment">
                             <label>Messages that sould be logged</label>
                             <sort_order>40</sort_order>

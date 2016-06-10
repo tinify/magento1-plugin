@@ -36,7 +36,11 @@ class Tiny_CompressImages_Helper_Config extends Mage_Core_Helper_Abstract
      */
     const XPATH_ENABLED              = 'tig_tinypng/settings/enabled';
     const XPATH_API_KEY              = 'tig_tinypng/settings/api_key';
-    const XPATH_PRODUCT_IMAGES_TYPES = 'tig_tinypng/settings/product_compression';
+    //const XPATH_PRODUCT_IMAGES_TYPES = 'tig_tinypng/settings/product_compression';
+    const XPATH_IMAGE_TYPE_BASE     = 'tig_tinypng/settings/base_images';
+    const XPATH_IMAGE_TYPE_SMALL     = 'tig_tinypng/settings/small_images';
+    const XPATH_IMAGE_TYPE_THUMBNAIL = 'tig_tinypng/settings/thumbnails';
+    const XPATH_IMAGE_TYPE_SWATCHES  = 'tig_tinypng/settings/swatches';
     const XPATH_LOGGING_MODE         = 'tig_tinypng/settings/logging_mode';
 
     /**
@@ -142,7 +146,56 @@ class Tiny_CompressImages_Helper_Config extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Returns a comma separeted list of image types that can be compressed by TinyPNG
+     * Lets you know if base images should be compressed.
+     *
+     * @param null $store
+     *
+     * @return mixed
+     */
+    public function isBaseImageTypeEnabledForCompression($store = null)
+    {
+        return Mage::getStoreConfig(self::XPATH_IMAGE_TYPE_BASE, $store);
+    }
+
+    /**
+     * Lets you know if small images should be compressed.
+     *
+     * @param null $store
+     *
+     * @return mixed
+     */
+    public function isSmallImageTypeEnabledForCompression($store = null)
+    {
+        return Mage::getStoreConfig(self::XPATH_IMAGE_TYPE_SMALL, $store);
+    }
+
+    /**
+     * Lets you know if thumbnail-sized images should be compressed.
+     *
+     * @param null $store
+     *
+     * @return mixed
+     */
+    public function isThumbnailTypeEnabledForCompression($store = null)
+    {
+        return Mage::getStoreConfig(self::XPATH_IMAGE_TYPE_THUMBNAIL, $store);
+    }
+
+    /**
+     * Lets you know if swachtes (small images used to select product attributes) images should be compressed.
+     *
+     * @param null $store
+     *
+     * @return mixed
+     */
+    public function isSwatchTypeEnabledForCompression($store = null)
+    {
+        return Mage::getStoreConfig(self::XPATH_IMAGE_TYPE_SWATCHES, $store);
+    }
+
+
+    /**
+     * Returns an array of image types that can be compressed by TinyPNG
      *
      * @param null $store
      *
@@ -150,7 +203,26 @@ class Tiny_CompressImages_Helper_Config extends Mage_Core_Helper_Abstract
      */
     public function getProductImageTypesToCompress($store = null)
     {
-        return Mage::getStoreConfig(self::XPATH_PRODUCT_IMAGES_TYPES, $store);
+        $imageTypes = array();
+
+        if ($this->isBaseImageTypeEnabledForCompression($store)) {
+            $imageTypes[] = 'image';
+        }
+
+        if ($this->isSmallImageTypeEnabledForCompression($store)) {
+            $imageTypes[] = 'small_image';
+        }
+
+        if ($this->isThumbnailTypeEnabledForCompression($store)) {
+            $imageTypes[] = 'thumbnail';
+            $imageTypes[] = 'media_image';
+        }
+
+        if ($this->isSwatchTypeEnabledForCompression($store)) {
+            $imageTypes[] = 'swatches';
+        }
+
+        return $imageTypes;
     }
 
     /**

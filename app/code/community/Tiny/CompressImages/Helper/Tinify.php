@@ -509,7 +509,7 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
 
         $typesAllowed = $this->configHelper->getProductImageTypesToCompress($this->storeId);
 
-        if (in_array($imageDestination, explode(',', $typesAllowed))) {
+        if (in_array($imageDestination, $typesAllowed)) {
             return true;
         }
 

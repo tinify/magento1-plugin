@@ -45,6 +45,41 @@ $images = $_tinify->getCompressionStatus();
 ?>
 <tr>
     <td colspan="4">
+        <table cellspacing="5" class="form-list">
+            <tr>
+                <td>
+                    <h5><?php echo $this->__('Images are optimized each time Magento generates new product images in the image cache folder')?></h5>
+
+                    <p><?php
+                        echo $this->__(
+                            'If you have never used the extension before you should flush the product images cache. Magento will
+                            generate new product images that will be automatically optimized. You will only need to flush the cache
+                            once, any new products will be automatically optimized in future.'
+                        );
+                    ?></p>
+
+                    <button onclick="setLocation('<?php echo $this->getCleanImagesUrl()?>')" type="button" class="scalable">
+                        <span><span><span><?php echo Mage::helper('adminhtml')->__('Flush Catalog Images Cache') ?></span></span></span>
+                    </button>
+
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+
+<?php $data = Mage::getModel('tig_tinypng/totals')->getTotalCompressionInformation();?>
+<tr>
+    <td>
+        <?php echo Mage::helper('tig_tinypng')->__(
+            'Saved %s%% over a total of %s compressions',
+            $data['percentageSaved'],
+            $data['totalCompressions']
+        ); ?>
+    </td>
+</tr>
+<tr>
+    <td colspan="4">
         <table id="tig_tinypng_compression">
             <thead>
                 <tr>
@@ -104,12 +139,9 @@ $images = $_tinify->getCompressionStatus();
         <td colspan="5">
             <table cellspacing="0" class="form-list">
                 <tr id="row_tig_tinypng_status_usage">
-                    <td class="label">
-                        <label for="tig_tinypng_status_usage"><?php echo $this->__('Download TinyPNG log file'); ?></label>
-                    </td>
-                    <td class="value">
-                        <a class="tig-tinypng-button" href="<?php echo $downloadUrl; ?>"><?php echo $this->__('Download log file'); ?></a>
-                    </td>
+                    <button onclick="setLocation('<?php echo $downloadUrl?>')" type="button" class="scalable">
+                        <span><span><span><?php echo $this->__('Download TinyPNG log file') ?></span></span></span>
+                    </button>
                 </tr>
             </table>
         </td>

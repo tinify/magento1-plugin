@@ -32,6 +32,11 @@
  */
 -->
 <layout>
+    <default>
+        <reference name="notifications">
+            <block type="tig_tinypng/adminhtml_apiNotification" name="tig_tinypng_api_key_notification" template="TIG/TinyPNG/Api/keyNotification.phtml"/>
+        </reference>
+    </default>
     <adminhtml_system_config_edit>
         <reference name="head">
             <action method="addItem">

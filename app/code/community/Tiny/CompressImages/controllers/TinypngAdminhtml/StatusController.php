@@ -55,8 +55,8 @@ class Tiny_CompressImages_TinypngAdminhtml_StatusController extends Mage_Adminht
 
         $cacheData = array();
         if ($isConfigured && $isValidated) {
-            $message = '<span class="tinypng_status_success">'
-                . Mage::helper('tig_tinypng')->__('Operational')
+            $message = '<span class="tinypng_status_success"><span class="apisuccess"></span>'
+                . Mage::helper('tig_tinypng')->__('API connection successful')
                 . '</span>';
 
             $cacheData['status'] = 'operational';

@@ -47,8 +47,8 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_Api extends V
 
             switch ($apiStatusCacheData['status']) {
                 case 'operational':
-                    $message = '<span class="tinypng_status_success">'
-                        . Mage::helper('tig_tinypng')->__('Operational')
+                    $message = '<span class="tinypng_status_success"><span class="apisuccess"></span>'
+                        . Mage::helper('tig_tinypng')->__('API connection successful')
                         . '</span>';
                     break;
                 case 'nonoperational':
@@ -59,9 +59,8 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_Api extends V
             }
         }
 
-        $button = '<a href="#" id="tinypng_check_status" class="tig-tinypng-button" title="' . $_helper->__('Check status') . '">'
-            . $_helper->__('Check status')
-            . '</a>';
+        $button  = '<button type="button" id="tinypng_check_status" class="scalable">';
+        $button .= '<span><span><span>'.$_helper->__('Check status').'</span></span></span></button>';
 
         $message = '<span id="tinypng_api_status">' . $message . '</span><br>';
         $message .= $button;
@@ -88,6 +87,7 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_Api extends V
                                 onSuccess: function (data) {
                                     var result = data.responseText.evalJSON(true);
                                     if (result.status == "success") {
+                                        element.hide();
                                         $("tinypng_api_status").innerHTML = result.message;
                                     }
                                 }

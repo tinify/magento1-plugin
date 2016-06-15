@@ -82,6 +82,11 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
     protected $bytesAfter = 0;
 
     /**
+     * @var null|int $parendId
+     */
+    protected $parendId = null;
+
+    /**
      * @var Tiny_CompressImages_Helper_Data $helper
      */
     protected $helper;
@@ -397,6 +402,7 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
         /** @var Tiny_CompressImages_Model_Image */
         $model = Mage::getModel('tig_tinypng/image');
         $model->setPath($path);
+        $model->setImageType($this->destinationSubdir);
         $model->setHashBefore($this->hashBefore);
         $model->setHashAfter($this->hashAfter);
         $model->setBytesBefore($this->bytesBefore);

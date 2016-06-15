@@ -33,6 +33,8 @@
 /**
  * @method $this setPath(String $path);
  * @method string|null getPath();
+ * @method $this setImageType(String $type);
+ * @method string|null getImageType();
  * @method $this setHashBefore(String $hash);
  * @method string|null getHashBefore();
  * @method $this setHashAfter(String $hash);

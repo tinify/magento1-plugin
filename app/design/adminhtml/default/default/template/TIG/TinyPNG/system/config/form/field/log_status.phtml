@@ -69,6 +69,7 @@ $images = $_tinify->getCompressionStatus();
 </tr>
 
 <?php $data = Mage::getModel('tig_tinypng/totals')->getTotalCompressionInformation();?>
+<?php if ($data['totalCompressions'] > 0) :?>
 <tr>
     <td>
         <?php echo Mage::helper('tig_tinypng')->__(
@@ -78,6 +79,7 @@ $images = $_tinify->getCompressionStatus();
         ); ?>
     </td>
 </tr>
+<?php endif; ?>
 <tr>
     <td colspan="4">
         <table id="tig_tinypng_compression" cellspacing="5">

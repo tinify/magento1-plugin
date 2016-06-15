@@ -80,16 +80,7 @@ $images = $_tinify->getCompressionStatus();
 </tr>
 <tr>
     <td colspan="4">
-        <table id="tig_tinypng_compression">
-            <thead>
-                <tr>
-                    <th class="title-file"><?php echo $this->__('File') ?></th>
-                    <th class="info_box title-original"><?php echo $this->__('Original') ?></th>
-                    <th class="info_box title-now"><?php echo $this->__('Now') ?></th>
-                    <th class="info_box title-saved"><?php echo $this->__('Saved') ?></th>
-                    <th class="info_box title-time"><?php echo $this->__('Time') ?></th>
-                </tr>
-            </thead>
+        <table id="tig_tinypng_compression" cellspacing="5">
             <?php $i = 0; ?>
             <?php if ($images->count()): ?>
                 <?php foreach ($images as $image): ?>
@@ -104,9 +95,17 @@ $images = $_tinify->getCompressionStatus();
                                 <img src="<?php echo $image->getImageUrl(); ?>">
                             </a>
                         </td>
-                        <td class="info_box"><?php echo $_helper->fileSize($image->getBytesBefore()); ?></td>
-                        <td class="info_box"><?php echo $_helper->fileSize($image->getBytesAfter()); ?></td>
-                        <td class="info_box tig_tinypng_saved"><?php echo $image->getPercentageSaved(); ?></td>
+                        <td class="info_box"><?php echo $image->getImageType(); ?></td>
+                        <td class="info_box tig_tinypng_saved">
+                            <?php echo $image->getPercentageSaved(); ?> saved (<?php echo $_helper->fileSize($image->getBytesBefore()). ' / '. $_helper->fileSize($image->getBytesAfter()); ?>)
+                        </td>
+                        <td class="info_box">
+                            <?php if ($image->getUsedAtSource()) : ?>
+                                <?php echo $this->__('Duplicate image'); ?>
+                            <?php elseif($image->getParentId()) :?>
+                                <?php echo $this->__('Optimized previously'); ?>
+                            <?php endif;?>
+                        </td>
                         <td class="info_box"><?php echo $image->getTimeAgo(); ?></td>
                     </tr>
                 <?php endforeach; ?>

@@ -152,14 +152,6 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <!--<saved>-->
-                            <!--<label>Saved</label>-->
-                            <!--<sort_order>40</sort_order>-->
-                            <!--<frontend_type>tinypng_saved</frontend_type>-->
-                            <!--<show_in_default>1</show_in_default>-->
-                            <!--<show_in_website>1</show_in_website>-->
-                            <!--<show_in_store>1</show_in_store>-->
-                        <!--</saved>-->
                         <log_status>
                             <sort_order>40</sort_order>
                             <frontend_model>tig_tinypng/adminhtml_system_config_form_field_logStatus</frontend_model>

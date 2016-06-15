@@ -97,16 +97,28 @@
                     </tig_tinypng_delete_models>
                 </observers>
             </clean_catalog_images_cache_after>
+            <controller_action_layout_render_before_adminhtml_system_config_edit>
+                <observers>
+                    <tig_tinypng_add_download_log_button>
+                        <type>model</type>
+                        <class>tig_tinypng/adminhtml_observer_systemConfig</class>
+                        <method>addDownloadLogButton</method>
+                    </tig_tinypng_add_download_log_button>
+                </observers>
+            </controller_action_layout_render_before_adminhtml_system_config_edit>
         </events>
     </adminhtml>
     <default>
         <tig_tinypng>
-            <settings>
-                <enabled>2</enabled>
-            </settings>
+            <image_types>
+                <base_images>1</base_images>
+                <small_images>1</small_images>
+                <thumbnails>1</thumbnails>
+                <swatches>1</swatches>
+            </image_types>
             <advanced>
                 <logging_mode>all</logging_mode>
-                <product_compression>thumbnail,small_image,image,media_image</product_compression>
+                <enabled>2</enabled>
             </advanced>
         </tig_tinypng>
     </default>

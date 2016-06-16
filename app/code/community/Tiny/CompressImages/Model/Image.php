@@ -49,6 +49,8 @@
  * @method string|null getProcessedAt();
  * @method $this setIsTest(int $testMode);
  * @method string|null getIsTest();
+ * @method $this setCompressedBefore(int $compressedBefore);
+ * @method int|null getCompressedBefore();
  */
 class Tiny_CompressImages_Model_Image extends Mage_Core_Model_Abstract
 {

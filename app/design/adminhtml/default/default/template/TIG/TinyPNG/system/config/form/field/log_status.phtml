@@ -85,6 +85,7 @@ $images = $_tinify->getCompressionStatus();
         <table id="tig_tinypng_compression" cellspacing="5">
             <?php $i = 0; ?>
             <?php if ($images->count()): ?>
+                <?php /** Tiny_CompressImages_Model_Image $image */?>
                 <?php foreach ($images as $image): ?>
                     <?php $i++; ?>
                     <?php if ($i > 10): ?>
@@ -102,9 +103,7 @@ $images = $_tinify->getCompressionStatus();
                             <?php echo $image->getPercentageSaved(); ?> saved (<?php echo $_helper->fileSize($image->getBytesBefore()). ' / '. $_helper->fileSize($image->getBytesAfter()); ?>)
                         </td>
                         <td class="info_box">
-                            <?php if ($image->getUsedAtSource()) : ?>
-                                <?php echo $this->__('Duplicate image'); ?>
-                            <?php elseif($image->getParentId()) :?>
+                            <?php if($image->getCompressedBefore()) :?>
                                 <?php echo $this->__('Optimized previously'); ?>
                             <?php endif;?>
                         </td>

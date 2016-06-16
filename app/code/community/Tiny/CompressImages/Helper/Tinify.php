@@ -399,8 +399,9 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
 
             $this->_saveCompression();
 
-            // Reset parent id
-            $this->parentId = null;
+            // Reset parent id and used at source.
+            $this->parentId       = null;
+            $this->isUsedAtSource = 1;
 
             $this->setTotalSavings();
 

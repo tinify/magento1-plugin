@@ -103,9 +103,11 @@ $images = $_tinify->getCompressionStatus();
                             <?php echo $image->getPercentageSaved(); ?> saved (<?php echo $_helper->fileSize($image->getBytesBefore()). ' / '. $_helper->fileSize($image->getBytesAfter()); ?>)
                         </td>
                         <td class="info_box">
-                            <?php if($image->getCompressedBefore()) :?>
+                            <?php if ($image->getCompressedBefore()) : ?>
                                 <?php echo $this->__('Optimized previously'); ?>
-                            <?php endif;?>
+                            <?php elseif ($image->getParentId()) :?>
+                                <?php echo $this->__('Duplicate image'); ?>
+                            <?php endif; ?>
                         </td>
                         <td class="info_box"><?php echo $image->getTimeAgo(); ?></td>
                     </tr>

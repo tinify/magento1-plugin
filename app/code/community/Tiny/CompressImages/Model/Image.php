@@ -51,6 +51,8 @@
  * @method string|null getIsTest();
  * @method $this setCompressedBefore(int $compressedBefore);
  * @method int|null getCompressedBefore();
+ * @method $this setParentId(int $parentId);
+ * @method int|null getParentId();
  */
 class Tiny_CompressImages_Model_Image extends Mage_Core_Model_Abstract
 {

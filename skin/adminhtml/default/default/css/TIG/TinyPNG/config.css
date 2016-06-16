@@ -134,8 +134,24 @@
 }
 
 .tig-tinypng-button-orange {
-    border-color: orange !important;
-    background: orange !important;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ed6502 #a04300 #a04300 #ed6502;
+    padding: 2px 7px 3px 7px;
+    background: #ffac47 url('../../../images/TIG/TinyPNG/btn_bg.gif') repeat-x 0 100%;
+    color: #fff;
+    font: bold 12px arial, helvetica, sans-serif;
+    cursor: pointer;
+    text-align: center !important;
+    white-space: nowrap;
+    line-height: 2em;
+    text-decoration: none;
+}
+
+.tig-tinypng-button-orange:hover{
+    color: #fff;
+    text-decoration: none;
+    background: #f77c16 url('../../../images/TIG/TinyPNG/btn_over_bg.gif') repeat-x 0 0;
 }
 
 .tig-tinypng-button:hover {

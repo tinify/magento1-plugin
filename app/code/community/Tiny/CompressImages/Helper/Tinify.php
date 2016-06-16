@@ -84,14 +84,19 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
     protected $bytesAfter = 0;
 
     /**
-     * @var null|int $parendId
+     * @var null|int $parentId
      */
-    protected $parendId = null;
+    protected $parentId = null;
 
     /**
      * @var bool $isCompressedBefore
      */
     protected $isCompressedBefore = false;
+
+    /**
+     * @var int $isUsedAtSource
+     */
+    protected $isUsedAtSource = 1;
 
     /**
      * @var Tiny_CompressImages_Helper_Data $helper
@@ -384,8 +389,19 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
                 return true;
             }
 
-            $this->bytesAfter  = $model->getBytesAfter();
-            $this->bytesBefore = $model->getBytesBefore();
+            $this->hashBefore         = $model->getHashBefore();
+            $this->hashAfter          = $model->getHashAfter();
+            $this->bytesAfter         = $model->getBytesAfter();
+            $this->bytesBefore        = $model->getBytesBefore();
+            $this->isUsedAtSource     = $model->getUsedAsSource();
+            $this->parentId           = $model->getId();
+            $this->isCompressedBefore = false;
+
+            $this->_saveCompression();
+
+            // Reset parent id and used at source.
+            $this->parentId       = null;
+            $this->isUsedAtSource = 1;
 
             $this->setTotalSavings();
 
@@ -452,12 +468,13 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
         $model->setBytesBefore($this->bytesBefore);
         $model->setBytesAfter($this->bytesAfter);
         $model->setProcessedAt(Varien_Date::now());
-        $model->setUsedAsSource(1);
+        $model->setUsedAsSource($this->isUsedAtSource);
 
         if ($this->configHelper->isTestMode($this->storeId)) {
             $model->setIsTest(1);
         }
 
+        $model->setParentId($this->parentId);
         $model->setCompressedBefore($this->isCompressedBefore);
 
         $model->save();

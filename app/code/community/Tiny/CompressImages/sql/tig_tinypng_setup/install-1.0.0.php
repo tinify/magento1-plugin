@@ -129,7 +129,7 @@ if (!$connection->isTableExists($tableName)) {
             'Is this image processed in test mode?'
         )
         ->addColumn(
-            'parent_id',
+            'compressed_before',
             Varien_Db_Ddl_Table::TYPE_INTEGER,
             null,
             'Has parent image'

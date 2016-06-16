@@ -39,6 +39,27 @@ class Tiny_CompressImages_Model_Product_Image extends Mage_Catalog_Model_Product
     protected $_quality = 85;
 
     /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        $baseDir  = Mage::getBaseDir('media');
+        $tinyPath = substr(Tiny_CompressImages_Helper_Tinify::TINY_COMPRESSIMAGES_MEDIA_DIRECTORY.DS, 1);
+
+        $path = str_replace(
+            $baseDir . DS,
+            $tinyPath,
+            $this->_newFile
+        );
+
+        if (!file_exists(Mage::getBaseDir(). '/' .str_replace(DS, '/', $path))) {
+            return parent::getUrl();
+        }
+
+        return Mage::getBaseUrl() . str_replace(DS, '/', $path);
+    }
+
+    /**
      * @return Mage_Catalog_Model_Product_Image $this
      */
     public function saveFile()

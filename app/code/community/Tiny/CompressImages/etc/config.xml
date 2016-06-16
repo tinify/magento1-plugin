@@ -97,15 +97,6 @@
                     </tig_tinypng_delete_models>
                 </observers>
             </clean_catalog_images_cache_after>
-            <controller_action_layout_render_before_adminhtml_system_config_edit>
-                <observers>
-                    <tig_tinypng_add_download_log_button>
-                        <type>model</type>
-                        <class>tig_tinypng/adminhtml_observer_systemConfig</class>
-                        <method>addDownloadLogButton</method>
-                    </tig_tinypng_add_download_log_button>
-                </observers>
-            </controller_action_layout_render_before_adminhtml_system_config_edit>
         </events>
     </adminhtml>
     <default>

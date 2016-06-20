@@ -14,15 +14,29 @@
 /* ======== Logo / Identity ======== */
 
 /* logo in title bar */
-#tig_tinypng_support .content-heading { background     :url('../../../images/TIG/TinyPNG/tinypng.png') no-repeat 0 6px !important; background-size: auto 20px !important; line-height: 35px; padding-left: 80px; padding-bottom: 5px; }
+#tig_tinypng_support .content-heading {     background: url('../../../images/TIG/TinyPNG/george-menu-icon@2x.png') no-repeat 0 0px !important;
+    background-size: auto 40px !important;
+    line-height: 40px;
+    padding-left: 50px;
+    padding-bottom: 5px;
+}
 
 /* logo in left column */
 .tig-tinypng-section { position: relative; line-height: 24px; }
-.tig-tinypng-section span { padding-left: 60px !important; }
-.tig-tinypng-section:after { content: ''; display: block; position: absolute; top: 0; left: 18px; height: 30px; width: 54px; background     :url('../../../images/TIG/TinyPNG/tinypng_small.png') no-repeat 0 10px !important; background-size: auto 12px !important; }
-
+.tig-tinypng-section span { padding-left: 50px !important; }
+.tig-tinypng-section:after {     content: '';
+    display: block;
+    position: absolute;
+    top: 3px;
+    left: 18px;
+    height: 40px;
+    width: 54px;
+    background: url('../../../images/TIG/TinyPNG/george-menu-icon@2x.png') no-repeat 0 0px !important;
+    background-size: auto 25px !important;
+}
 /* ======== Support Tab General ======  */
 
+#tig_tinypng_support { position :relative;}
 #tig_tinypng_support p,
 #tig_tinypng_support ul,
 #tig_tinypng_support ol { padding: 6px 0 10px 0; }
@@ -38,6 +52,15 @@
 
 /* ======== Support Tab ====== */
 
+.tiny-logo-bear {
+    position: absolute;
+    bottom: 0px;
+    right: 0;
+    width: auto;
+    max-width: 20%;
+    height: auto;
+    max-height: 180px; }
+
 #tig_tinypng_support a:hover { text-decoration:none; }
 #tig_tinypng_support img { max-width: 100%; }
 
@@ -48,26 +71,6 @@
 #tig_tinypng_support .tig_branding { float:left; width: 100%; }
 #tig_tinypng_support .tig_branding .image { float:left; width: 50px; margin-top: 3px; }
 #tig_tinypng_support .tig_branding .signature{ float:left; width: calc(100% - 50px); }
-
-.tig-tinypng-button-orange {
-    border-width: 1px;
-    border-style: solid;
-    border-color: #ed6502 #a04300 #a04300 #ed6502;
-    padding: 2px 7px 3px 7px;
-    background: #ffac47 url('../../../images/TIG/TinyPNG/btn_bg.gif') repeat-x 0 100%;
-    color: #fff;
-    font: bold 12px arial, helvetica, sans-serif;
-    cursor: pointer;
-    text-align: center !important;
-    white-space: nowrap;
-    text-decoration: none;
-}
-
-.tig-tinypng-button-orange:hover{
-    color: #fff;
-    text-decoration: none;
-    background: #f77c16 url('../../../images/TIG/TinyPNG/btn_over_bg.gif') repeat-x 0 0;
-}
 
 /* ======== Connection Settings ======== */
 
@@ -152,6 +155,8 @@
 
 /* ======== Latest Optimizations ======== */
 
+#tig_tinypng_status tr td .scalable{ margin: 10px 0; }
+
 #tig_tinypng_compression { padding: 9px 0; }
 #tig_tinypng_compression td { padding-top:2px; padding-bottom:2px; margin:0; vertical-align:middle; width: 150px; overflow:hidden; }
 #tig_tinypng_compression tr.tig_tinypng_log { border-bottom: 1px solid #ececec; float: left; width: 100%; }
@@ -166,10 +171,44 @@
 #tig_tinypng_compression .show_less td,
 #tig_tinypng_compression .show_more td { text-align:center; }
 
-.tig_tinypng_saved { width: 170px !important; }
+.tig_tinypng_saved { }
 
 .title-file { width: 45px; }
 .title-original { width: 65px; }
 .title-now { width: 50px; }
 
 /* ======== Advanced options ======== */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

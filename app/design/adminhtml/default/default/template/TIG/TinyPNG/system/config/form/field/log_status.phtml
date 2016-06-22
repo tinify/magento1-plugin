@@ -39,17 +39,19 @@ $_tinify = Mage::helper('tig_tinypng/tinify');
 
 /** @var TIG_TinyPNG_Helper_Data $_helper */
 $_helper = Mage::helper('tig_tinypng');
+$data    = Mage::getModel('tig_tinypng/totals')->getTotalCompressionInformation();
 
 /** @var TIG_TinyPNG_Model_Image $image */
 $images = $_tinify->getCompressionStatus();
 ?>
+
 <tr>
     <td colspan="4">
         <table cellspacing="5" class="form-list">
             <tr>
                 <td>
                     <h5><?php echo $this->__('Images are optimized each time Magento generates new product images in the image cache folder')?></h5>
-
+                    <?php if ($data['totalCompressions'] < 1) :?>
                     <p><?php
                         echo $this->__(
                             'If you have never used the extension before you should flush the product images cache. Magento will
@@ -61,17 +63,17 @@ $images = $_tinify->getCompressionStatus();
                     <button onclick="setLocation('<?php echo $this->getCleanImagesUrl()?>')" type="button" class="scalable">
                         <span><span><span><?php echo Mage::helper('adminhtml')->__('Flush Catalog Images Cache') ?></span></span></span>
                     </button>
-
+                    <?php endif; ?>
                 </td>
             </tr>
         </table>
     </td>
 </tr>
 
-<?php $data = Mage::getModel('tig_tinypng/totals')->getTotalCompressionInformation();?>
+
 <?php if ($data['totalCompressions'] > 0) :?>
 <tr>
-    <td>
+    <td class="log-details-td">
         <?php echo Mage::helper('tig_tinypng')->__(
             'Saved %s%% over a total of %s compressions',
             $data['percentageSaved'],
@@ -99,10 +101,10 @@ $images = $_tinify->getCompressionStatus();
                             </a>
                         </td>
                         <td class="info_box"><?php echo $image->getImageType(); ?></td>
-                        <td class="info_box tig_tinypng_saved">
-                            <?php echo $image->getPercentageSaved(); ?> saved <br /> (<?php echo $_helper->fileSize($image->getBytesBefore()). ' / '. $_helper->fileSize($image->getBytesAfter()); ?>)
+                        <td class="info_box tig_tinypng_width">
+                            <?php echo $image->getPercentageSaved(); ?> saved (<?php echo $_helper->fileSize($image->getBytesBefore()). ' / '. $_helper->fileSize($image->getBytesAfter()); ?>)
                         </td>
-                        <td class="info_box">
+                        <td class="info_box tig_tinypng_width">
                             <?php if ($image->getCompressedBefore()) : ?>
                                 <?php echo $this->__('Optimized previously'); ?>
                             <?php elseif ($image->getParentId()) :?>
@@ -131,6 +133,15 @@ $images = $_tinify->getCompressionStatus();
                 </tr>
             <?php endif; ?>
         </table>
+    </td>
+</tr>
+
+<tr>
+    <td class="log-details-td">
+        <?php $url = "<a href=".$this->getCleanImagesUrl()."/>".$this->__('flush the Magento image cache')."</a>"; ?>
+        <?php echo $_helper->__('If an image does not appear you may need to %s and visit the product page
+            again so images will be regenerated and optimized.', $url
+        ); ?>
     </td>
 </tr>
 

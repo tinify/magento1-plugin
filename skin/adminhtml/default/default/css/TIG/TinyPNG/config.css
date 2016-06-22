@@ -69,7 +69,8 @@
 #tig_tinypng_support .col-set .col-2 { float:left; width: 25%; box-sizing:border-box; padding-left: 10px;}
 
 #tig_tinypng_support .tig_branding { float:left; width: 100%; }
-#tig_tinypng_support .tig_branding .signature{ float:left; width: 100%; }
+#tig_tinypng_support .tig_branding .image { float:left; width: 50px; margin-top: 3px; }
+#tig_tinypng_support .tig_branding .signature{ float:left; width: calc(100% - 50px); }
 
 /* ======== Connection Settings ======== */
 
@@ -157,7 +158,7 @@
 #tig_tinypng_status tr td .scalable{ margin: 10px 0; }
 
 #tig_tinypng_compression { padding: 9px 0; }
-#tig_tinypng_compression td { padding-top:2px; padding-bottom:2px; margin:0; vertical-align:middle; max-width: 150px; min-width:100px; overflow:hidden; }
+#tig_tinypng_compression td { padding-top:2px; padding-bottom:2px; margin:0; vertical-align:middle; width: 70px; overflow:hidden; }
 #tig_tinypng_compression tr.tig_tinypng_log { border-bottom: 1px solid #ececec; float: left; width: 100%; }
 
 #tig_tinypng_compression .image_path { padding-left: 10px; }
@@ -170,7 +171,8 @@
 #tig_tinypng_compression .show_less td,
 #tig_tinypng_compression .show_more td { text-align:center; }
 
-.tig_tinypng_saved { }
+.tig_tinypng_width { box-sizing: border-box; min-width: 180px;}
+.log-details-td {padding-left: 4px;}
 
 .title-file { width: 45px; }
 .title-original { width: 65px; }

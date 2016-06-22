@@ -100,7 +100,7 @@ $images = $_tinify->getCompressionStatus();
                         </td>
                         <td class="info_box"><?php echo $image->getImageType(); ?></td>
                         <td class="info_box tig_tinypng_saved">
-                            <?php echo $image->getPercentageSaved(); ?> saved (<?php echo $_helper->fileSize($image->getBytesBefore()). ' / '. $_helper->fileSize($image->getBytesAfter()); ?>)
+                            <?php echo $image->getPercentageSaved(); ?> saved <br /> (<?php echo $_helper->fileSize($image->getBytesBefore()). ' / '. $_helper->fileSize($image->getBytesAfter()); ?>)
                         </td>
                         <td class="info_box">
                             <?php if ($image->getCompressedBefore()) : ?>

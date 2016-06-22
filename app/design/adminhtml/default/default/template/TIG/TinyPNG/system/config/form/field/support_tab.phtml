@@ -33,7 +33,7 @@
 /** @var TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_SupportTab $this */
 ?>
 
-<?php $_tigHomepage             = 'https://tig.nl'; ?>
+<?php $_tigHomepage             = 'https://tig.nl/tinypng-magento-extensie-community-edition/'; ?>
 <?php $_kbUrl                   = 'http://servicedesk.tig.nl/hc/nl/categories/202720888-TinyPNG'; ?>
 <?php $_kbTicketUrl             = 'http://servicedesk.tig.nl/hc/nl/requests/new'; ?>
 <?php $_changelogUrl            = 'https://tig.nl'; ?>
@@ -45,7 +45,7 @@
 <tr id="tig_tinypng_support">
     <td>
         <h2 class="content-heading">
-            <?php echo $this->__('TinyPNG %s', $_version);?>
+            <?php echo $this->__('Image Optimization');?>
             <?php if (!empty($_stability) && $_stability != 'stable'): ?>
                 - <?php echo $_stability; ?>
             <?php endif; ?>
@@ -78,14 +78,10 @@
                                 </p>
 
                                 <div class="tig_branding">
-                                    <div class="image">
-                                        <img class="tig_logo" src="<?php echo $this->getSkinUrl('images/TIG/TinyPNG/tig_logo_medium.png') ?>" width="40px" alt="TIG Logo" />
-                                    </div>
-
                                     <div class="signature">
                                         <p>
                                             <?php echo $this->__('The extension is developed by TIG.');?> <br />
-                                            <?php echo $this->__('Visit our website:'); ?> <a href="<?php echo $_tigHomepage ?>" class=""><?php echo $this->__('TIG.nl');?></a>
+                                            <?php echo $this->__('Visit our website:'); ?> <a target="_blank" href="<?php echo $_tigHomepage ?>" class=""><?php echo $this->__('TIG.nl');?></a>
                                         </p>
                                     </div>
 

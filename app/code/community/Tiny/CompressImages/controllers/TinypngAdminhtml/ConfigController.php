@@ -77,7 +77,6 @@ class Tiny_CompressImages_TinypngAdminhtml_ConfigController extends Mage_Adminht
         try {
             Mage::getModel('catalog/product_image')->clearCache();
             Mage::dispatchEvent('clean_catalog_images_cache_after');
-            Mage::getModel('tig_tinypng/image')->deleteAll();
             $this->_getSession()->addSuccess(
                 Mage::helper('adminhtml')->__('The image cache was cleaned.')
             );

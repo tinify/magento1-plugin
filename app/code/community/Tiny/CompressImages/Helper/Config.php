@@ -121,30 +121,6 @@ class Tiny_CompressImages_Helper_Config extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Is automatic compression on or off.
-     *
-     * @param null $store
-     *
-     * @return mixed
-     */
-    public function isAutomaticCompressionEnabled($store = null)
-    {
-        return Mage::getStoreConfig(self::XPATH_AUTO_COMPRESS, $store);
-    }
-
-    /**
-     * Get the compress quality for TinyPng (min of 95 %)
-     *
-     * @param null $store
-     *
-     * @return mixed
-     */
-    public function getCompressQuality($store = null)
-    {
-        return Mage::getStoreConfig(self::XPATH_COMPRESS_QUALITY, $store);
-    }
-
-    /**
      * Lets you know if base images should be compressed.
      *
      * @param null $store
@@ -222,18 +198,6 @@ class Tiny_CompressImages_Helper_Config extends Mage_Core_Helper_Abstract
         }
 
         return $imageTypes;
-    }
-
-    /**
-     * Returns a comma separeted list of image types that can be compressed by TinyPNG
-     *
-     * @param null $store
-     *
-     * @return mixed
-     */
-    public function getCmsImageTypesToCompress($store = null)
-    {
-        return Mage::getStoreConfig(self::XPATH_CMS_IMAGES_TYPES, $store);
     }
 
     /**

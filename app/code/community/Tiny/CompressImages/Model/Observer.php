@@ -37,18 +37,6 @@ class Tiny_CompressImages_Model_Observer
     protected $_tinifyHelper = null;
 
     /**
-     * The image cache is flushed, so all images are deleted. Therefore delete all models.
-     *
-     * @return $this
-     */
-    public function imageCacheFlush()
-    {
-        Mage::getModel('tig_tinypng/image')->deleteAll();
-
-        return $this;
-    }
-
-    /**
      * Compress product images
      *
      * @param $observer

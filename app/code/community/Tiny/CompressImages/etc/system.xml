@@ -174,17 +174,30 @@
                             <sort_order>10</sort_order>
                             <source_model>tig_tinypng/system_config_source_testlive</source_model>
                             <backend_model>tig_tinypng/system_config_backend_enabled</backend_model>
-                            <comment>If this is set to Off, TinyPNG will no longer compress images</comment>
+                            <comment><![CDATA[
+                                    Normal: Extension works normally (default) <br /> <br />
+
+                                    Test: New product images will be optimized and saved so you can
+                                        test if everything works as expected. However, the optimized
+                                        images will not be shown in your store. After testing and switching
+                                        test mode off again, you should flush the image cache to make
+                                        sure your store will switch to the optimized images. <br /> <br />
+
+                                    Disabled: The extension is switched off and no new product
+                                        images will be optimized.
+                                        ]]>
+                            </comment>
                             <tooltip>If test mode is activated, the extension will do real compressions. The result won't be saved.</tooltip>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </enabled>
                         <logging_mode translate="label comment">
-                            <label>Messages that sould be logged</label>
+                            <label>Messages that should be logged</label>
                             <sort_order>40</sort_order>
                             <source_model>tig_tinypng/system_config_source_log</source_model>
                             <frontend_type>select</frontend_type>
+                            <comment><![CDATA[Any error messages will be save to /var/log/image-optimization-error.log]]></comment>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>

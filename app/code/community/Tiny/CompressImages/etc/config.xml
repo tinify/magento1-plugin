@@ -98,7 +98,7 @@
             </image_types>
             <advanced>
                 <logging_mode>all</logging_mode>
-                <enabled>2</enabled>
+                <enabled>1</enabled>
             </advanced>
         </tig_tinypng>
     </default>

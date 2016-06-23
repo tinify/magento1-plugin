@@ -27,6 +27,11 @@ if [ ! -f "${TOOLS}/modman" ]; then
     chmod +x "${TOOLS}/modman"
 fi
 
+if [ ! -f "${TOOLS}/phpunit" ]; then
+    wget https://phar.phpunit.de/phpunit-old.phar -O "${TOOLS}/phpunit"
+    chmod +x "${TOOLS}/phpunit"
+fi
+
 echo "Using build directory ${BUILDENV}"
 
 echo "Installing Magento version ${MAGENTO_VERSION}"
@@ -56,7 +61,7 @@ cd "${PUBLIC_DIR}"
 
 cd "${PUBLIC_DIR}/.modman/project";
 
-phpunit
+"${TOOLS}/phpunit"
 
 #echo "Deleting ${BUILDENV}"
 #rm -rf "${BUILDENV}"

@@ -175,7 +175,7 @@
                             <source_model>tig_tinypng/system_config_source_testlive</source_model>
                             <backend_model>tig_tinypng/system_config_backend_enabled</backend_model>
                             <comment><![CDATA[
-                                    Normal: Extension works normally (default) <br /> <br />
+                                    Live: Extension works normally (default) <br /> <br />
 
                                     Test: New product images will be optimized and saved so you can
                                         test if everything works as expected. However, the optimized

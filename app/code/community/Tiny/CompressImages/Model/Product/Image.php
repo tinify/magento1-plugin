@@ -43,6 +43,12 @@ class Tiny_CompressImages_Model_Product_Image extends Mage_Catalog_Model_Product
      */
     public function getUrl()
     {
+        /** @var Tiny_CompressImages_Helper_Config $helper */
+        $helper = Mage::helper('tig_tinypng/config');
+        if ($helper->isTestMode(Mage::app()->getStore()->getStoreId())) {
+            return parent::getUrl();
+        }
+
         $baseDir  = Mage::getBaseDir('media');
         $tinyPath = substr(Tiny_CompressImages_Helper_Tinify::TINY_COMPRESSIMAGES_MEDIA_DIRECTORY.DS, 1);
 

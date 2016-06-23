@@ -39,16 +39,6 @@ class Tiny_CompressImages_Model_System_Config_Backend_Enabled extends Mage_Core_
      */
     protected function _beforeSave()
     {
-        $value = $this->getValue();
-        $oldValue = $this->getOldValue();
-
-        /**
-         * Changing from test mode to a other mode. Delete all models.
-         */
-        if ($value != $oldValue && $oldValue == 1) {
-            Mage::getModel('tig_tinypng/image')->deleteTest();
-        }
-
         return parent::_beforeSave();
     }
 }

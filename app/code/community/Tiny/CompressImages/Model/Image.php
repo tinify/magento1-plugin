@@ -187,7 +187,8 @@ class Tiny_CompressImages_Model_Image extends Mage_Core_Model_Abstract
     {
         $url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
         $url .= ltrim($this->getPath(), '/media');
-
+        $url = str_replace('media', 'media/image_compression', $url);
+        
         return $url;
     }
 

@@ -187,7 +187,7 @@
                                         sure your store will switch to the optimized images. <br /> <br />
 
                                     Disabled: The extension is switched off and no new product
-                                        images will be optimized.
+                                        images will be optimized. <br /> <br />
                                         ]]>
                             </comment>
                             <tooltip>If test mode is activated, the extension will do real compressions. The result won't be saved.</tooltip>

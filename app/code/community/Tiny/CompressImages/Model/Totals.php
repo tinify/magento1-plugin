@@ -93,7 +93,9 @@ class Tiny_CompressImages_Model_Totals extends Mage_Core_Model_Abstract
 
         return array(
             'percentageSaved'   => $percantageSaved,
-            'totalCompressions' => $totalCompressions
+            'totalCompressions' => $totalCompressions,
+            'bytesBefore'       => $totalBytesBefore,
+            'bytesAfter'        => $totalBytesAfter,
         );
     }
 }

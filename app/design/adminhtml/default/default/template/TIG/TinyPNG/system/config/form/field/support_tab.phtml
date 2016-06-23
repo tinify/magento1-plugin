@@ -108,9 +108,9 @@
     $$('.entry-edit-head')[0].remove();
     // Set tabs open.
     document.observe('dom:loaded', function() {
-        $('tig_tinypng_image_types-head').setAttribute('onclick', '');
-        $('tig_tinypng_status-head').setAttribute('onclick', '');
-        $('tig_tinypng_settings-head').setAttribute('onclick', '');
+        $('tig_tinypng_image_types').setStyle({display: 'block'});
+        $('tig_tinypng_status').setStyle({display: 'block'});
+        $('tig_tinypng_settings').setStyle({display: 'block'});
     });
     //]]>
 </script>

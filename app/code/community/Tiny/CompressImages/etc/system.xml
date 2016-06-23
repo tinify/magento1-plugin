@@ -66,6 +66,7 @@
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
+                    <class>active</class>
                     <fields>
                         <api_key tranaslate="label comment">
                             <label>API Key</label>
@@ -102,6 +103,7 @@
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
+                    <class>active</class>
                     <fields>
                         <base_images translate="label comment tooltip">
                             <label>Base Images</label>
@@ -151,6 +153,7 @@
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
+                    <class>active</class>
                     <fields>
                         <log_status>
                             <sort_order>40</sort_order>

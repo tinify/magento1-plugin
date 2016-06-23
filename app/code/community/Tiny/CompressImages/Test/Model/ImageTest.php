@@ -207,20 +207,6 @@ class ImageTest extends Tiny_CompressImages_Test_Framework_TIG_Test_TestCase
     }
 
     /**
-     * Test the getImageUrl method.
-     */
-    public function testGetImageUrl()
-    {
-        $path = '/media/catalog/product/image.jpg';
-        $this->_instance->setPath($path);
-
-        $this->assertEquals(
-            Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB) . trim($path, '/'),
-            $this->_instance->getImageUrl()
-        );
-    }
-
-    /**
      * Test the getBytesSaved method.
      */
     public function testGetBytesSaved()

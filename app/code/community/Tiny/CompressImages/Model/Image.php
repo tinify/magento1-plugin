@@ -179,14 +179,24 @@ class Tiny_CompressImages_Model_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Calculate the url for this image.
+     * Get the url for this image.
      *
      * @return string
      */
     public function getImageUrl()
     {
-        $url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
-        $url .= ltrim($this->getPath(), '/media');
+        $url  = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+        $path = $this->getPath();
+
+        // If it is a duplicate image, then there will be a link to his parent.
+        if ($this->getParentId()) {
+            /** @var Tiny_CompressImages_Model_Image $parent */
+            $parent = Mage::getModel('tig_tinypng/image')->load($this->getParentId());
+            $path   = $parent->getPath();
+        }
+
+        $url .= ltrim($path, '/media');
+
         $url = str_replace('media', 'media/image_compression', $url);
 
         return $url;

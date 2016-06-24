@@ -63,5 +63,6 @@ cd "${PUBLIC_DIR}/.modman/project";
 
 "${TOOLS}/phpunit"
 
-#echo "Deleting ${BUILDENV}"
-#rm -rf "${BUILDENV}"
+mysql -u${MAGENTO_DB_USER} ${MYSQLPASS} -h${MAGENTO_DB_HOST} -P${MAGENTO_DB_PORT} -e "DROP DATABASE IF EXISTS \`${MAGENTO_DB_NAME}\`;"
+echo "Deleting ${BUILDENV}"
+rm -rf "${BUILDENV}"

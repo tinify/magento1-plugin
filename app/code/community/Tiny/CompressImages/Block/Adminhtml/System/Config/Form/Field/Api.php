@@ -59,11 +59,7 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_Api extends V
             }
         }
 
-        $button  = '<button type="button" id="tinypng_check_status" class="scalable">';
-        $button .= '<span><span><span>'.$_helper->__('Check status').'</span></span></span></button>';
-
         $message = '<span id="tinypng_api_status">' . $message . '</span><br>';
-        $message .= $button;
 
         return $message;
     }
@@ -78,16 +74,13 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_Api extends V
         $js = '<script type="text/javascript">
                     var url = "' . Mage::helper("adminhtml")->getUrl('adminhtml/tinypngAdminhtml_status/getApiStatus') . '";
 
-                    $("tinypng_check_status").on("click", function (event, element) {
-                        Event.stop(event);
-
+                    document.observe("dom:loaded", function() {
                         new Ajax.Request(url,
                             {
                                 method: "post",
                                 onSuccess: function (data) {
                                     var result = data.responseText.evalJSON(true);
                                     if (result.status == "success") {
-                                        element.hide();
                                         $("tinypng_api_status").innerHTML = result.message;
                                     }
                                 }

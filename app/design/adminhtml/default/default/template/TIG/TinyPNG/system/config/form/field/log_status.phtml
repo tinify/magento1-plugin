@@ -77,8 +77,8 @@ $images = $_tinify->getCompressionStatus();
         <?php echo Mage::helper('tig_tinypng')->__(
             'Total of %s optimized product images. Original size : %s. New size : %s. Average savings %s%%.',
             $data['totalCompressions'],
-            $_helper->fileSize($data['bytesBefore']),
-            $_helper->fileSize($data['bytesAfter']),
+            $data['bytesBefore'],
+            $data['bytesAfter'],
             $data['percentageSaved']
         ); ?>
     </td>

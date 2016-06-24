@@ -19,7 +19,13 @@
  *                 \______  /|__|    \____/ |____/ |   __/
  *                        \/                       |__|
  *
+ * NOTICE OF LICENSE
  *
+ * This source file is subject to the Creative Commons License.
+ * It is available through the world-wide-web at this URL:
+ * http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
+ * If you are unable to obtain it through the world-wide-web, please send an email
+ * to servicedesk@totalinternetgroup.nl so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
@@ -28,52 +34,31 @@
  * needs please contact servicedesk@totalinternetgroup.nl for more information.
  *
  * @copyright   Copyright (c) 2016 Total Internet Group B.V. (http://www.totalinternetgroup.nl)
+ * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
-class Tiny_CompressImages_Model_Product_Image extends Mage_Catalog_Model_Product_Image
+class Tiny_CompressImages_Block_Adminhtml_ApiNotification extends Mage_Adminhtml_Block_Abstract
 {
     /**
-     * Set the minimun required quality for TinyPNG image compression which is 95
+     * Check if the api key is set.
      *
-     * @var int
+     * @return bool
      */
-    protected $_quality = 85;
+    public function isApiKeySet()
+    {
+        $configHelper = Mage::helper('tig_tinypng/config');
+
+        if ($configHelper->getApiKey()) {
+            return true;
+        }
+
+        return false;
+    }
 
     /**
      * @return string
      */
-    public function getUrl()
+    public function getBackendUrl()
     {
-        /** @var Tiny_CompressImages_Helper_Config $helper */
-        $helper = Mage::helper('tig_tinypng/config');
-        if ($helper->isTestMode(Mage::app()->getStore()->getStoreId())) {
-            return parent::getUrl();
-        }
-
-        $baseDir  = Mage::getBaseDir('media');
-        $tinyPath = substr(Tiny_CompressImages_Helper_Tinify::TINY_COMPRESSIMAGES_MEDIA_DIRECTORY.DS, 1);
-
-        $path = str_replace(
-            $baseDir . DS,
-            $tinyPath,
-            $this->_newFile
-        );
-
-        if (!file_exists(Mage::getBaseDir(). '/' .str_replace(DS, '/', $path))) {
-            return parent::getUrl();
-        }
-
-        return Mage::getBaseUrl() . str_replace(DS, '/', $path);
-    }
-
-    /**
-     * @return Mage_Catalog_Model_Product_Image $this
-     */
-    public function saveFile()
-    {
-        parent::saveFile();
-
-        Mage::dispatchEvent('catalog_product_image_save_after', array($this->_eventObject => $this));
-
-        return $this;
+        return Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit/section/tig_tinypng/');
     }
 }

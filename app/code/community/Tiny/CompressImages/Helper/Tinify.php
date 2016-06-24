@@ -31,6 +31,8 @@
  */
 class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
 {
+    const TINY_COMPRESSIMAGES_MEDIA_DIRECTORY = '/media/image_compression';
+
     /**
      * @var bool $allowCompression
      */
@@ -80,6 +82,21 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
      * @var int $bytesAfter
      */
     protected $bytesAfter = 0;
+
+    /**
+     * @var null|int $parentId
+     */
+    protected $parentId = null;
+
+    /**
+     * @var bool $isCompressedBefore
+     */
+    protected $isCompressedBefore = false;
+
+    /**
+     * @var int $isUsedAtSource
+     */
+    protected $isUsedAtSource = 1;
 
     /**
      * @var Tiny_CompressImages_Helper_Data $helper
@@ -233,6 +250,15 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
             return false;
         }
 
+        if ($this->_isInOptimizedMediaDirectory()) {
+            $this->helper->log(
+                $this->newFile->getPathname(). ' is propably compressed before and can be found in the compression folder'
+            );
+            $this->_SetCompressionAsPreviously()
+                 ->_saveCompression();
+            return true;
+        }
+
         /**
          * Check if this file is compressed before. If that is the case, copy it to this location.
          */
@@ -240,13 +266,11 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
             return true;
         }
 
+
         try {
             $message = '';
             $input = \Tinify\fromFile($this->newFile->getPathname());
 
-            /**
-             * If test mode is enabled we compress the image, but will not save the result.
-             */
             if ($this->configHelper->isTestMode($this->storeId)) {
                 $message .= 'TESTMODE - ';
 
@@ -263,12 +287,16 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
                 $input->toFile($this->newFile->getPathname());
                 $this->bytesAfter = $this->_getFileSize($this->newFile);
             }
+            $compressionFile = str_replace('/media', self::TINY_COMPRESSIMAGES_MEDIA_DIRECTORY ,$this->newFile->getPathname());
+            $this->helper->log('Write to compression Folder : '. $compressionFile, 'info', $this->storeId);
+            file_put_contents($compressionFile, $input->toBuffer());
 
             $message .=
                 'Compressed: ' . $this->newFile->getFilename() . ' - ' .
                 'Variant: '. $this->destinationSubdir . ' - ' .
                 'Size (WxH): ' . $this->imageWidth . 'x' . $this->imageHeight . ' - ' .
                 'Bytes saved: ' . ($this->bytesBefore - $this->bytesAfter) . ' - ' .
+                'Compressed Before'. $this->isCompressedBefore . ' - '.
                 'Path: ' . $this->newFile->getPath();
 
             $this->helper->log($message, 'info', $this->storeId);
@@ -305,6 +333,31 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Check if the Optimized media direcotory already contains the images.
+     *
+     * @return bool
+     */
+    protected function _isInOptimizedMediaDirectory()
+    {
+        $pathWithoutFile = str_replace(Mage::getBaseDir('media'), '', $this->newFile->getPath());
+
+        $directory = Mage::getBaseDir().self::TINY_COMPRESSIMAGES_MEDIA_DIRECTORY . DS . $pathWithoutFile;
+        if (!is_dir($directory)) {
+            mkdir($directory, 0777, true);
+            return false;
+        }
+
+        $file = new SplFileInfo($this->_getOptimizedMediaPath($this->newFile->getPathname()));
+
+        if ($file->isFile()) {
+            $this->isCompressedBefore = true;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Check if the file exists. If so, copy it to the new location to prevent duplicate compressions. If does not
      * exists anymore, delete the model.
      *
@@ -336,8 +389,19 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
                 return true;
             }
 
-            $this->bytesAfter  = $model->getBytesAfter();
-            $this->bytesBefore = $model->getBytesBefore();
+            $this->hashBefore         = $model->getHashBefore();
+            $this->hashAfter          = $model->getHashAfter();
+            $this->bytesAfter         = $model->getBytesAfter();
+            $this->bytesBefore        = $model->getBytesBefore();
+            $this->isUsedAtSource     = $model->getUsedAsSource();
+            $this->parentId           = $model->getId();
+            $this->isCompressedBefore = false;
+
+            $this->_saveCompression();
+
+            // Reset parent id and used at source.
+            $this->parentId       = null;
+            $this->isUsedAtSource = 1;
 
             $this->setTotalSavings();
 
@@ -366,6 +430,7 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
         }
 
         if (!$this->_isProductImageAllowed($image->getDestinationSubdir())) {
+            $this->isProductTypeAllowed = false;
             $this->helper->log('Product imagetype not allowed for compression', 'error', $this->storeId);
 
             return $this;
@@ -397,20 +462,39 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
         /** @var Tiny_CompressImages_Model_Image */
         $model = Mage::getModel('tig_tinypng/image');
         $model->setPath($path);
+        $model->setImageType($this->destinationSubdir);
         $model->setHashBefore($this->hashBefore);
         $model->setHashAfter($this->hashAfter);
         $model->setBytesBefore($this->bytesBefore);
         $model->setBytesAfter($this->bytesAfter);
         $model->setProcessedAt(Varien_Date::now());
-        $model->setUsedAsSource(1);
+        $model->setUsedAsSource($this->isUsedAtSource);
 
         if ($this->configHelper->isTestMode($this->storeId)) {
             $model->setIsTest(1);
         }
 
+        $model->setParentId($this->parentId);
+        $model->setCompressedBefore($this->isCompressedBefore);
+
         $model->save();
 
         $this->setTotalSavings();
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    protected function _SetCompressionAsPreviously()
+    {
+        $compressedFile = new SplFileInfo($this->_getOptimizedMediaPath($this->newFile->getPathname()));
+
+        $this->isCompressedBefore = true;
+
+        $this->bytesAfter = $this->_getFileSize($compressedFile);
+        $this->hashAfter  = $this->_getFileHash($compressedFile);
 
         return $this;
     }
@@ -509,7 +593,7 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
 
         $typesAllowed = $this->configHelper->getProductImageTypesToCompress($this->storeId);
 
-        if (in_array($imageDestination, explode(',', $typesAllowed))) {
+        if (in_array($imageDestination, $typesAllowed)) {
             return true;
         }
 
@@ -564,6 +648,25 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
         $collection->setOrder('processed_at', Varien_Data_Collection_Db::SORT_ORDER_DESC);
 
         return $collection;
+    }
+
+    /**
+     * @param $file
+     *
+     * @return string
+     */
+    protected function _getOptimizedMediaPath($file)
+    {
+        $baseDir  = Mage::getBaseDir('media');
+        $tinyPath = substr(Tiny_CompressImages_Helper_Tinify::TINY_COMPRESSIMAGES_MEDIA_DIRECTORY.DS, 1);
+
+        $path = str_replace(
+            $baseDir . DS,
+            $tinyPath,
+            $file
+        );
+
+        return Mage::getBaseDir(). '/' .str_replace(DS, '/', $path);
     }
 
     /**

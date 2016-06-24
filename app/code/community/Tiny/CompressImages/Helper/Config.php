@@ -34,10 +34,13 @@ class Tiny_CompressImages_Helper_Config extends Mage_Core_Helper_Abstract
     /**
      * Configuration XPATH
      */
-    const XPATH_ENABLED              = 'tig_tinypng/settings/enabled';
+    const XPATH_ENABLED              = 'tig_tinypng/advanced/enabled';
     const XPATH_API_KEY              = 'tig_tinypng/settings/api_key';
-    const XPATH_PRODUCT_IMAGES_TYPES = 'tig_tinypng/settings/product_compression';
-    const XPATH_LOGGING_MODE         = 'tig_tinypng/settings/logging_mode';
+    const XPATH_IMAGE_TYPE_BASE      = 'tig_tinypng/image_types/base_images';
+    const XPATH_IMAGE_TYPE_SMALL     = 'tig_tinypng/image_types/small_images';
+    const XPATH_IMAGE_TYPE_THUMBNAIL = 'tig_tinypng/image_types/thumbnails';
+    const XPATH_IMAGE_TYPE_SWATCHES  = 'tig_tinypng/image_types/swatches';
+    const XPATH_LOGGING_MODE         = 'tig_tinypng/advanced/logging_mode';
 
     /**
      * Return the enabled modus (off, test or live)
@@ -118,31 +121,56 @@ class Tiny_CompressImages_Helper_Config extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Is automatic compression on or off.
+     * Lets you know if base images should be compressed.
      *
      * @param null $store
      *
      * @return mixed
      */
-    public function isAutomaticCompressionEnabled($store = null)
+    public function isBaseImageTypeEnabledForCompression($store = null)
     {
-        return Mage::getStoreConfig(self::XPATH_AUTO_COMPRESS, $store);
+        return Mage::getStoreConfig(self::XPATH_IMAGE_TYPE_BASE, $store);
     }
 
     /**
-     * Get the compress quality for TinyPng (min of 95 %)
+     * Lets you know if small images should be compressed.
      *
      * @param null $store
      *
      * @return mixed
      */
-    public function getCompressQuality($store = null)
+    public function isSmallImageTypeEnabledForCompression($store = null)
     {
-        return Mage::getStoreConfig(self::XPATH_COMPRESS_QUALITY, $store);
+        return Mage::getStoreConfig(self::XPATH_IMAGE_TYPE_SMALL, $store);
     }
 
     /**
-     * Returns a comma separeted list of image types that can be compressed by TinyPNG
+     * Lets you know if thumbnail-sized images should be compressed.
+     *
+     * @param null $store
+     *
+     * @return mixed
+     */
+    public function isThumbnailTypeEnabledForCompression($store = null)
+    {
+        return Mage::getStoreConfig(self::XPATH_IMAGE_TYPE_THUMBNAIL, $store);
+    }
+
+    /**
+     * Lets you know if swachtes (small images used to select product attributes) images should be compressed.
+     *
+     * @param null $store
+     *
+     * @return mixed
+     */
+    public function isSwatchTypeEnabledForCompression($store = null)
+    {
+        return Mage::getStoreConfig(self::XPATH_IMAGE_TYPE_SWATCHES, $store);
+    }
+
+
+    /**
+     * Returns an array of image types that can be compressed by TinyPNG
      *
      * @param null $store
      *
@@ -150,19 +178,26 @@ class Tiny_CompressImages_Helper_Config extends Mage_Core_Helper_Abstract
      */
     public function getProductImageTypesToCompress($store = null)
     {
-        return Mage::getStoreConfig(self::XPATH_PRODUCT_IMAGES_TYPES, $store);
-    }
+        $imageTypes = array();
 
-    /**
-     * Returns a comma separeted list of image types that can be compressed by TinyPNG
-     *
-     * @param null $store
-     *
-     * @return mixed
-     */
-    public function getCmsImageTypesToCompress($store = null)
-    {
-        return Mage::getStoreConfig(self::XPATH_CMS_IMAGES_TYPES, $store);
+        if ($this->isBaseImageTypeEnabledForCompression($store)) {
+            $imageTypes[] = 'image';
+        }
+
+        if ($this->isSmallImageTypeEnabledForCompression($store)) {
+            $imageTypes[] = 'small_image';
+        }
+
+        if ($this->isThumbnailTypeEnabledForCompression($store)) {
+            $imageTypes[] = 'thumbnail';
+            $imageTypes[] = 'media_image';
+        }
+
+        if ($this->isSwatchTypeEnabledForCompression($store)) {
+            $imageTypes[] = 'swatches';
+        }
+
+        return $imageTypes;
     }
 
     /**

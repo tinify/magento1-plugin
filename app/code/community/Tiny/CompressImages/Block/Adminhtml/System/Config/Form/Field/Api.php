@@ -47,8 +47,8 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_Api extends V
 
             switch ($apiStatusCacheData['status']) {
                 case 'operational':
-                    $message = '<span class="tinypng_status_success">'
-                        . Mage::helper('tig_tinypng')->__('Operational')
+                    $message = '<span class="tinypng_status_success"><span class="apisuccess"></span>'
+                        . Mage::helper('tig_tinypng')->__('API connection successful')
                         . '</span>';
                     break;
                 case 'nonoperational':
@@ -59,12 +59,7 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_Api extends V
             }
         }
 
-        $button = '<a href="#" id="tinypng_check_status" class="tig-tinypng-button" title="' . $_helper->__('Check status') . '">'
-            . $_helper->__('Check status')
-            . '</a>';
-
         $message = '<span id="tinypng_api_status">' . $message . '</span><br>';
-        $message .= $button;
 
         return $message;
     }
@@ -79,9 +74,7 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_Api extends V
         $js = '<script type="text/javascript">
                     var url = "' . Mage::helper("adminhtml")->getUrl('adminhtml/tinypngAdminhtml_status/getApiStatus') . '";
 
-                    $("tinypng_check_status").on("click", function (event, element) {
-                        Event.stop(event);
-
+                    document.observe("dom:loaded", function() {
                         new Ajax.Request(url,
                             {
                                 method: "post",

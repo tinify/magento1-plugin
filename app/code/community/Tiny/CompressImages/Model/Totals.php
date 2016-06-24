@@ -93,7 +93,25 @@ class Tiny_CompressImages_Model_Totals extends Mage_Core_Model_Abstract
 
         return array(
             'percentageSaved'   => $percantageSaved,
-            'totalCompressions' => $totalCompressions
+            'totalCompressions' => $totalCompressions,
+            'bytesBefore'       => $this->formatBytes($totalBytesBefore),
+            'bytesAfter'        => $this->formatBytes($totalBytesAfter),
         );
+    }
+
+    /**
+     * @param     $bytes
+     * @param int $precision
+     *
+     * @return string
+     */
+    function formatBytes($bytes, $precision = 2) {
+        $units = array('B', 'KB', 'MB', 'GB', 'TB');
+
+        $i = floor(log($bytes, 1024));
+        $sum = round($bytes / pow(1024, $i), $precision);
+
+        return $sum . ' ' . $units[$i];
+
     }
 }

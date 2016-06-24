@@ -87,26 +87,18 @@
                 </TIG_TinyPNG>
             </modules>
         </translate>
-        <events>
-            <clean_catalog_images_cache_after>
-                <observers>
-                    <!-- Delete models after clearing the image cache -->
-                    <tig_tinypng_delete_models>
-                        <class>Tiny_CompressImages_Model_Observer</class>
-                        <method>imageCacheFlush</method>
-                    </tig_tinypng_delete_models>
-                </observers>
-            </clean_catalog_images_cache_after>
-        </events>
     </adminhtml>
     <default>
         <tig_tinypng>
-            <settings>
-                <enabled>2</enabled>
-            </settings>
+            <image_types>
+                <base_images>1</base_images>
+                <small_images>1</small_images>
+                <thumbnails>1</thumbnails>
+                <swatches>1</swatches>
+            </image_types>
             <advanced>
                 <logging_mode>all</logging_mode>
-                <product_compression>thumbnail,small_image,image,media_image</product_compression>
+                <enabled>2</enabled>
             </advanced>
         </tig_tinypng>
     </default>

@@ -51,4 +51,14 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_LogStatus ext
 
         return $this->toHtml();
     }
+
+    /**
+     * @return string
+     */
+    public function getCleanImagesUrl()
+    {
+        $url = Mage::helper("adminhtml")->getUrl('adminhtml/tinypngAdminhtml_config/clearCache');
+
+        return $url;
+    }
 }

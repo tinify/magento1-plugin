@@ -34,7 +34,7 @@
 <config>
     <sections>
         <tig_tinypng translate="label" module="tig_tinypng">
-            <label>TinyPNG</label>
+            <label>Image Optimization</label>
             <tab>general</tab>
             <frontend_model>tig_tinypng/adminhtml_system_config_form</frontend_model>
             <class>tig-tinypng-section</class>
@@ -61,67 +61,100 @@
                     </fields>
                 </support>
                 <settings translate="label">
-                    <label>Settings</label>
+                    <label>Connection Settings</label>
                     <sort_order>20</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
+                    <class>active</class>
                     <fields>
-                        <enabled translate="label comment tooltip">
-                            <label>Enable TinyPNG</label>
-                            <frontend_type>tinypng_radios</frontend_type>
-                            <sort_order>10</sort_order>
-                            <source_model>tig_tinypng/system_config_source_testlive</source_model>
-                            <backend_model>tig_tinypng/system_config_backend_enabled</backend_model>
-                            <comment>If this is set to Off, TinyPNG will no longer compress images</comment>
-                            <tooltip>If test mode is activated, the extension will do real compressions. The result won't be saved.</tooltip>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </enabled>
                         <api_key tranaslate="label comment">
                             <label>API Key</label>
                             <frontend_type>text</frontend_type>
                             <backend_model>tig_tinypng/system_config_backend_apiKey</backend_model>
-                            <comment><![CDATA[You can fetch the API Key from the <a href="https://tinypng.com/developers/subscription" target="_BLANK">TinyPNG website</a>.]]></comment>
-                            <sort_order>20</sort_order>
+                            <comment><![CDATA[Visit <a href="https://tinypng.com/developers/subscription" target="_BLANK">TinyPNG Developer section</a> to get an API key.]]></comment>
+                            <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </api_key>
-                    </fields>
-                </settings>
-                <status translate="label">
-                    <label>Status</label>
-                    <sort_order>30</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                    <fields>
-                        <usage translate="label comment">
-                            <label>Status</label>
-                            <sort_order>10</sort_order>
-                            <frontend_type>tinypng_status</frontend_type>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </usage>
-                        <saved>
-                            <label>Saved</label>
-                            <sort_order>20</sort_order>
-                            <frontend_type>tinypng_saved</frontend_type>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </saved>
                         <api>
                             <label>TinyPNG API Status</label>
-                            <sort_order>30</sort_order>
+                            <sort_order>20</sort_order>
                             <frontend_type>tinypng_api</frontend_type>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </api>
+                        <usage translate="label comment">
+                            <label> </label>
+                            <sort_order>30</sort_order>
+                            <frontend_type>tinypng_status</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </usage>
+                    </fields>
+                </settings>
+                <image_types translate="label">
+                    <label>Image Types to Optimize</label>
+                    <comment>Choose which generated image types should be optimized with TinyPNG or TinyJPG. Each selected image size counts as one compression in your compression total.</comment>
+                    <sort_order>25</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <class>active</class>
+                    <fields>
+                        <base_images translate="label comment tooltip">
+                            <label>Base Images</label>
+                            <frontend_type>select</frontend_type>
+                            <comment>Large images on product pages.</comment>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </base_images>
+                        <small_images translate="label comment tooltip">
+                            <label>Small Images</label>
+                            <comment>Smaller images on category pages, in list of recently viewed product, new product lists, upsells, wish lists, etc.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </small_images>
+                        <thumbnails translate="label comment tooltip">
+                            <label>Thumbnails</label>
+                            <comment>Thumbnail-sized images in product image galleries, sidebars, widgets, RSS feeds, etc.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </thumbnails>
+                        <swatches>
+                            <label>Swatches</label>
+                            <comment>Small images used to select product attributes.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </swatches>
+                    </fields>
+                </image_types>
+                <status translate="label">
+                    <label>Latest Optimizations</label>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <class>active</class>
+                    <fields>
                         <log_status>
                             <sort_order>40</sort_order>
                             <frontend_model>tig_tinypng/adminhtml_system_config_form_field_logStatus</frontend_model>
@@ -138,20 +171,36 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <product_compression translate="label comment">
-                            <label>Product images to be compressed</label>
-                            <sort_order>30</sort_order>
-                            <source_model>tig_tinypng/system_config_source_product_imageTypes</source_model>
-                            <frontend_type>multiselect</frontend_type>
+                        <enabled translate="label comment tooltip">
+                            <label>Enable TinyPNG</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>10</sort_order>
+                            <source_model>tig_tinypng/system_config_source_testlive</source_model>
+                            <backend_model>tig_tinypng/system_config_backend_enabled</backend_model>
+                            <comment><![CDATA[
+                                    Live: Extension works normally (default) <br /> <br />
+
+                                    Test: New product images will be optimized and saved so you can
+                                        test if everything works as expected. However, the optimized
+                                        images will not be shown in your store. After testing and switching
+                                        test mode off again, you should flush the image cache to make
+                                        sure your store will switch to the optimized images. <br /> <br />
+
+                                    Disabled: The extension is switched off and no new product
+                                        images will be optimized. <br /> <br />
+                                        ]]>
+                            </comment>
+                            <tooltip>If test mode is activated, the extension will do real compressions. The result won't be saved.</tooltip>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </product_compression>
+                        </enabled>
                         <logging_mode translate="label comment">
-                            <label>Messages that sould be logged</label>
+                            <label>Messages that should be logged</label>
                             <sort_order>40</sort_order>
                             <source_model>tig_tinypng/system_config_source_log</source_model>
                             <frontend_type>select</frontend_type>
+                            <comment><![CDATA[Any error messages will be save to /var/log/image-optimization-error.log]]></comment>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>

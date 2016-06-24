@@ -66,6 +66,15 @@ if (!$connection->isTableExists($tableName)) {
             'The path of this image'
         )
         ->addColumn(
+            'image_type',
+            Varien_Db_Ddl_Table::TYPE_VARCHAR,
+            255,
+            array(
+                'nullable' => false,
+            ),
+            'The type of this image'
+        )
+        ->addColumn(
             'hash_before',
             Varien_Db_Ddl_Table::TYPE_VARCHAR,
             255,
@@ -118,6 +127,18 @@ if (!$connection->isTableExists($tableName)) {
                 'nullable' => false,
             ),
             'Is this image processed in test mode?'
+        )
+        ->addColumn(
+            'parent_id',
+            Varien_Db_Ddl_Table::TYPE_INTEGER,
+            null,
+            'Has parent image and therefore its copied'
+        )
+        ->addColumn(
+            'compressed_before',
+            Varien_Db_Ddl_Table::TYPE_INTEGER,
+            null,
+            'Is copressed before and therefore not compressed again'
         )
         ->addColumn(
             'processed_at',

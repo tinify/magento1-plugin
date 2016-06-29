@@ -12,11 +12,19 @@ https://packagist.org/packages/tinify/magento2
 
 ## How doest it work?
 
-When you view a product in your webshop, Magento creates different image sizes in its cache folders. This extension will compress these images for you automatically. Any image sizes that are exact duplicates of each other will only be compressed once.
+When you view a product in your webshop, Magento creates different image sizes
+in its cache folders. This extension will compress these images for you
+automatically. Any image sizes that are exact duplicates of each other will
+only be compressed once.
 
-Your product images are uploaded to the TinyJPG or TinyPNG service and analyzed to apply the best possible compression. Based on the content of the image an optimal strategy is chosen. The result is sent back to your Magento webshop and saved in your public media folder.
+Your product images are uploaded to the TinyJPG or TinyPNG service and
+analyzed to apply the best possible compression. Based on the content of the
+image an optimal strategy is chosen. The result is sent back to your Magento
+webshop and saved in your public media folder.
 
-On average JPEG images are compressed by 40-60% and PNG images by 50-80% without visible loss in quality. Your webshop will load faster for your visitors, and you’ll save storage space and bandwidth!
+On average JPEG images are compressed by 40-60% and PNG images by 50-80%
+without visible loss in quality. Your webshop will load faster for your
+visitors, and you’ll save storage space and bandwidth!
 
 ## Getting started
 
@@ -32,10 +40,16 @@ amount of compressions in the Magento 1 configuration section.
 
 ## Installation
 
-The extensions is still in beta, it is not available as Magento Connect package yet. Installation can be done using [Modman](https://github.com/colinmollenhour/modman). From your Magento 1 installation directory:
+The extensions is still in beta, it is not available as Magento Connect
+package yet. Installation can be done using
+[Modman](https://github.com/colinmollenhour/modman). From your Magento 1
+installation directory:
 
     git clone git@github.com:tinify/magento1-plugin.git .modman/Tiny_CompressImages
-    modmany deploy-all
+    modman deploy-all
+
+Alternatively you can just copy all the files manually to your Magento 1
+installation directory.
 
 ## Contact us
 

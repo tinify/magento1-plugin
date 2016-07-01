@@ -32,6 +32,11 @@
 class Tiny_CompressImages_Test_Framework_TIG_Test_TestCase extends PHPUnit_Framework_TestCase
 {
     /**
+     * @var null
+     */
+    protected $_instance = null;
+
+    /**
      * Resets and restarts Magento.
      */
     public static function resetMagento()
@@ -242,5 +247,28 @@ class Tiny_CompressImages_Test_Framework_TIG_Test_TestCase extends PHPUnit_Frame
             $model->setData($row);
             $model->save();
         }
+    }
+
+    /**
+     * Sets a protected property to the provided value.
+     *
+     * @param      $property
+     * @param      $value
+     * @param null $instance
+     *
+     * @return $this
+     */
+    public function setProperty($property, $value, $instance = null)
+    {
+        if ($instance === null) {
+            $instance = $this->_instance;
+        }
+
+        $reflection = new ReflectionObject($instance);
+        $property = $reflection->getProperty($property);
+        $property->setAccessible(true);
+        $property->setValue($instance, $value);
+
+        return $this;
     }
 }

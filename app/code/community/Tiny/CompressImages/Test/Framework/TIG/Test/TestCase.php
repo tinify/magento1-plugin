@@ -43,7 +43,7 @@ class Tiny_CompressImages_Test_Framework_TIG_Test_TestCase extends PHPUnit_Frame
     {
         Mage::reset();
 
-        Mage::setIsDeveloperMode(true);
+        Mage::setIsDeveloperMode(false);
         Mage::app(
             'admin',
                 'store',

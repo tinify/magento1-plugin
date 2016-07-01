@@ -38,19 +38,33 @@ class Tiny_CompressImages_Model_Product_Image extends Mage_Catalog_Model_Product
      */
     protected $_quality = 85;
 
+    protected $_helper = null;
+
+    /**
+     * @return Tiny_CompressImages_Helper_Config
+     */
+    public function getHelper()
+    {
+        if ($this->_helper === null) {
+            $this->_helper = Mage::helper('tig_tinypng/config');
+        }
+
+        return $this->_helper;
+    }
+
     /**
      * @return string
      */
     public function getUrl()
     {
         /** @var Tiny_CompressImages_Helper_Config $helper */
-        $helper = Mage::helper('tig_tinypng/config');
+        $helper = $this->getHelper();
         if ($helper->isTestMode(Mage::app()->getStore()->getStoreId())) {
             return parent::getUrl();
         }
 
         $baseDir  = Mage::getBaseDir('media');
-        $tinyPath = substr(Tiny_CompressImages_Helper_Tinify::TINY_COMPRESSIMAGES_MEDIA_DIRECTORY.DS, 1);
+        $tinyPath = substr(Tiny_CompressImages_Helper_Tinify::TINY_COMPRESSIMAGES_MEDIA_DIRECTORY . DS, 1);
 
         $path = str_replace(
             $baseDir . DS,
@@ -62,7 +76,13 @@ class Tiny_CompressImages_Model_Product_Image extends Mage_Catalog_Model_Product
             return parent::getUrl();
         }
 
-        return Mage::getBaseUrl() . str_replace(DS, '/', $path);
+        $url =  str_replace(DS, '/', $path);
+
+        if (strpos($url, 'media/') === 0) {
+            $url = substr($url, 6);
+        }
+
+        return Mage::getBaseUrl('media') . $url;
     }
 
     /**

@@ -132,12 +132,14 @@ if (!$connection->isTableExists($tableName)) {
             'parent_id',
             Varien_Db_Ddl_Table::TYPE_INTEGER,
             null,
+            array(),
             'Has parent image and therefore its copied'
         )
         ->addColumn(
             'compressed_before',
             Varien_Db_Ddl_Table::TYPE_INTEGER,
             null,
+            array(),
             'Is copressed before and therefore not compressed again'
         )
         ->addColumn(

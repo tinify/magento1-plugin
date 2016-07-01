@@ -2,15 +2,19 @@
 set -e
 set -x
 
+TMPNAME=`openssl rand -base64 32 | tr -cd '[:alnum:]' | head -c8`;
+
 if [ -z $MAGENTO_DB_HOST ]; then MAGENTO_DB_HOST="localhost"; fi
 if [ -z $MAGENTO_DB_PORT ]; then MAGENTO_DB_PORT="3306"; fi
 if [ -z $MAGENTO_DB_USER ]; then MAGENTO_DB_USER="root"; fi
 if [ -z $MAGENTO_DB_PASS ]; then MAGENTO_DB_PASS=""; fi
-if [ -z $MAGENTO_DB_NAME ]; then MAGENTO_DB_NAME="magento"; fi
 if [ -z $MAGENTO_DB_ALLOWSAME ]; then MAGENTO_DB_ALLOWSAME="0"; fi
+if [ -z $MAGENTO_DB_NAME ]; then
+    MAGENTO_DB_NAME="magento_${TMPNAME}";
+fi
 
 CURRENT_DIR=`pwd`
-BUILDENV=`mktemp -d /tmp/magento.XXXXXXXX`
+BUILDENV="/tmp/magento.${TMPNAME}"
 TOOLS="${CURRENT_DIR}/tools"
 PUBLIC_DIR="${BUILDENV}/public/"
 

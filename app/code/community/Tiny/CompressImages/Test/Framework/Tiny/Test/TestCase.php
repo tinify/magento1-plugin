@@ -18,7 +18,7 @@ class Tiny_CompressImages_Test_Framework_Tiny_Test_TestCase extends PHPUnit_Fram
             'admin',
                 'store',
                 array(
-                    'config_model' => 'Tiny_CompressImages_Test_Framework_TIG_Test_Config'
+                    'config_model' => 'Tiny_CompressImages_Test_Framework_Tiny_Test_Config'
                 )
         )->setResponse(new Tiny_CompressImages_Test_Framework_Tiny_Test_Http_Response());
 

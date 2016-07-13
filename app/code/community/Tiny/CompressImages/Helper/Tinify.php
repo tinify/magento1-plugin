@@ -1,7 +1,7 @@
 <?php
 class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
 {
-    const TINY_COMPRESSIMAGES_MEDIA_DIRECTORY = '/media/image_compression';
+    const TINY_COMPRESSIMAGES_MEDIA_DIRECTORY = '/media/catalog/product/optimized';
 
     /**
      * @var bool $allowCompression
@@ -69,7 +69,7 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
     protected $isUsedAtSource = 1;
 
     /**
-     * @var Tiny_CompressImages_Helper_Data $helper
+     * @var Tiny_CompressImages_Helper_Data
      */
     protected $helper;
 
@@ -236,7 +236,6 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
             return true;
         }
 
-
         try {
             $message = '';
             $input = \Tinify\fromFile($this->newFile->getPathname());
@@ -257,7 +256,7 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
                 $input->toFile($this->newFile->getPathname());
                 $this->bytesAfter = $this->_getFileSize($this->newFile);
             }
-            $compressionFile = str_replace('/media', self::TINY_COMPRESSIMAGES_MEDIA_DIRECTORY ,$this->newFile->getPathname());
+            $compressionFile = $this->helper->getImagePath($this->newFile->getPathname());
             $this->helper->log('Write to compression Folder : '. $compressionFile, 'info', $this->storeId);
             file_put_contents($compressionFile, $input->toBuffer());
 
@@ -267,7 +266,7 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
                 'Size (WxH): ' . $this->imageWidth . 'x' . $this->imageHeight . ' - ' .
                 'Bytes saved: ' . ($this->bytesBefore - $this->bytesAfter) . ' - ' .
                 'Compressed Before'. $this->isCompressedBefore . ' - '.
-                'Path: ' . $this->newFile->getPath();
+                'Path: ' . $compressionFile;
 
             $this->helper->log($message, 'info', $this->storeId);
         } catch (\Tinify\Exception $e) {
@@ -309,9 +308,8 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
      */
     protected function _isInOptimizedMediaDirectory()
     {
-        $pathWithoutFile = str_replace(Mage::getBaseDir('media'), '', $this->newFile->getPath());
-
-        $directory = Mage::getBaseDir().self::TINY_COMPRESSIMAGES_MEDIA_DIRECTORY . DS . $pathWithoutFile;
+        $path = $this->helper->getImagePath($this->newFile->getPath());
+        $directory = Mage::getBaseDir() . DS . $path;
         if (!is_dir($directory)) {
             mkdir($directory, 0777, true);
             return false;

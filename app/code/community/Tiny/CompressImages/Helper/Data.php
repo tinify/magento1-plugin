@@ -115,6 +115,27 @@ class Tiny_CompressImages_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Calculates the new path where the image will be saved.
+     *
+     * @param $oldPath
+     *
+     * @return string
+     */
+    public function getImagePath($oldPath)
+    {
+        $baseDir  = Mage::getBaseDir('media') . DS . 'catalog' . DS . 'product' . DS . 'cache' . DS;
+        $tinyPath = substr(Tiny_CompressImages_Helper_Tinify::TINY_COMPRESSIMAGES_MEDIA_DIRECTORY . DS, 1);
+
+        $path = str_replace(
+            $baseDir,
+            $tinyPath,
+            $oldPath
+        );
+
+        return $path;
+    }
+
+    /**
      * Copied from https://gist.github.com/jblyberg/1572386
      *
      * @param     $datefrom

@@ -8,18 +8,38 @@ class Tiny_CompressImages_Model_Product_Image extends Mage_Catalog_Model_Product
      */
     protected $_quality = 85;
 
-    protected $_helper = null;
+    /**
+     * @var Tiny_CompressImages_Helper_Config|null
+     */
+    protected $_configHelper = null;
+
+    /**
+     * @var Tiny_CompressImages_Helper_Tinify|null
+     */
+    protected $_dataHelper = null;
 
     /**
      * @return Tiny_CompressImages_Helper_Config
      */
-    public function getHelper()
+    public function getConfigHelper()
     {
-        if ($this->_helper === null) {
-            $this->_helper = Mage::helper('tiny_compressimages/config');
+        if ($this->_configHelper === null) {
+            $this->_configHelper = Mage::helper('tiny_compressimages/config');
         }
 
-        return $this->_helper;
+        return $this->_configHelper;
+    }
+
+    /**
+     * @return Tiny_CompressImages_Helper_Data
+     */
+    public function getDataHelper()
+    {
+        if ($this->_dataHelper === null) {
+            $this->_dataHelper = Mage::helper('tiny_compressimages');
+        }
+
+        return $this->_dataHelper;
     }
 
     /**
@@ -28,21 +48,13 @@ class Tiny_CompressImages_Model_Product_Image extends Mage_Catalog_Model_Product
     public function getUrl()
     {
         /** @var Tiny_CompressImages_Helper_Config $helper */
-        $helper = $this->getHelper();
+        $helper = $this->getConfigHelper();
         if ($helper->isTestMode(Mage::app()->getStore()->getStoreId())) {
             return parent::getUrl();
         }
 
-        $baseDir  = Mage::getBaseDir('media');
-        $tinyPath = substr(Tiny_CompressImages_Helper_Tinify::TINY_COMPRESSIMAGES_MEDIA_DIRECTORY . DS, 1);
-
-        $path = str_replace(
-            $baseDir . DS,
-            $tinyPath,
-            $this->_newFile
-        );
-
-        if (!file_exists(Mage::getBaseDir(). '/' .str_replace(DS, '/', $path))) {
+        $path = $this->getDataHelper()->getImagePath($this->_newFile);
+        if (!file_exists(Mage::getBaseDir() . '/' . str_replace(DS, '/', $path))) {
             return parent::getUrl();
         }
 

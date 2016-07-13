@@ -8,6 +8,6 @@ class Tiny_CompressImages_Model_Resource_Totals extends Mage_Core_Model_Resource
      */
     protected function _construct()
     {
-        $this->_init('tig_tinypng/totals', 'entity_id');
+        $this->_init('tiny_compressimages/totals', 'entity_id');
     }
 }

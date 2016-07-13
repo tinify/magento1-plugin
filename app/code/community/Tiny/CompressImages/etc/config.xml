@@ -8,31 +8,31 @@
     </modules>
     <global>
         <blocks>
-            <tig_tinypng>
+            <tiny_compressimages>
                 <class>Tiny_CompressImages_Block</class>
-            </tig_tinypng>
+            </tiny_compressimages>
         </blocks>
         <helpers>
-            <tig_tinypng>
+            <tiny_compressimages>
                 <class>Tiny_CompressImages_Helper</class>
-            </tig_tinypng>
+            </tiny_compressimages>
         </helpers>
         <models>
-            <tig_tinypng>
+            <tiny_compressimages>
                 <class>Tiny_CompressImages_Model</class>
-                <resourceModel>tig_tinypng_resource</resourceModel>
-            </tig_tinypng>
-            <tig_tinypng_resource>
+                <resourceModel>tiny_compressimages_resource</resourceModel>
+            </tiny_compressimages>
+            <tiny_compressimages_resource>
                 <class>Tiny_CompressImages_Model_Resource</class>
                 <entities>
                     <image>
-                        <table>tig_tinypng_image</table>
+                        <table>tiny_compressimages_image</table>
                     </image>
                     <totals>
-                        <table>tig_tinypng_totals</table>
+                        <table>tiny_compressimages_totals</table>
                     </totals>
                 </entities>
-            </tig_tinypng_resource>
+            </tiny_compressimages_resource>
             <catalog>
                 <rewrite>
                     <product_image>Tiny_CompressImages_Model_Product_Image</product_image>
@@ -40,21 +40,21 @@
             </catalog>
         </models>
         <resources>
-            <tig_tinypng_setup>
+            <tiny_compressimages_setup>
                 <setup>
                     <class>Tiny_CompressImages_Model_Resource_Setup</class>
                     <module>Tiny_CompressImages</module>
                 </setup>
-            </tig_tinypng_setup>
+            </tiny_compressimages_setup>
         </resources>
         <events>
             <catalog_product_image_save_after>
                 <observers>
-                    <tig_tinypng_compress_product_image>
+                    <tiny_compressimages_compress_product_image>
                         <type>singleton</type>
                         <class>Tiny_CompressImages_Model_Observer</class>
                         <method>catalogProductImageSaveAfter</method>
-                    </tig_tinypng_compress_product_image>
+                    </tiny_compressimages_compress_product_image>
                 </observers>
             </catalog_product_image_save_after>
         </events>
@@ -64,7 +64,7 @@
             <adminhtml>
                 <args>
                     <modules>
-                        <tig_tinypng after="Mage_Adminhtml">Tiny_CompressImages</tig_tinypng>
+                        <tiny_compressimages after="Mage_Adminhtml">Tiny_CompressImages</tiny_compressimages>
                     </modules>
                 </args>
             </adminhtml>
@@ -73,23 +73,23 @@
     <adminhtml>
         <layout>
             <updates>
-                <tig_tinypng>
-                    <file>TIG/TinyPNG.xml</file>
-                </tig_tinypng>
+                <tiny_compressimages>
+                    <file>Tiny/CompressImages.xml</file>
+                </tiny_compressimages>
             </updates>
         </layout>
         <translate>
             <modules>
-                <TIG_TinyPNG>
+                <Tiny_CompressImages>
                     <files>
-                        <default>TIG_TinyPNG.csv</default>
+                        <default>Tiny_CompressImages.csv</default>
                     </files>
-                </TIG_TinyPNG>
+                </Tiny_CompressImages>
             </modules>
         </translate>
     </adminhtml>
     <default>
-        <tig_tinypng>
+        <tiny_compressimages>
             <image_types>
                 <base_images>1</base_images>
                 <small_images>1</small_images>
@@ -100,6 +100,6 @@
                 <logging_mode>all</logging_mode>
                 <enabled>2</enabled>
             </advanced>
-        </tig_tinypng>
+        </tiny_compressimages>
     </default>
 </config>

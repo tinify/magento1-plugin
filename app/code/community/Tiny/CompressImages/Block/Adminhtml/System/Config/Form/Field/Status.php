@@ -13,21 +13,21 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_Status extend
     {
         parent::__construct($attributes);
 
-        $this->_helper = Mage::helper('tig_tinypng');
+        $this->_helper = Mage::helper('tiny_compressimages');
     }
 
     /**
-     * Generate the status for the TinyPNG extension.
+     * Generate the status for the CompressImages extension.
      *
      * @return string
      */
     public function getElementHtml()
     {
         // TODO: Find a method to determine whether to use our or Tinify's compression count
-        $compressionCount = Mage::helper('tig_tinypng/tinify')->compressionCount();
+        $compressionCount = Mage::helper('tiny_compressimages/tinify')->compressionCount();
 
         /** @var Tiny_CompressImages_Helper_Config $configHelper */
-        $configHelper = Mage::helper('tig_tinypng/config');
+        $configHelper = Mage::helper('tiny_compressimages/config');
 
         if ($configHelper->getApiKey() == '') {
             return $this->_helper->__('Add your TinyPNG API key to check the status');
@@ -36,14 +36,14 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_Status extend
         if ($compressionCount == 0 || $compressionCount == 500) {
 
 
-            $button  = '<a href="https://tinypng.com/developers/subscription" target="_blank" id="tinypng_check_status" class="tig-tinypng-button-orange scalable">';
+            $button  = '<a href="https://tinypng.com/developers/subscription" target="_blank" id="tinypng_check_status" class="tiny-compressimages-button-orange scalable">';
             $button .= '<span><span><span>Upgrade</span></span></span></a>';
 
 
             $onhold = $this->_helper->__('Compression on hold. 500 free images compressed this month.');
             $upgrade = $this->_helper->__('Upgrade your account to compress more images');
 
-            return '<span class="tinypng-api-deactivated">' . $onhold . '</span>' . $upgrade . '<br>' . $button;
+            return '<span class="compressimages-api-deactivated">' . $onhold . '</span>' . $upgrade . '<br>' . $button;
         }
 
         return $this->_helper->__(

@@ -4,13 +4,13 @@ class Tiny_CompressImages_Helper_Config extends Mage_Core_Helper_Abstract
     /**
      * Configuration XPATH
      */
-    const XPATH_ENABLED              = 'tig_tinypng/advanced/enabled';
-    const XPATH_API_KEY              = 'tig_tinypng/settings/api_key';
-    const XPATH_IMAGE_TYPE_BASE      = 'tig_tinypng/image_types/base_images';
-    const XPATH_IMAGE_TYPE_SMALL     = 'tig_tinypng/image_types/small_images';
-    const XPATH_IMAGE_TYPE_THUMBNAIL = 'tig_tinypng/image_types/thumbnails';
-    const XPATH_IMAGE_TYPE_SWATCHES  = 'tig_tinypng/image_types/swatches';
-    const XPATH_LOGGING_MODE         = 'tig_tinypng/advanced/logging_mode';
+    const XPATH_ENABLED              = 'tiny_compressimages/advanced/enabled';
+    const XPATH_API_KEY              = 'tiny_compressimages/settings/api_key';
+    const XPATH_IMAGE_TYPE_BASE      = 'tiny_compressimages/image_types/base_images';
+    const XPATH_IMAGE_TYPE_SMALL     = 'tiny_compressimages/image_types/small_images';
+    const XPATH_IMAGE_TYPE_THUMBNAIL = 'tiny_compressimages/image_types/thumbnails';
+    const XPATH_IMAGE_TYPE_SWATCHES  = 'tiny_compressimages/image_types/swatches';
+    const XPATH_LOGGING_MODE         = 'tiny_compressimages/advanced/logging_mode';
 
     /**
      * Return the enabled modus (off, test or live)
@@ -140,7 +140,7 @@ class Tiny_CompressImages_Helper_Config extends Mage_Core_Helper_Abstract
 
 
     /**
-     * Returns an array of image types that can be compressed by TinyPNG
+     * Returns an array of image types that can be compressed by CompressImages
      *
      * @param null $store
      *

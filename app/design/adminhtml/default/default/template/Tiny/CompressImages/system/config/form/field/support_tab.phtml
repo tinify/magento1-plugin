@@ -1,5 +1,5 @@
 <?php
-/** @var TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_SupportTab $this */
+/** @var Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_SupportTab $this */
 ?>
 
 <?php $_tigHomepage             = 'https://tig.nl/tinypng-magento-extensie-community-edition/'; ?>
@@ -11,7 +11,7 @@
 <?php $_version                 = $this->getModuleVersion(); ?>
 <?php $_stability               = $this->getModuleStability(); ?>
 
-<tr id="tig_tinypng_support">
+<tr id="tiny_compressimages_support">
     <td>
         <h2 class="content-heading">
             <?php echo $this->__('Image Optimization');?>
@@ -58,11 +58,10 @@
 
                             </div>
                             <div class="col-2">
-                                <img class="tiny-logo-bear" alt="TinyPNG" src="<?php echo $this->getSkinUrl('images/TIG/TinyPNG/george-magento@2x_opt.png'); ?>" />
+                                <img class="tiny-logo-bear" alt="CompressImages" src="<?php echo $this->getSkinUrl('images/Tiny/CompressImages/george-magento@2x_opt.png'); ?>" />
                             </div>
                         </div>
                     </div>
-
                 </td>
             </tr>
         </table>
@@ -71,15 +70,28 @@
 
 <script>
     //<![CDATA[
-    // Remove default onclick value
-    $('tig_tinypng_support-head').setAttribute('onclick', '');
-    // Get and remove the first head on the page (ours)
-    $$('.entry-edit-head')[0].remove();
-    // Set tabs open.
     document.observe('dom:loaded', function() {
-        $('tig_tinypng_image_types').setStyle({display: 'block'});
-        $('tig_tinypng_status').setStyle({display: 'block'});
-        $('tig_tinypng_settings').setStyle({display: 'block'});
+        var elem;
+
+        // Set tabs open.
+        [
+            'tiny_compressimages_support-head',
+            'tiny_compressimages_image_types-head',
+            'tiny_compressimages_status-head',
+            'tiny_compressimages_settings-head'
+        ].each( function (name) {
+            elem = $(name);
+
+            if (!elem.hasClassName('open')) {
+                elem.click();
+            }
+        });
+
+        // Remove default onclick value
+        $('tiny_compressimages_support-head').setAttribute('onclick', '');
+
+        // Get and remove the first head on the page (ours)
+        $$('.entry-edit-head')[0].remove();
     });
     //]]>
 </script>

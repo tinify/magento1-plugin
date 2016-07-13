@@ -16,7 +16,7 @@ class Tiny_CompressImages_Model_Observer
     public function catalogProductImageSaveAfter($observer)
     {
         if ($this->_tinifyHelper === null) {
-            $this->_tinifyHelper = Mage::helper('tig_tinypng/tinify');
+            $this->_tinifyHelper = Mage::helper('tiny_compressimages/tinify');
         }
 
         $storeId = Mage::app()->getStore()->getStoreId();

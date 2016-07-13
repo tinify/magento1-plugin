@@ -29,7 +29,7 @@ class Tiny_CompressImages_Model_Totals extends Mage_Core_Model_Abstract
      */
     public function _construct()
     {
-        $this->_init('tig_tinypng/totals');
+        $this->_init('tiny_compressimages/totals');
     }
 
     /**
@@ -74,6 +74,10 @@ class Tiny_CompressImages_Model_Totals extends Mage_Core_Model_Abstract
      * @return string
      */
     function formatBytes($bytes, $precision = 2) {
+        if ($bytes == 0) {
+            return '0 KB';
+        }
+
         $units = array('B', 'KB', 'MB', 'GB', 'TB');
 
         $i = floor(log($bytes, 1024));

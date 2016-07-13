@@ -4,6 +4,6 @@ class Tiny_CompressImages_Model_Resource_Totals_Collection extends Mage_Core_Mod
     public function _construct()
     {
         parent::_construct();
-        $this->_init('tig_tinypng/totals');
+        $this->_init('tiny_compressimages/totals');
     }
 }

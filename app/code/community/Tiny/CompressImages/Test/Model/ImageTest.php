@@ -1,5 +1,5 @@
 <?php
-class ImageTest extends Tiny_CompressImages_Test_Framework_TIG_Test_TestCase
+class ImageTest extends Tiny_CompressImages_Test_Framework_Tiny_Test_TestCase
 {
     /**
      * @var Tiny_CompressImages_Model_Image
@@ -11,9 +11,9 @@ class ImageTest extends Tiny_CompressImages_Test_Framework_TIG_Test_TestCase
      */
     public function setup()
     {
-        Mage::getModel('tig_tinypng/image')->deleteAll();
+        Mage::getModel('tiny_compressimages/image')->deleteAll();
 
-        $this->_instance = Mage::getModel('tig_tinypng/image');
+        $this->_instance = Mage::getModel('tiny_compressimages/image');
     }
 
     /**
@@ -114,7 +114,7 @@ class ImageTest extends Tiny_CompressImages_Test_Framework_TIG_Test_TestCase
      */
     public function testGetStatistics($models, $results)
     {
-        $this->createModels('tig_tinypng/image', $models);
+        $this->createModels('tiny_compressimages/image', $models);
 
         $stats = $this->_instance->getStatistics();
         $this->assertEquals($results['percentage'], $stats->getPercentageSaved());
@@ -134,7 +134,7 @@ class ImageTest extends Tiny_CompressImages_Test_Framework_TIG_Test_TestCase
      */
     public function testGetByHash()
     {
-        $this->createModels('tig_tinypng/image', array(
+        $this->createModels('tiny_compressimages/image', array(
             array(
                 'path' => '1.jpg',
                 'hash_before' => '54eab696c5c868b669076216ede66a9f',
@@ -216,7 +216,7 @@ class ImageTest extends Tiny_CompressImages_Test_Framework_TIG_Test_TestCase
             );
         }
 
-        $this->createModels('tig_tinypng/image', $models);
+        $this->createModels('tiny_compressimages/image', $models);
 
         $this->assertEquals(10, $this->_instance->getCollection()->getSize());
 

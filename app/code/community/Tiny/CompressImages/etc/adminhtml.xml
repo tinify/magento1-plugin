@@ -11,10 +11,10 @@
                         <children>
                             <config>
                                 <children>
-                                    <tig_tinypng translate="title">
-                                        <title>TinyPNG</title>
+                                    <tiny_compressimages translate="title">
+                                        <title>Tiny CompressImages</title>
                                         <sort_order>500</sort_order>
-                                    </tig_tinypng>
+                                    </tiny_compressimages>
                                 </children>
                             </config>
                         </children>

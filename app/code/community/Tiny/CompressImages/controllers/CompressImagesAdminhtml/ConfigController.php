@@ -1,5 +1,5 @@
 <?php
-class Tiny_CompressImages_TinypngAdminhtml_ConfigController extends Mage_Adminhtml_Controller_Action
+class Tiny_CompressImages_CompressImagesAdminhtml_ConfigController extends Mage_Adminhtml_Controller_Action
 {
     /**
      * @return bool
@@ -9,18 +9,18 @@ class Tiny_CompressImages_TinypngAdminhtml_ConfigController extends Mage_Adminht
         /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');
 
-        return $session->isAllowed('admin/tinypng');
+        return $session->isAllowed('admin/compressimages');
     }
 
     /**
-     * Download TinyPNG log file
+     * Download CompressImages log file
      *
      * @return $this
      */
     public function downloadLogsAction()
     {
         /** @var Tiny_CompressImages_Helper_Data $helper */
-        $helper = Mage::helper('tig_tinypng');
+        $helper = Mage::helper('tiny_compressimages');
         $filePath = $helper->getLogFilePath();
 
         if (!$helper->getLogFileExists()) {

@@ -4,6 +4,6 @@ class Tiny_CompressImages_Model_Resource_Image_Collection extends Mage_Core_Mode
     public function _construct()
     {
         parent::_construct();
-        $this->_init('tig_tinypng/image');
+        $this->_init('tiny_compressimages/image');
     }
 }

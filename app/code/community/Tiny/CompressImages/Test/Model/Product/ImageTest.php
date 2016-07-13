@@ -1,5 +1,5 @@
 <?php
-class Model_Product_ImageTest extends Tiny_CompressImages_Test_Framework_TIG_Test_TestCase
+class Model_Product_ImageTest extends Tiny_CompressImages_Test_Framework_Tiny_Test_TestCase
 {
     /**
      * @var null|Tiny_CompressImages_Helper_Config

@@ -8,7 +8,7 @@ class Tiny_CompressImages_Block_Adminhtml_ApiNotification extends Mage_Adminhtml
      */
     public function isApiKeySet()
     {
-        $configHelper = Mage::helper('tig_tinypng/config');
+        $configHelper = Mage::helper('tiny_compressimages/config');
 
         if ($configHelper->getApiKey()) {
             return true;
@@ -22,6 +22,6 @@ class Tiny_CompressImages_Block_Adminhtml_ApiNotification extends Mage_Adminhtml
      */
     public function getBackendUrl()
     {
-        return Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit/section/tig_tinypng/');
+        return Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit/section/tiny_compressimages/');
     }
 }

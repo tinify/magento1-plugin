@@ -2,14 +2,14 @@
 <layout>
     <default>
         <reference name="notifications">
-            <block type="tig_tinypng/adminhtml_apiNotification" name="tig_tinypng_api_key_notification" template="TIG/TinyPNG/Api/keyNotification.phtml"/>
+            <block type="tiny_compressimages/adminhtml_apiNotification" name="tiny_compressimages_api_key_notification" template="Tiny/CompressImages/Api/keyNotification.phtml"/>
         </reference>
     </default>
     <adminhtml_system_config_edit>
         <reference name="head">
             <action method="addItem">
                 <type>skin_css</type>
-                <name>css/TIG/TinyPNG/config.css</name>
+                <name>css/Tiny/CompressImages/config.css</name>
             </action>
         </reference>
     </adminhtml_system_config_edit>
@@ -17,7 +17,7 @@
     <adminhtml_cache_index>
         <reference name="content">
             <block name="cache.additional">
-                <block type="tig_tinypng/adminhtml_cache_warning" name="tig.tinypng.cache-warning" template="TIG/TinyPNG/Cache/warning.phtml"></block>
+                <block type="tiny_compressimages/adminhtml_cache_warning" name="tig.compressimages.cache-warning" template="Tiny/CompressImages/Cache/warning.phtml"></block>
             </block>
         </reference>
     </adminhtml_cache_index>

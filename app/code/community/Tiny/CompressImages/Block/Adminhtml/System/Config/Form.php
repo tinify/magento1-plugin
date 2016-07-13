@@ -33,8 +33,8 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form extends Mage_Adminh
      */
     protected function _addRadioButtons()
     {
-        $this->_elementTypes['tinypng_radios'] = Mage::getConfig()
-            ->getBlockClassName('tig_tinypng/adminhtml_system_config_form_field_radios');
+        $this->_elementTypes['compressimages_radios'] = Mage::getConfig()
+            ->getBlockClassName('tiny_compressimages/adminhtml_system_config_form_field_radios');
 
         return $this;
     }
@@ -46,8 +46,8 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form extends Mage_Adminh
      */
     protected function _addStatusIndicator()
     {
-        $this->_elementTypes['tinypng_status'] = Mage::getConfig()
-            ->getBlockClassName('tig_tinypng/adminhtml_system_config_form_field_status');
+        $this->_elementTypes['compressimages_status'] = Mage::getConfig()
+            ->getBlockClassName('tiny_compressimages/adminhtml_system_config_form_field_status');
 
         return $this;
     }
@@ -59,8 +59,8 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form extends Mage_Adminh
      */
     protected function _addSavedIndicator()
     {
-        $this->_elementTypes['tinypng_saved'] = Mage::getConfig()
-            ->getBlockClassName('tig_tinypng/adminhtml_system_config_form_field_saved');
+        $this->_elementTypes['compressimages_saved'] = Mage::getConfig()
+            ->getBlockClassName('tiny_compressimages/adminhtml_system_config_form_field_saved');
 
         return $this;
     }
@@ -72,8 +72,8 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form extends Mage_Adminh
      */
     protected function _addApiIndicator()
     {
-        $this->_elementTypes['tinypng_api'] = Mage::getConfig()
-            ->getBlockClassName('tig_tinypng/adminhtml_system_config_form_field_api');
+        $this->_elementTypes['compressimages_api'] = Mage::getConfig()
+            ->getBlockClassName('tiny_compressimages/adminhtml_system_config_form_field_api');
 
         return $this;
     }
@@ -85,8 +85,8 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form extends Mage_Adminh
      */
     protected function _addAccountType()
     {
-        $this->_elementTypes['tinypng_account_type'] = Mage::getConfig()
-            ->getBlockClassName('tig_tinypng/adminhtml_system_config_form_field_accountType');
+        $this->_elementTypes['compressimages_account_type'] = Mage::getConfig()
+            ->getBlockClassName('tiny_compressimages/adminhtml_system_config_form_field_accountType');
 
         return $this;
     }

@@ -90,8 +90,8 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
         $this->_registerAutoloader();
         $this->_setIdentifier();
 
-        $this->helper = Mage::helper('tig_tinypng');
-        $this->configHelper = Mage::helper('tig_tinypng/config');
+        $this->helper = Mage::helper('tiny_compressimages');
+        $this->configHelper = Mage::helper('tiny_compressimages/config');
 
         $apiKey = $this->configHelper->getApiKey($this->storeId);
         $this->allowCompression = $this->validate($apiKey);
@@ -291,7 +291,7 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
         $hash = $this->_getFileHash($this->newFile);
 
         /** @var Tiny_CompressImages_Model_Image|null $model */
-        $model = Mage::getModel('tig_tinypng/image')->getByHash($hash);
+        $model = Mage::getModel('tiny_compressimages/image')->getByHash($hash);
 
         if ($model !== null) {
             return $this->_copyExistingFile($model);
@@ -430,7 +430,7 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
         $path = str_replace(Mage::getBaseDir(), '', $this->newFile->getPathname());
 
         /** @var Tiny_CompressImages_Model_Image */
-        $model = Mage::getModel('tig_tinypng/image');
+        $model = Mage::getModel('tiny_compressimages/image');
         $model->setPath($path);
         $model->setImageType($this->destinationSubdir);
         $model->setHashBefore($this->hashBefore);
@@ -476,7 +476,7 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
      */
     public function setTotalSavings()
     {
-        $model      = Mage::getModel('tig_tinypng/totals');
+        $model      = Mage::getModel('tiny_compressimages/totals');
         $collection = $model->getCollection()->setOrder('entity_id', 'DESC');
 
         /** @var Tiny_CompressImages_Model_Totals $latest */
@@ -599,7 +599,7 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
      */
     public function getCompressionStatus()
     {
-        $collection = Mage::getModel('tig_tinypng/image')->getCollection();
+        $collection = Mage::getModel('tiny_compressimages/image')->getCollection();
         $select = $collection->getSelect();
         $select->limit(50);
 

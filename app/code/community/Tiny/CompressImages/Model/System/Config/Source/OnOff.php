@@ -8,7 +8,7 @@ class Tiny_CompressImages_Model_System_Config_Source_OnOff
      */
     public function toOptionArray()
     {
-        $helper = Mage::helper('tig_tinypng');
+        $helper = Mage::helper('tiny_compressimages');
 
         $array = array(
             array(

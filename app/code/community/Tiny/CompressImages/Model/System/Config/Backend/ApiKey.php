@@ -10,7 +10,7 @@ class Tiny_CompressImages_Model_System_Config_Backend_ApiKey extends Mage_Core_M
     protected function _beforeSave()
     {
         $apiKeyValue = $this->getValue();
-        $helper = Mage::helper('tig_tinypng/tinify');
+        $helper = Mage::helper('tiny_compressimages/tinify');
 
         if (strlen($apiKeyValue) > 0) {
             $validateResult = $helper->validate($apiKeyValue);

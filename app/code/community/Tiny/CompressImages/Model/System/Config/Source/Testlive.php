@@ -8,7 +8,7 @@ class Tiny_CompressImages_Model_System_Config_Source_Testlive
      */
     public function toOptionArray()
     {
-        $helper = Mage::helper('tig_tinypng');
+        $helper = Mage::helper('tiny_compressimages');
 
         /**
          * Used 0, 1 and 2 as values so that Mage::getStoreConfigFlag() would still function for checking if the

@@ -2,7 +2,7 @@
 class Tiny_CompressImages_Model_Product_Image extends Mage_Catalog_Model_Product_Image
 {
     /**
-     * Set the minimun required quality for TinyPNG image compression which is 95
+     * Set the minimun required quality for CompressImages which is 95
      *
      * @var int
      */
@@ -16,7 +16,7 @@ class Tiny_CompressImages_Model_Product_Image extends Mage_Catalog_Model_Product
     public function getHelper()
     {
         if ($this->_helper === null) {
-            $this->_helper = Mage::helper('tig_tinypng/config');
+            $this->_helper = Mage::helper('tiny_compressimages/config');
         }
 
         return $this->_helper;

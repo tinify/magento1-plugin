@@ -9,7 +9,7 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_SupportTab
      *
      * @var string
      */
-    protected $_template = 'TIG/TinyPNG/system/config/form/field/support_tab.phtml';
+    protected $_template = 'Tiny/CompressImages/system/config/form/field/support_tab.phtml';
 
     /**
      * Render fieldset html

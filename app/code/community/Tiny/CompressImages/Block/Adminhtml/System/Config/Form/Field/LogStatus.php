@@ -6,7 +6,7 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_LogStatus ext
      *
      * @var string
      */
-    protected $_template = 'TIG/TinyPNG/system/config/form/field/log_status.phtml';
+    protected $_template = 'Tiny/CompressImages/system/config/form/field/log_status.phtml';
 
     /**
      * Render template
@@ -27,7 +27,7 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_LogStatus ext
      */
     public function getCleanImagesUrl()
     {
-        $url = Mage::helper("adminhtml")->getUrl('adminhtml/tinypngAdminhtml_config/clearCache');
+        $url = Mage::helper("adminhtml")->getUrl('adminhtml/CompressImagesAdminhtml_config/clearCache');
 
         return $url;
     }

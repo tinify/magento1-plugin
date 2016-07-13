@@ -8,6 +8,6 @@ class Tiny_CompressImages_Model_Resource_Image extends Mage_Core_Model_Resource_
      */
     protected function _construct()
     {
-        $this->_init('tig_tinypng/image', 'image_id');
+        $this->_init('tiny_compressimages/image', 'image_id');
     }
 }

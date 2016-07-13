@@ -7,4 +7,4 @@ if (strpos(__DIR__, '.modman') !== false) {
 
 ini_set('display_errors', true);
 error_reporting(-1);
-Tiny_CompressImages_Test_Framework_TIG_Test_TestCase::resetMagento();
+Tiny_CompressImages_Test_Framework_Tiny_Test_TestCase::resetMagento();

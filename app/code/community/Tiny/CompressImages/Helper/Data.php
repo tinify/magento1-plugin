@@ -18,7 +18,7 @@ class Tiny_CompressImages_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function __construct()
     {
-        $this->_configHelper = Mage::helper('tig_tinypng/config');
+        $this->_configHelper = Mage::helper('tiny_compressimages/config');
     }
 
     /**

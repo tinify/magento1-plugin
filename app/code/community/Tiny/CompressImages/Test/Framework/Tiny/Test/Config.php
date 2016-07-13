@@ -1,5 +1,5 @@
 <?php
-class Tiny_CompressImages_Test_Framework_TIG_Test_Config extends Mage_Core_Model_Config
+class Tiny_CompressImages_Test_Framework_Tiny_Test_Config extends Mage_Core_Model_Config
 {
     /**
      * @var array

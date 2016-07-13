@@ -1,5 +1,5 @@
 <?php
-class Tiny_CompressImages_Test_Framework_TIG_Test_TestCase extends PHPUnit_Framework_TestCase
+class Tiny_CompressImages_Test_Framework_Tiny_Test_TestCase extends PHPUnit_Framework_TestCase
 {
     /**
      * @var null
@@ -20,7 +20,7 @@ class Tiny_CompressImages_Test_Framework_TIG_Test_TestCase extends PHPUnit_Frame
                 array(
                     'config_model' => 'Tiny_CompressImages_Test_Framework_TIG_Test_Config'
                 )
-        )->setResponse(new Tiny_CompressImages_Test_Framework_TIG_Test_Http_Response());
+        )->setResponse(new Tiny_CompressImages_Test_Framework_Tiny_Test_Http_Response());
 
         $handler = set_error_handler(function() {});
 
@@ -115,7 +115,7 @@ class Tiny_CompressImages_Test_Framework_TIG_Test_TestCase extends PHPUnit_Frame
      * @param string $modelClass
      * @param object $mock
      *
-     * @return TIG_Test_TestCase
+     * @return $this
      */
     public function setModelMock($modelClass, $mock)
     {
@@ -127,7 +127,7 @@ class Tiny_CompressImages_Test_Framework_TIG_Test_TestCase extends PHPUnit_Frame
      * @param string $modelClass
      * @param object $mock
      *
-     * @return TIG_Test_TestCase
+     * @return $this
      */
     public function setResourceModelMock($modelClass, $mock)
     {
@@ -140,7 +140,7 @@ class Tiny_CompressImages_Test_Framework_TIG_Test_TestCase extends PHPUnit_Frame
      * @param string $modelClass
      * @param object $mock
      *
-     * @return TIG_Test_TestCase
+     * @return $this
      */
     public function setSingletonMock($modelClass, $mock)
     {
@@ -168,7 +168,7 @@ class Tiny_CompressImages_Test_Framework_TIG_Test_TestCase extends PHPUnit_Frame
      * @param string $resourceModelClass
      * @param object $mock
      *
-     * @return TIG_Test_TestCase
+     * @return $this
      */
     public function setResourceSingletonMock($resourceModelClass, $mock)
     {
@@ -184,7 +184,7 @@ class Tiny_CompressImages_Test_Framework_TIG_Test_TestCase extends PHPUnit_Frame
      * @param string $helperClass
      * @param object $mock
      *
-     * @return TIG_Test_TestCase
+     * @return $this
      */
     public function setHelperMock($helperClass, $mock)
     {
@@ -197,7 +197,7 @@ class Tiny_CompressImages_Test_Framework_TIG_Test_TestCase extends PHPUnit_Frame
     }
 
     /**
-     * @return TIG_Test_Config
+     * @return Tiny_CompressImages_Test_Framework_Tiny_Test_Config
      */
     public function getConfig()
     {

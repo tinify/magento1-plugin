@@ -1,5 +1,5 @@
 <?php
-class Tiny_CompressImages_Test_Framework_TIG_Test_Http_Response extends Mage_Core_Controller_Response_Http
+class Tiny_CompressImages_Test_Framework_Tiny_Test_Http_Response extends Mage_Core_Controller_Response_Http
 {
     /**
      * @var bool
@@ -9,7 +9,7 @@ class Tiny_CompressImages_Test_Framework_TIG_Test_Http_Response extends Mage_Cor
     /**
      * @param boolean $headersSent
      *
-     * @return TIG_Test_Http_Response
+     * @return Tiny_CompressImages_Test_Framework_Tiny_Test_Http_Response
      */
     public function setHeadersSent($headersSent)
     {

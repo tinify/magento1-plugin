@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
     <sections>
-        <tig_tinypng translate="label" module="tig_tinypng">
+        <tiny_compressimages translate="label" module="tiny_compressimages">
             <label>Image Optimization</label>
             <tab>general</tab>
-            <frontend_model>tig_tinypng/adminhtml_system_config_form</frontend_model>
-            <class>tig-tinypng-section</class>
+            <frontend_model>tiny_compressimages/adminhtml_system_config_form</frontend_model>
+            <class>tiny-compressimages-section</class>
             <frontend_type>text</frontend_type>
             <sort_order>1200</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>
             <groups>
-                <support translate="label" module="tig_tinypng">
+                <support translate="label" module="tiny_compressimages">
                     <label>Version &amp; Support</label>
                     <sort_order>10</sort_order> <!-- This should always be the first tab -->
                     <show_in_default>1</show_in_default>
@@ -21,7 +21,7 @@
                     <fields>
                         <support>
                             <sort_order>0</sort_order>
-                            <frontend_model>tig_tinypng/adminhtml_system_config_form_field_supportTab</frontend_model>
+                            <frontend_model>tiny_compressimages/adminhtml_system_config_form_field_supportTab</frontend_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -39,7 +39,7 @@
                         <api_key tranaslate="label comment">
                             <label>API Key</label>
                             <frontend_type>text</frontend_type>
-                            <backend_model>tig_tinypng/system_config_backend_apiKey</backend_model>
+                            <backend_model>tiny_compressimages/system_config_backend_apiKey</backend_model>
                             <comment><![CDATA[Visit <a href="https://tinypng.com/developers/subscription" target="_BLANK">TinyPNG Developer section</a> to get an API key.]]></comment>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
@@ -49,7 +49,7 @@
                         <api>
                             <label>TinyPNG API Status</label>
                             <sort_order>20</sort_order>
-                            <frontend_type>tinypng_api</frontend_type>
+                            <frontend_type>compressimages_api</frontend_type>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -57,7 +57,7 @@
                         <usage translate="label comment">
                             <label> </label>
                             <sort_order>30</sort_order>
-                            <frontend_type>tinypng_status</frontend_type>
+                            <frontend_type>compressimages_status</frontend_type>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -125,7 +125,7 @@
                     <fields>
                         <log_status>
                             <sort_order>40</sort_order>
-                            <frontend_model>tig_tinypng/adminhtml_system_config_form_field_logStatus</frontend_model>
+                            <frontend_model>tiny_compressimages/adminhtml_system_config_form_field_logStatus</frontend_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -143,8 +143,7 @@
                             <label>Enable TinyPNG</label>
                             <frontend_type>select</frontend_type>
                             <sort_order>10</sort_order>
-                            <source_model>tig_tinypng/system_config_source_testlive</source_model>
-                            <backend_model>tig_tinypng/system_config_backend_enabled</backend_model>
+                            <source_model>tiny_compressimages/system_config_source_testlive</source_model>
                             <comment><![CDATA[
                                     Live: Extension works normally (default) <br /> <br />
 
@@ -166,7 +165,7 @@
                         <logging_mode translate="label comment">
                             <label>Messages that should be logged</label>
                             <sort_order>40</sort_order>
-                            <source_model>tig_tinypng/system_config_source_log</source_model>
+                            <source_model>tiny_compressimages/system_config_source_log</source_model>
                             <frontend_type>select</frontend_type>
                             <comment><![CDATA[Any error messages will be save to /var/log/image-optimization-error.log]]></comment>
                             <show_in_default>1</show_in_default>
@@ -176,6 +175,6 @@
                     </fields>
                 </advanced>
             </groups>
-        </tig_tinypng>
+        </tiny_compressimages>
     </sections>
 </config>

@@ -37,7 +37,7 @@ class Tiny_CompressImages_Model_Image extends Mage_Core_Model_Abstract
     {
         parent::__construct();
 
-        $this->_helper = Mage::helper('tig_tinypng');
+        $this->_helper = Mage::helper('tiny_compressimages');
     }
 
     /**
@@ -45,11 +45,11 @@ class Tiny_CompressImages_Model_Image extends Mage_Core_Model_Abstract
      */
     public function _construct()
     {
-        $this->_init('tig_tinypng/image');
+        $this->_init('tiny_compressimages/image');
     }
 
     /**
-     * Get the statistics for the TinyPNG module.
+     * Get the statistics for the CompressImages module.
      *
      * $options:
      * - current_month: defaults to true
@@ -114,7 +114,7 @@ class Tiny_CompressImages_Model_Image extends Mage_Core_Model_Abstract
      */
     public function getByHash($hash)
     {
-        /** @var Tiny_CompressImages_Model_Resource_Image_Collection $tinyPNGModel */
+        /** @var Tiny_CompressImages_Model_Resource_Image_Collection $model */
         $model = $this->getCollection();
         $model->addFieldToFilter(
             array(
@@ -160,7 +160,7 @@ class Tiny_CompressImages_Model_Image extends Mage_Core_Model_Abstract
         // If it is a duplicate image, then there will be a link to his parent.
         if ($this->getParentId()) {
             /** @var Tiny_CompressImages_Model_Image $parent */
-            $parent = Mage::getModel('tig_tinypng/image')->load($this->getParentId());
+            $parent = Mage::getModel('tiny_compressimages/image')->load($this->getParentId());
             $path   = $parent->getPath();
         }
 
@@ -217,7 +217,7 @@ class Tiny_CompressImages_Model_Image extends Mage_Core_Model_Abstract
         $collection = $this->getCollection();
 
         Mage::getSingleton('core/resource_iterator')->walk($collection->getSelect(), array( function ($args) {
-            Mage::getModel('tig_tinypng/image')->load($args['row']['image_id'])->delete();
+            Mage::getModel('tiny_compressimages/image')->load($args['row']['image_id'])->delete();
         }));
 
         return $this;
@@ -234,7 +234,7 @@ class Tiny_CompressImages_Model_Image extends Mage_Core_Model_Abstract
         $collection->addFieldToFilter('is_test', '1');
 
         Mage::getSingleton('core/resource_iterator')->walk($collection->getSelect(), array( function ($args) {
-            Mage::getModel('tig_tinypng/image')->load($args['row']['image_id'])->delete();
+            Mage::getModel('tiny_compressimages/image')->load($args['row']['image_id'])->delete();
         }));
 
         return $this;

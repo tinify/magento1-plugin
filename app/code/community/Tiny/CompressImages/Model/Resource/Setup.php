@@ -37,11 +37,11 @@ class Tiny_CompressImages_Model_Resource_Setup extends Mage_Core_Model_Resource_
                         )
                     );
                 } catch (Exception $e) {
-                    Mage::helper('tig_tinypng')->log($e);
+                    Mage::helper('tiny_compressimages')->log($e);
                 }
             }
         } catch (Exception $e) {
-            Mage::helper('tig_tinypng')->log($e);
+            Mage::helper('tiny_compressimages')->log($e);
         }
 
         return $this;
@@ -68,7 +68,7 @@ class Tiny_CompressImages_Model_Resource_Setup extends Mage_Core_Model_Resource_
                 return true;
             }
         } catch (Exception $e) {
-            Mage::helper('tig_tinypng')->log($e);
+            Mage::helper('tiny_compressimages')->log($e);
         }
 
         return false;

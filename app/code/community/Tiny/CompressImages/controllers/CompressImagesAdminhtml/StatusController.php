@@ -1,12 +1,12 @@
 <?php
-class Tiny_CompressImages_TinypngAdminhtml_StatusController extends Mage_Adminhtml_Controller_Action
+class Tiny_CompressImages_CompressImagesAdminhtml_StatusController extends Mage_Adminhtml_Controller_Action
 {
     protected function _isAllowed()
     {
         /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');
 
-        return $session->isAllowed('admin/tinypng');
+        return $session->isAllowed('admin/compressimages');
     }
 
     public function getApiStatusAction()
@@ -18,26 +18,26 @@ class Tiny_CompressImages_TinypngAdminhtml_StatusController extends Mage_Adminht
         $result = array();
 
         /** @var Tiny_CompressImages_Helper_Config $configHelper */
-        $configHelper = Mage::helper('tig_tinypng/config');
+        $configHelper = Mage::helper('tiny_compressimages/config');
         $isConfigured = $configHelper->isConfigured();
         $apiKey = $configHelper->getApiKey();
-        $isValidated = Mage::helper('tig_tinypng/tinify')->validate($apiKey);
+        $isValidated = Mage::helper('tiny_compressimages/tinify')->validate($apiKey);
 
         $cacheData = array();
         if ($isConfigured && $isValidated) {
-            $message = '<span class="tinypng_status_success"><span class="apisuccess"></span>'
-                . Mage::helper('tig_tinypng')->__('API connection successful')
+            $message = '<span class="compressimages_status_success"><span class="apisuccess"></span>'
+                . Mage::helper('tiny_compressimages')->__('API connection successful')
                 . '</span>';
 
             $cacheData['status'] = 'operational';
-            Mage::app()->saveCache(json_encode($cacheData), 'tig_tinypng_api_status');
+            Mage::app()->saveCache(json_encode($cacheData), 'tiny_compressimages_api_status');
         } else {
-            $message = '<span class="tinypng_status_failure">'
-                . Mage::helper('tig_tinypng')->__('Non-operational')
+            $message = '<span class="compressimages_status_failure">'
+                . Mage::helper('tiny_compressimages')->__('Non-operational')
                 . '</span>';
 
             $cacheData['status'] = 'nonoperational';
-            Mage::app()->saveCache(json_encode($cacheData), 'tig_tinypng_api_status');
+            Mage::app()->saveCache(json_encode($cacheData), 'tiny_compressimages_api_status');
         }
 
         $result['status'] = 'success';

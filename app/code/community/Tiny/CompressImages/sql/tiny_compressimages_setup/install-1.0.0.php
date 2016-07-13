@@ -9,7 +9,7 @@ $installer->startSetup();
 /** @var Varien_Db_Adapter_Interface $connection */
 $connection = $installer->getConnection();
 
-$tableName = $installer->getTable('tig_tinypng/image');
+$tableName = $installer->getTable('tiny_compressimages/image');
 if (!$connection->isTableExists($tableName)) {
     $table = $connection
         ->newTable($tableName)
@@ -124,7 +124,7 @@ if (!$connection->isTableExists($tableName)) {
     $connection->createTable($table);
 }
 
-$tableName = $installer->getTable('tig_tinypng/totals');
+$tableName = $installer->getTable('tiny_compressimages/totals');
 if (!$connection->isTableExists($tableName)) {
     $table = $connection
         ->newTable($tableName)
@@ -201,7 +201,7 @@ if (!$connection->isTableExists($tableName)) {
 /**
  * Move the api_key setting to it's new location
  */
-$installer->moveConfigSettingInDb('compress_images/settings/api_key', 'tig_tinypng/settings/api_key');
+$installer->moveConfigSettingInDb('compress_images/settings/api_key', 'tiny_compressimages/settings/api_key');
 
 /**
  * In the old module the different image types are 4 different options, in the new module this is only 1 option
@@ -230,11 +230,11 @@ if (count($allowedTypes)) {
                 'scope'    => 'default',
                 'scope_id' => '0',
                 'value'    => implode(',', $allowedTypes),
-                'path'     => 'tig_tinypng/settings/product_compression',
+                'path'     => 'tiny_compressimages/settings/product_compression',
             )
         );
     } catch (Exception $e) {
-        Mage::helper('tig_tinypng')->log($e);
+        Mage::helper('tiny_compressimages')->log($e);
     }
 }
 

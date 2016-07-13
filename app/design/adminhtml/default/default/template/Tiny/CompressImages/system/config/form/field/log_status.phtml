@@ -1,16 +1,16 @@
 <?php
 /**
- * @var TIG_TinyPNG_Block_Adminhtml_System_Config_Form_Field_LogStatus $this
+ * @var Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_LogStatus $this
  */
 
-/** @var TIG_TinyPNG_Helper_Tinify $_tinify */
-$_tinify = Mage::helper('tig_tinypng/tinify');
+/** @var Tiny_CompressImages_Helper_Tinify $_tinify */
+$_tinify = Mage::helper('tiny_compressimages/tinify');
 
-/** @var TIG_TinyPNG_Helper_Data $_helper */
-$_helper = Mage::helper('tig_tinypng');
-$data    = Mage::getModel('tig_tinypng/totals')->getTotalCompressionInformation();
+/** @var Tiny_CompressImages_Helper_Data $_helper */
+$_helper = Mage::helper('tiny_compressimages');
+$data    = Mage::getModel('tiny_compressimages/totals')->getTotalCompressionInformation();
 
-/** @var TIG_TinyPNG_Model_Image $image */
+/** @var Tiny_CompressImages_Model_Image $image */
 $images = $_tinify->getCompressionStatus();
 ?>
 
@@ -43,7 +43,7 @@ $images = $_tinify->getCompressionStatus();
 <?php if ($data['totalCompressions'] > 0) :?>
 <tr>
     <td class="log-details-td">
-        <?php echo Mage::helper('tig_tinypng')->__(
+        <?php echo Mage::helper('tiny_compressimages')->__(
             'Total of %s optimized product images. Original size : %s. New size : %s. Average savings %s%%.',
             $data['totalCompressions'],
             $data['bytesBefore'],
@@ -55,16 +55,16 @@ $images = $_tinify->getCompressionStatus();
 <?php endif; ?>
 <tr>
     <td colspan="4">
-        <table id="tig_tinypng_compression" cellspacing="5">
+        <table id="tiny_compressimages_compression" cellspacing="5">
             <?php $i = 0; ?>
             <?php if ($images->count()): ?>
                 <?php /** Tiny_CompressImages_Model_Image $image */?>
                 <?php foreach ($images as $image): ?>
                     <?php $i++; ?>
                     <?php if ($i > 10): ?>
-                        <tr class="tig_tinypng_log log_hidden">
+                        <tr class="tiny_compressimages_log log_hidden">
                     <?php else : ?>
-                        <tr class="tig_tinypng_log">
+                        <tr class="tiny_compressimages_log">
                     <?php endif;?>
                         <td class="image_path">
                             <a href="<?php echo $image->getImageUrl(); ?>" target="_BLANK">
@@ -72,26 +72,26 @@ $images = $_tinify->getCompressionStatus();
                             </a>
                         </td>
                         <td class="info_box"><?php echo $image->getImageType(); ?></td>
-                        <td class="info_box tig_tinypng_width">
+                        <td class="info_box tiny_compressimages_width">
                             <?php echo $image->getPercentageSaved(); ?> saved (<?php echo $_helper->fileSize($image->getBytesBefore()). ' / '. $_helper->fileSize($image->getBytesAfter()); ?>)
                         </td>
-                        <td class="info_box tig_tinypng_width">
+                        <td class="info_box tiny_compressimages_width">
                             <?php if ($image->getCompressedBefore()) : ?>
                                 <?php echo $this->__('Optimized previously'); ?>
                             <?php elseif ($image->getParentId()) :?>
                                 <?php echo $this->__('Duplicate image'); ?>
                             <?php endif; ?>
                         </td>
-                        <td class="info_box tig_tinypng_width"><?php echo $image->getTimeAgo(); ?></td>
+                        <td class="info_box tiny_compressimages_width"><?php echo $image->getTimeAgo(); ?></td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
-                <tr class="tig_tinypng_log log_hidden centered">
+                <tr class="tiny_compressimages_log log_hidden centered">
                     <td colspan="5"><?php echo $_helper->__('There are no saved compressions available yet.'); ?></td>
                 </tr>
             <?php endif; ?>
             <?php if ($images->getSize() > $images->count()): ?>
-            <tr class="tig_tinypng_log log_hidden centered">
+            <tr class="tiny_compressimages_log log_hidden centered">
                 <td colspan="5"><?php echo $_helper->__('...and %d more images', $images->getSize() - $images->count()); ?></td>
             </tr>
             <?php endif; ?>
@@ -116,13 +116,13 @@ $images = $_tinify->getCompressionStatus();
     </td>
 </tr>
 
-<?php if (Mage::helper('tig_tinypng')->getLogFileExists()) : ?>
-    <?php $downloadUrl = Mage::helper("adminhtml")->getUrl('adminhtml/tinypngAdminhtml_config/downloadLogs'); ?>
+<?php if (Mage::helper('tiny_compressimages')->getLogFileExists()) : ?>
+    <?php $downloadUrl = Mage::helper("adminhtml")->getUrl('adminhtml/CompressImagesAdminhtml_config/downloadLogs'); ?>
 
     <tr>
         <td colspan="5">
             <table cellspacing="0" class="form-list">
-                <tr id="row_tig_tinypng_status_usage">
+                <tr id="row__iny/compressimages_status_usage">
                     <button onclick="setLocation('<?php echo $downloadUrl?>')" type="button" class="scalable">
                         <span><span><span><?php echo $this->__('Download TinyPNG log file') ?></span></span></span>
                     </button>
@@ -139,29 +139,33 @@ $images = $_tinify->getCompressionStatus();
         var show_less = $('show_less');
         var show_all  = $('show_all');
 
-        show_less.hide();
         $$('.log_hidden').each(function(element) {
             element.hide();
         });
 
-        show_all.observe('click', function(e) {
-            Event.stop(e);
+        if (show_all !== null) {
+            show_all.observe('click', function (e) {
+                Event.stop(e);
 
-            $$('.log_hidden').each(function(element) {
-                element.show();
+                $$('.log_hidden').each(function (element) {
+                    element.show();
+                });
+                show_all.hide();
+                show_less.show();
             });
-            show_all.hide();
-            show_less.show();
-        });
+        }
 
-        show_less.observe('click', function(e) {
-            Event.stop(e);
-
-            $$('.log_hidden').each(function(element) {
-                element.hide();
-            });
+        if (show_less !== null) {
             show_less.hide();
-            show_all.show();
-        });
+            show_less.observe('click', function (e) {
+                Event.stop(e);
+
+                $$('.log_hidden').each(function (element) {
+                    element.hide();
+                });
+                show_less.hide();
+                show_all.show();
+            });
+        }
     });
 </script>

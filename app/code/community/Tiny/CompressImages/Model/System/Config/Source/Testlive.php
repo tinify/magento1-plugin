@@ -16,16 +16,16 @@ class Tiny_CompressImages_Model_System_Config_Source_Testlive
          */
         $array = array(
             array(
-                'value' => '0',
-                'label' => $helper->__('Off')
+                'value' => '2',
+                'label' => $helper->__('Live')
             ),
             array(
                 'value' => '1',
                 'label' => $helper->__('Test')
             ),
             array(
-                'value' => '2',
-                'label' => $helper->__('Live')
+                'value' => '0',
+                'label' => $helper->__('Disabled')
             ),
         );
         return $array;

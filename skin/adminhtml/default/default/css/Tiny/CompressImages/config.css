@@ -77,22 +77,14 @@
 #compressimages_api_status { color: #009f3e;float: left; padding-bottom: 5px; clear: both; }
 .compressimages-api-deactivated { color: #cc0000; }
 
-.compressimages_status_success span:before {
-    content: ' ';
-    background: url('../../../images/Tiny/CompressImages/checkmark.png') no-repeat 0 1px !important;
-    background-size: auto 10px !important;
-    padding-left: 18px;
-    padding-bottom: 5px;
+.compressimages_status_success .indicator,
+.compressimages_status_failure .indicator {
+    vertical-align: top;
+    display: inline-block;
+    margin-right: 3px;
 }
 
 .compressimages_status_failure { color: #cc0000; }
-.compressimages_status_failure span:before {
-    content: ' ';
-    background: url('../../../images/Tiny/CompressImages/cross.png') no-repeat 0 1px !important;
-    background-size: auto 10px !important;
-    padding-left: 17px;
-    padding-bottom: 5px;
-}
 
 #row_tiny_compressimages_settings_api_key a:hover { text-decoration:none; }
 #compressimages_check_status { margin-left: 0 !important; float:left; clear:both; }
@@ -158,12 +150,12 @@
 #tiny_compressimages_status tr td .scalable{ margin: 10px 0; }
 
 #tiny_compressimages_compression { padding: 9px 0; }
-#tiny_compressimages_compression td { padding-top:2px; padding-bottom:2px; margin:0; vertical-align:middle; width: 70px; overflow:hidden; }
-#tiny_compressimages_compression tr.tiny_compressimages_log { border-bottom: 1px solid #ececec; float: left; width: 100%; }
+#tiny_compressimages_compression td { padding-top:2px; padding-bottom:2px; margin:0; vertical-align:middle; overflow:hidden; }
+#tiny_compressimages_compression tr.tiny_compressimages_log { border-bottom: 1px solid #ececec; width: 100%; }
 
 #tiny_compressimages_compression .image_path { padding-left: 10px; }
 
-#tiny_compressimages_compression .image_path img { display: inline-block; max-width: 30px; max-height: 30px; vertical-align: middle;  }
+#tiny_compressimages_compression .image_path img { display: inline-block; max-width: 30px; max-height: 30px; vertical-align: middle; border: 1px solid #d6d6d6; }
 
 #tiny_compressimages_compression .info_box { padding: 0 0 0 20px; }
 

@@ -81,6 +81,8 @@ $images = $_tinify->getCompressionStatus();
                                 <?php echo $this->__('Optimized previously'); ?>
                             <?php elseif ($image->getParentId()) :?>
                                 <?php echo $this->__('Duplicate image'); ?>
+                            <?php else: ?>
+                                <?php echo $this->__('Optimized'); ?>
                             <?php endif; ?>
                         </td>
                         <td class="info_box tiny_compressimages_width"><?php echo $image->getTimeAgo(); ?></td>
@@ -88,16 +90,16 @@ $images = $_tinify->getCompressionStatus();
                 <?php endforeach; ?>
 
                 <?php if ($images->getSize() > $images->count()): ?>
-                    <tr class="tiny_compressimages_log log_hidden centered">
+                    <tr class="tiny_compressimages_log log_hidden">
                         <td colspan="5"><?php echo $_helper->__('...and %d more images', $images->getSize() - $images->count()); ?></td>
                     </tr>
                 <?php endif; ?>
 
                 <?php if ($i > 5 ): ?>
-                    <tr class="centered">
+                    <tr>
                         <td colspan="5"><a id="show_all" href="#"><?php echo $this->__('Show more'); ?></a></td>
                     </tr>
-                    <tr class="centered">
+                    <tr>
                         <td colspan="5"><a id="show_less" href="#"><?php echo $this->__('Show less'); ?></a></td>
                     </tr>
                 <?php endif; ?>

@@ -15,14 +15,18 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_Api extends V
         if ($apiStatusCache !== false) {
             $apiStatusCacheData = json_decode($apiStatusCache, true);
 
+            $apiStatusCacheData['status'] = 'nonoperational';
+
             switch ($apiStatusCacheData['status']) {
                 case 'operational':
-                    $message = '<span class="compressimages_status_success"><span class="apisuccess"></span>'
+                    $message = '<span class="compressimages_status_success">'
+                        . '<span class="indicator"><img src="' . Mage::getDesign()->getSkinUrl('images/fam_bullet_success.gif') . '"></span>'
                         . Mage::helper('tiny_compressimages')->__('API connection successful')
                         . '</span>';
                     break;
                 case 'nonoperational':
                     $message = '<span class="compressimages_status_failure">'
+                        . '<span class="indicator"><img src="' . Mage::getDesign()->getSkinUrl('images/error_msg_icon.gif') . '"></span>'
                         . Mage::helper('tiny_compressimages')->__('Non-operational')
                         . '</span>';
                     break;

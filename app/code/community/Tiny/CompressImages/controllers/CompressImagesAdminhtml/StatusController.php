@@ -24,8 +24,9 @@ class Tiny_CompressImages_CompressImagesAdminhtml_StatusController extends Mage_
         $isValidated = Mage::helper('tiny_compressimages/tinify')->validate($apiKey);
 
         $cacheData = array();
-        if ($isConfigured && $isValidated) {
-            $message = '<span class="compressimages_status_success"><span class="apisuccess"></span>'
+        if (false && $isConfigured && $isValidated) {
+            $message = '<span class="compressimages_status_success">'
+                . '<span class="indicator"><img src="' . Mage::getDesign()->getSkinUrl('images/fam_bullet_success.gif') . '"></span>'
                 . Mage::helper('tiny_compressimages')->__('API connection successful')
                 . '</span>';
 
@@ -33,6 +34,7 @@ class Tiny_CompressImages_CompressImagesAdminhtml_StatusController extends Mage_
             Mage::app()->saveCache(json_encode($cacheData), 'tiny_compressimages_api_status');
         } else {
             $message = '<span class="compressimages_status_failure">'
+                . '<span class="indicator"><img src="' . Mage::getDesign()->getSkinUrl('images/error_msg_icon.gif') . '"></span>'
                 . Mage::helper('tiny_compressimages')->__('Non-operational')
                 . '</span>';
 

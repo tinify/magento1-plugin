@@ -145,16 +145,19 @@
                             <sort_order>10</sort_order>
                             <source_model>tiny_compressimages/system_config_source_testlive</source_model>
                             <comment><![CDATA[
-                                    Live: Extension works normally (default) <br /> <br />
-
+                                    Live: Extension works normally (default)
+                                    <br>
+                                    <br>
                                     Test: New product images will be optimized and saved so you can
                                         test if everything works as expected. However, the optimized
                                         images will not be shown in your store. After testing and switching
-                                        test mode off again, you should flush the image cache to make
-                                        sure your store will switch to the optimized images. <br /> <br />
-
+                                        to live mode, your store will show the optimized images.
+                                    <br>
+                                    <br>
                                     Disabled: The extension is switched off and no new product
-                                        images will be optimized. <br /> <br />
+                                        images will be optimized.
+                                    <br>
+                                    <br>
                                         ]]>
                             </comment>
                             <tooltip>If test mode is activated, the extension will do real compressions. The result won't be saved.</tooltip>

@@ -399,7 +399,11 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
 
         if (!$this->_isProductImageAllowed($image->getDestinationSubdir())) {
             $this->isProductTypeAllowed = false;
-            $this->helper->log('Product imagetype not allowed for compression', 'error', $this->storeId);
+            $this->helper->log(
+                'Product ' . $image->getDestinationSubdir() . ' image type is not selected for optimization',
+                'error',
+                $this->storeId
+            );
 
             return $this;
         }

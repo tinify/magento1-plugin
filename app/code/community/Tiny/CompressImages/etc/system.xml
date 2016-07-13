@@ -164,14 +164,24 @@
                         </enabled>
                         <logging_mode translate="label comment">
                             <label>Messages that should be logged</label>
-                            <sort_order>40</sort_order>
+                            <sort_order>20</sort_order>
                             <source_model>tiny_compressimages/system_config_source_log</source_model>
                             <frontend_type>select</frontend_type>
-                            <comment><![CDATA[Any error messages will be save to /var/log/image-optimization-error.log]]></comment>
+                            <comment>
+                                <model>tiny_compressimages/system_config_backend_comment_loggingMode</model>
+                            </comment>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </logging_mode>
+                        <log_file translate="label comment">
+                            <label>Download the logfile</label>
+                            <sort_order>30</sort_order>
+                            <frontend_model>tiny_compressimages/adminhtml_system_config_form_field_logFile</frontend_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </log_file>
                     </fields>
                 </advanced>
             </groups>

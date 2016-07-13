@@ -53,11 +53,12 @@ $images = $_tinify->getCompressionStatus();
     </td>
 </tr>
 <?php endif; ?>
-<tr>
-    <td colspan="4">
-        <table id="tiny_compressimages_compression" cellspacing="5">
-            <?php $i = 0; ?>
-            <?php if ($images->count()): ?>
+
+<?php $i = 0; ?>
+<?php if ($images->count()): ?>
+    <tr>
+        <td colspan="4">
+            <table id="tiny_compressimages_compression" cellspacing="5">
                 <?php /** Tiny_CompressImages_Model_Image $image */?>
                 <?php foreach ($images as $image): ?>
                     <?php $i++; ?>
@@ -85,27 +86,31 @@ $images = $_tinify->getCompressionStatus();
                         <td class="info_box tiny_compressimages_width"><?php echo $image->getTimeAgo(); ?></td>
                     </tr>
                 <?php endforeach; ?>
-            <?php else: ?>
-                <tr class="tiny_compressimages_log log_hidden centered">
-                    <td colspan="5"><?php echo $_helper->__('There are no saved compressions available yet.'); ?></td>
-                </tr>
-            <?php endif; ?>
-            <?php if ($images->getSize() > $images->count()): ?>
-            <tr class="tiny_compressimages_log log_hidden centered">
-                <td colspan="5"><?php echo $_helper->__('...and %d more images', $images->getSize() - $images->count()); ?></td>
-            </tr>
-            <?php endif; ?>
-            <?php if ($i > 5 ): ?>
-                <tr class="centered">
-                    <td colspan="5"><a id="show_all" href="#"><?php echo $this->__('Show more'); ?></a></td>
-                </tr>
-                <tr class="centered">
-                    <td colspan="5"><a id="show_less" href="#"><?php echo $this->__('Show less'); ?></a></td>
-                </tr>
-            <?php endif; ?>
-        </table>
+
+                <?php if ($images->getSize() > $images->count()): ?>
+                    <tr class="tiny_compressimages_log log_hidden centered">
+                        <td colspan="5"><?php echo $_helper->__('...and %d more images', $images->getSize() - $images->count()); ?></td>
+                    </tr>
+                <?php endif; ?>
+
+                <?php if ($i > 5 ): ?>
+                    <tr class="centered">
+                        <td colspan="5"><a id="show_all" href="#"><?php echo $this->__('Show more'); ?></a></td>
+                    </tr>
+                    <tr class="centered">
+                        <td colspan="5"><a id="show_less" href="#"><?php echo $this->__('Show less'); ?></a></td>
+                    </tr>
+                <?php endif; ?>
+            </table>
+        </td>
+    </tr>
+<?php else: ?>
+<tr>
+    <td class="tiny_compressimages-no-images">
+        <?php echo $_helper->__('There are no saved compressions available yet.'); ?><br>
     </td>
 </tr>
+<?php endif; ?>
 
 <tr>
     <td class="log-details-td">
@@ -115,22 +120,6 @@ $images = $_tinify->getCompressionStatus();
         ); ?>
     </td>
 </tr>
-
-<?php if (Mage::helper('tiny_compressimages')->getLogFileExists()) : ?>
-    <?php $downloadUrl = Mage::helper("adminhtml")->getUrl('adminhtml/CompressImagesAdminhtml_config/downloadLogs'); ?>
-
-    <tr>
-        <td colspan="5">
-            <table cellspacing="0" class="form-list">
-                <tr id="row__iny/compressimages_status_usage">
-                    <button onclick="setLocation('<?php echo $downloadUrl?>')" type="button" class="scalable">
-                        <span><span><span><?php echo $this->__('Download log file') ?></span></span></span>
-                    </button>
-                </tr>
-            </table>
-        </td>
-    </tr>
-<?php endif; ?>
 
 
 <script type="application/javascript">

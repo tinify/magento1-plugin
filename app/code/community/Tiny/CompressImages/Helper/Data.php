@@ -6,7 +6,7 @@ class Tiny_CompressImages_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @var string
      */
-    protected $logFile = 'TIG_TinyPNG.log';
+    protected $logFile = 'image-optimization.log';
 
     /**
      * @var Tiny_CompressImages_Helper_Config

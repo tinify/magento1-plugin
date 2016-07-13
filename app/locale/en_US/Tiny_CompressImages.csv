@@ -73,7 +73,6 @@
 "Tiny_CompressImages::Time","Time"
 "Tiny_CompressImages::Show more","Show more"
 "Tiny_CompressImages::Show less","Show less"
-"Tiny_CompressImages::Download TinyPNG log file","Download TinyPNG log file"
 "Tiny_CompressImages::Saved %s%% over a total of %s compressions", "Saved %s%% over a total of %s compressions"
 "Tiny_CompressImages::When set to all, the log file can become huge. Recommended setting for production servers is Errors and Exceptions.","When set to all, the log file can become huge. Recommended setting for production servers is Errors and Exceptions."
 "Tiny_CompressImages::Account type","Account type"

@@ -164,9 +164,9 @@ class Tiny_CompressImages_Model_Image extends Mage_Core_Model_Abstract
             $path   = $parent->getPath();
         }
 
-        $url .= ltrim($path, '/media');
+        $path = $helper = Mage::helper('tiny_compressimages')->getImagePath($path);
 
-        $url = str_replace('media', 'media/image_compression', $url);
+        $url .= ltrim($path, '/media');
 
         return $url;
     }

@@ -16,7 +16,7 @@ class Model_Product_ImageTest extends Tiny_CompressImages_Test_Framework_Tiny_Te
         $this->_instance = Mage::getModel('catalog/product_image');
         $this->_helper = $this->getMock('Tiny_CompressImages_Helper_Config');
 
-        $this->setProperty('_helper', $this->_helper);
+        $this->setProperty('_configHelper', $this->_helper);
     }
 
     public function testGetUrl()

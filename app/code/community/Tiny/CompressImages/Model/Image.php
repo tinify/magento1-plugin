@@ -1,7 +1,8 @@
 <?php
 /**
- * @method $this setPath(String $path);
  * @method string|null getPath();
+ * @method $this setPathOptimized(String $path);
+ * @method string|null getPathOptimized();
  * @method $this setImageType(String $type);
  * @method $this setHashBefore(String $hash);
  * @method string|null getHashBefore();
@@ -45,6 +46,67 @@ class Tiny_CompressImages_Model_Image extends Mage_Core_Model_Abstract
     public function _construct()
     {
         $this->_init('tiny_compressimages/image');
+    }
+
+    /**
+     * Set the path and also calculate the optimized path.
+     *
+     * @param $path
+     *
+     * @return $this
+     */
+    public function setPath($path)
+    {
+        $this->setData('path', $path);
+
+        $filename = basename($path);
+        $newPath = str_replace($filename, '', $path);
+        $hash = md5($newPath);
+
+        $optimizedPath = Tiny_CompressImages_Helper_Tinify::TINY_COMPRESSIMAGES_MEDIA_DIRECTORY;
+        $optimizedPath .= '/' . $hash[0] . '/' . $hash[1] . '/' . $hash . '/' . $filename;
+
+        $this->setPathOptimized($optimizedPath);
+
+        return $this;
+    }
+
+    /**
+     * Creates the path where the image will be saved.
+     *
+     * @return $this
+     */
+    public function createPath()
+    {
+        $path = dirname($this->getPathOptimized());
+        $fullpath = Mage::getBaseDir('media') . str_replace('/media', '', $path);
+
+        if (!is_dir($fullpath)) {
+            mkdir($fullpath, 0777, true);
+        }
+
+        return $this;
+    }
+
+    /**
+     * The full path where the image will be saved.
+     *
+     * @return string
+     */
+    public function getFilepathOptimized()
+    {
+        $path = $this->getPathOptimized();
+        return Mage::getBaseDir('media') . str_replace('/media', '', $path);
+    }
+
+    /**
+     * Retrieve the url to the image.
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return Mage::getBaseUrl('media') . str_replace('/media/', '', $this->getPathOptimized());
     }
 
     /**
@@ -153,21 +215,15 @@ class Tiny_CompressImages_Model_Image extends Mage_Core_Model_Abstract
      */
     public function getImageUrl()
     {
-        $url  = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
-        $path = $this->getPath();
-
         // If it is a duplicate image, then there will be a link to his parent.
         if ($this->getParentId()) {
             /** @var Tiny_CompressImages_Model_Image $parent */
             $parent = Mage::getModel('tiny_compressimages/image')->load($this->getParentId());
-            $path   = $parent->getPath();
+
+            return $parent->getUrl();
         }
 
-        $path = $helper = Mage::helper('tiny_compressimages')->getImagePath($path);
-
-        $url .= ltrim($path, '/media');
-
-        return $url;
+        return $this->getUrl();
     }
 
     /**

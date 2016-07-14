@@ -35,6 +35,15 @@ if (!$connection->isTableExists($tableName)) {
             'The path of this image'
         )
         ->addColumn(
+            'path_optimized',
+            Varien_Db_Ddl_Table::TYPE_VARCHAR,
+            255,
+            array(
+                'nullable' => false,
+            ),
+            'The optimized path of this image'
+        )
+        ->addColumn(
             'image_type',
             Varien_Db_Ddl_Table::TYPE_VARCHAR,
             255,

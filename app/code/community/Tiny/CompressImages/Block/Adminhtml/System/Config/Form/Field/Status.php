@@ -32,7 +32,7 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_Status extend
                 . $this->_helper->__('Please enter your api key to check the compression count.')
                 . '</span>';
             }
-            
+
             if (!$configHelper->isEnabled()) {
                 return '<span class="compressimages-api-deactivated">'
                     . $this->_helper->__('Please enable the extension to check the compression count.')

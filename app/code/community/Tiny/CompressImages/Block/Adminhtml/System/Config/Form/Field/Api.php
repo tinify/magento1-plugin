@@ -2,49 +2,92 @@
 class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_Api extends Varien_Data_Form_Element_Abstract
 {
     /**
+     * @var Tiny_Compressimages_Helper_Config
+     */
+    protected $_configHelper = null;
+
+    /**
+     * @var Tiny_Compressimages_Helper_Tinify
+     */
+    protected $_tinifyHelper = null;
+
+    /**
+     * @var string
+     */
+    protected $output = '';
+
+    /**
+     * Get the config helper.
+     *
+     * @return Tiny_CompressImages_Helper_Config
+     */
+    public function getConfigHelper()
+    {
+        if ($this->_configHelper === null) {
+            $this->_configHelper = Mage::helper('tiny_compressimages/config');
+        }
+
+        return $this->_configHelper;
+    }
+
+    /**
+     * Get the Tinify helper.
+     *
+     * @return Tiny_CompressImages_Helper_Tinify
+     */
+    public function getTinifyHelper()
+    {
+        if ($this->_tinifyHelper === null) {
+            $this->_tinifyHelper = Mage::helper('tiny_compressimages/tinify');
+        }
+
+        return $this->_tinifyHelper;
+    }
+
+    /**
      * Generate the status for the CompressImages extension.
      *
      * @return string
      */
     public function getElementHtml()
     {
-        $_helper = Mage::helper('tiny_compressimages');
-        $apiStatusCache = Mage::app()->loadCache('tiny_compressimages_api_status');
-        $message = $_helper->__('Click the button to check the API status.');
+        $this
+            ->_getStatusHtml()
+            ->_getJavascript()
+        ;
 
-        if ($apiStatusCache !== false) {
-            $apiStatusCacheData = json_decode($apiStatusCache, true);
-
-            $apiStatusCacheData['status'] = 'nonoperational';
-
-            switch ($apiStatusCacheData['status']) {
-                case 'operational':
-                    $message = '<span class="compressimages_status_success">'
-                        . '<span class="indicator"><img src="' . Mage::getDesign()->getSkinUrl('images/fam_bullet_success.gif') . '"></span>'
-                        . Mage::helper('tiny_compressimages')->__('API connection successful')
-                        . '</span>';
-                    break;
-                case 'nonoperational':
-                    $message = '<span class="compressimages_status_failure">'
-                        . '<span class="indicator"><img src="' . Mage::getDesign()->getSkinUrl('images/error_msg_icon.gif') . '"></span>'
-                        . Mage::helper('tiny_compressimages')->__('Non-operational')
-                        . '</span>';
-                    break;
-            }
-        }
-
-        $message = '<span id="compressimages_api_status">' . $message . '</span><br>';
-
-        return $message;
+        return $this->output;
     }
 
     /**
-     * @return string
+     * Generate the status message.
+     *
+     * @return $this
      */
-    public function getScopeLabel()
+    protected function _getStatusHtml()
     {
-        $js = '<script type="text/javascript">
-                    var url = "' . Mage::helper("adminhtml")->getUrl('adminhtml/CompressImagesAdminhtml_status/getApiStatus') . '";
+        $result = $this->getTinifyHelper()->getApiStatus(true);
+
+        $this->output .= $result['message'];
+
+        return $this;
+    }
+
+    /**
+     * Generate the javascript to make the Ajax call to check the API.
+     *
+     * @return $this
+     */
+    protected function _getJavascript()
+    {
+        $js = '';
+
+        if ($this->getConfigHelper()->isEnabled()) {
+            $js
+                .= '<script type="text/javascript">
+                    var url = "' . Mage::helper("adminhtml")->getUrl(
+                    'adminhtml/CompressImagesAdminhtml_status/getApiStatus'
+                ) . '";
 
                     document.observe("dom:loaded", function() {
                         new Ajax.Request(url,
@@ -59,9 +102,10 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_Api extends V
                             })
                     });
                 </script>';
+        }
 
-        $label = parent::getScopeLabel() . $js;
+        $this->output .= $js;
 
-        return $label;
+        return $this;
     }
 }

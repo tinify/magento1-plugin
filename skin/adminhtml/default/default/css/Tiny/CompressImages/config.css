@@ -14,7 +14,7 @@
 /* ======== Logo / Identity ======== */
 
 /* logo in title bar */
-#tiny_compressimages_support .content-heading {     background: url('../../../images/Tiny/CompressImages/george-menu-icon@2x.png') no-repeat 0 0px !important;
+#tiny_compressimages_support .content-heading { background: url('../../../images/Tiny/CompressImages/george-menu-icon@2x.png') no-repeat 0 0px !important;
     background-size: auto 40px !important;
     line-height: 40px;
     padding-left: 50px;
@@ -88,57 +88,6 @@
 
 #row_tiny_compressimages_settings_api_key a:hover { text-decoration:none; }
 #compressimages_check_status { margin-left: 0 !important; float:left; clear:both; }
-
-.tiny-compressimages-button.tiny-compressimages-button-external {
-    position :relative;
-
-    border-width: 1px;
-    border-style: solid;
-    border-color: #ed6502 #a04300 #a04300 #ed6502;
-    padding: 1px 27px 2px 7px;
-
-    color: #fff;
-    font: bold 12px arial, helvetica, sans-serif;
-    cursor: pointer;
-    text-align: center !important;
-    white-space: nowrap;
-    text-decoration: none;
-    background: #fda741;
-    background: -webkit-linear-gradient(#fda741, #f46e08);
-    background: -o-linear-gradient(#fda741, #f46e08);
-    background: -moz-linear-gradient(#fda741, #f46e08);
-    background: linear-gradient(#fda741, #f46e08);
-}
-.tiny-compressimages-button.tiny-compressimages-button-external:hover {
-    position :relative;
-
-    border-width: 1px;
-    border-style: solid;
-    border-color: #ed6502 #a04300 #a04300 #ed6502;
-    padding: 1px 27px 2px 7px;
-
-    color: #fff;
-    font: bold 12px arial, helvetica, sans-serif;
-    cursor: pointer;
-    text-align: center !important;
-    white-space: nowrap;
-    text-decoration: none;
-    background:#fdedd6;
-    background: -webkit-linear-gradient(#fdedd6, #f46e08);
-    background: -o-linear-gradient(#fdedd6, #f46e08);
-    background: -moz-linear-gradient(#fdedd6, #f46e08);
-    background: linear-gradient(#fdedd6, #f46e08);
-}
-.tiny-compressimages-button.tiny-compressimages-button-external:after {
-
-    background: url('../../../images/Tiny/CompressImages/glyph_go.png') 0px 5px no-repeat;
-    content: ' ';
-    position: absolute;
-    top: -2px;
-    right: 0;
-    width: 16px;
-    height: 15px;
-}
 
 /* ======== Image types to optimize ======== */
 

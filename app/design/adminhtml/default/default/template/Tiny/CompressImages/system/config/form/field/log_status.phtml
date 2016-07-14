@@ -8,10 +8,12 @@ $_tinify = Mage::helper('tiny_compressimages/tinify');
 
 /** @var Tiny_CompressImages_Helper_Data $_helper */
 $_helper = Mage::helper('tiny_compressimages');
-$data    = Mage::getModel('tiny_compressimages/totals')->getTotalCompressionInformation();
+$_data    = Mage::getModel('tiny_compressimages/totals')->getTotalCompressionInformation();
 
 /** @var Tiny_CompressImages_Model_Image $image */
-$images = $_tinify->getCompressionStatus();
+$_images = $_tinify->getCompressionStatus();
+
+$_imagesLimit = 10;
 ?>
 
 <tr>
@@ -20,7 +22,7 @@ $images = $_tinify->getCompressionStatus();
             <tr>
                 <td>
                     <h5><?php echo $this->__('Images are optimized each time Magento generates new product images in the image cache folder')?></h5>
-                    <?php if ($data['totalCompressions'] < 1) :?>
+                    <?php if ($_data['totalCompressions'] < 1) :?>
                     <p><?php
                         echo $this->__(
                             'If you have never used the extension before you should flush the product images cache. Magento will
@@ -40,29 +42,29 @@ $images = $_tinify->getCompressionStatus();
 </tr>
 
 
-<?php if ($data['totalCompressions'] > 0) :?>
+<?php if ($_data['totalCompressions'] > 0) :?>
 <tr>
     <td class="log-details-td">
         <?php echo Mage::helper('tiny_compressimages')->__(
             'Total of %s optimized product images. Original size : %s. New size : %s. Average savings %s%%.',
-            $data['totalCompressions'],
-            $data['bytesBefore'],
-            $data['bytesAfter'],
-            $data['percentageSaved']
+            $_data['totalCompressions'],
+            $_data['bytesBefore'],
+            $_data['bytesAfter'],
+            $_data['percentageSaved']
         ); ?>
     </td>
 </tr>
 <?php endif; ?>
 
 <?php $i = 0; ?>
-<?php if ($images->count()): ?>
+<?php if ($_images->count()): ?>
     <tr>
         <td colspan="4">
             <table id="tiny_compressimages_compression" cellspacing="5">
                 <?php /** Tiny_CompressImages_Model_Image $image */?>
-                <?php foreach ($images as $image): ?>
+                <?php foreach ($_images as $image): ?>
                     <?php $i++; ?>
-                    <?php if ($i > 10): ?>
+                    <?php if ($i > $_imagesLimit): ?>
                         <tr class="tiny_compressimages_log log_hidden">
                     <?php else : ?>
                         <tr class="tiny_compressimages_log">
@@ -89,13 +91,13 @@ $images = $_tinify->getCompressionStatus();
                     </tr>
                 <?php endforeach; ?>
 
-                <?php if ($images->getSize() > $images->count()): ?>
+                <?php if ($_images->getSize() > $_images->count()): ?>
                     <tr class="tiny_compressimages_log log_hidden">
-                        <td colspan="5"><?php echo $_helper->__('...and %d more images', $images->getSize() - $images->count()); ?></td>
+                        <td colspan="5"><?php echo $_helper->__('...and %d more images', $_images->getSize() - $_images->count()); ?></td>
                     </tr>
                 <?php endif; ?>
 
-                <?php if ($i > 5 ): ?>
+                <?php if ($i > $_imagesLimit): ?>
                     <tr>
                         <td colspan="5"><a id="show_all" href="#"><?php echo $this->__('Show more'); ?></a></td>
                     </tr>

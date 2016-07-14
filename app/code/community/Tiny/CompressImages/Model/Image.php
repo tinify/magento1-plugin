@@ -3,7 +3,6 @@
  * @method $this setPath(String $path);
  * @method string|null getPath();
  * @method $this setImageType(String $type);
- * @method string|null getImageType();
  * @method $this setHashBefore(String $hash);
  * @method string|null getHashBefore();
  * @method $this setHashAfter(String $hash);
@@ -179,6 +178,36 @@ class Tiny_CompressImages_Model_Image extends Mage_Core_Model_Abstract
     public function getBytesSaved()
     {
         return $this->getBytesBefore() - $this->getBytesAfter();
+    }
+
+    /**
+     * Show the correct image type.
+     *
+     * @return string
+     */
+    public function getImageType()
+    {
+        $data = $this->getData('image_type');
+
+        switch($data) {
+            case 'image':
+                $data = 'Base image';
+                break;
+
+            case 'small_image':
+                $data = 'Small image';
+                break;
+
+            case 'thumbnail':
+                $data = 'Thumbnail';
+                break;
+
+            case 'media_image':
+                $data = 'Swatches';
+                break;
+        }
+
+        return $data;
     }
 
     /**

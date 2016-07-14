@@ -344,7 +344,7 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
      */
     protected function _copyExistingFile($model)
     {
-        $sourceFile = new SplFileInfo(Mage::getBaseDir() . $model->getPath());
+        $sourceFile = new SplFileInfo(Mage::getBaseDir() . $model->getPathOptimized());
 
         if (!$sourceFile->isFile()) {
             $message = 'Failed: Copying the source file ' . $sourceFile->getPathname() . '. The file does not exists ' .

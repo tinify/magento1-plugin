@@ -84,6 +84,11 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
     protected $configHelper;
 
     /**
+     * @var null|Tiny_CompressImages_Model_Image
+     */
+    protected $_model = null;
+
+    /**
      * Constructor
      */
     public function __construct() {
@@ -224,12 +229,15 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
             return false;
         }
 
+        $this->_prepareCompression();
+
         if ($this->_isInOptimizedMediaDirectory()) {
             $this->helper->log(
                 $this->newFile->getPathname(). ' is propably compressed before and can be found in the compression folder'
             );
-            $this->_SetCompressionAsPreviously()
-                 ->_saveCompression();
+            $this
+                ->_SetCompressionAsPreviously()
+                ->_saveCompression();
             return true;
         }
 
@@ -260,7 +268,10 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
                 $input->toFile($this->newFile->getPathname());
                 $this->bytesAfter = $this->_getFileSize($this->newFile);
             }
-            $compressionFile = $this->helper->getImagePath($this->newFile->getPathname());
+
+            $this->_model->createPath();
+
+            $compressionFile = $this->_model->getFilepathOptimized();
             $this->helper->log('Write to compression Folder : '. $compressionFile, 'info', $this->storeId);
             file_put_contents($compressionFile, $input->toBuffer());
 
@@ -312,14 +323,8 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
      */
     protected function _isInOptimizedMediaDirectory()
     {
-        $path = $this->helper->getImagePath($this->newFile->getPath());
-        $directory = Mage::getBaseDir() . DS . $path;
-        if (!is_dir($directory)) {
-            mkdir($directory, 0777, true);
-            return false;
-        }
-
-        $file = new SplFileInfo($this->_getOptimizedMediaPath($this->newFile->getPathname()));
+        $path = $this->_model->getPathOptimized();
+        $file = new SplFileInfo($path);
 
         if ($file->isFile()) {
             $this->isCompressedBefore = true;
@@ -424,6 +429,25 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Prepare the compression. This way the optimized path can be calculated.
+     *
+     * @return $this
+     */
+    protected function _prepareCompression()
+    {
+        $path = str_replace(Mage::getBaseDir(), '', $this->newFile->getPathname());
+
+        /** @var Tiny_CompressImages_Model_Image */
+        $this->_model = Mage::getModel('tiny_compressimages/image');
+        $this->_model->setPath($path);
+        $this->_model->setImageType($this->destinationSubdir);
+        $this->_model->setHashBefore($this->hashBefore);
+        $this->_model->setBytesBefore($this->bytesBefore);
+
+        return $this;
+    }
+
+    /**
      * Save the file meta info to the database. This way we can prevent duplicate compressions.
      *
      * @return $this
@@ -431,27 +455,20 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
     protected function _saveCompression()
     {
         $this->hashAfter = $this->_getFileHash($this->newFile);
-        $path = str_replace(Mage::getBaseDir(), '', $this->newFile->getPathname());
 
-        /** @var Tiny_CompressImages_Model_Image */
-        $model = Mage::getModel('tiny_compressimages/image');
-        $model->setPath($path);
-        $model->setImageType($this->destinationSubdir);
-        $model->setHashBefore($this->hashBefore);
-        $model->setHashAfter($this->hashAfter);
-        $model->setBytesBefore($this->bytesBefore);
-        $model->setBytesAfter($this->bytesAfter);
-        $model->setProcessedAt(Varien_Date::now());
-        $model->setUsedAsSource($this->isUsedAtSource);
+        $this->_model->setHashAfter($this->hashAfter);
+        $this->_model->setBytesAfter($this->bytesAfter);
+        $this->_model->setProcessedAt(Varien_Date::now());
+        $this->_model->setUsedAsSource($this->isUsedAtSource);
 
         if ($this->configHelper->isTestMode($this->storeId)) {
-            $model->setIsTest(1);
+            $this->_model->setIsTest(1);
         }
 
-        $model->setParentId($this->parentId);
-        $model->setCompressedBefore($this->isCompressedBefore);
+        $this->_model->setParentId($this->parentId);
+        $this->_model->setCompressedBefore($this->isCompressedBefore);
 
-        $model->save();
+        $this->_model->save();
 
         $this->setTotalSavings();
 

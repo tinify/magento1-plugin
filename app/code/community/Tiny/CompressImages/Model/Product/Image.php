@@ -53,18 +53,14 @@ class Tiny_CompressImages_Model_Product_Image extends Mage_Catalog_Model_Product
             return parent::getUrl();
         }
 
-        $path = $this->getDataHelper()->getImagePath($this->_newFile);
-        if (!file_exists(Mage::getBaseDir() . '/' . str_replace(DS, '/', $path))) {
+        /** @var Tiny_Compressimages_Model_Image $model */
+        $path = substr($this->_newFile, strlen(Mage::getBaseDir('media')) - 6);
+        $model = Mage::getModel('tiny_compressimages/image')->load($path, 'path');
+        if (!$model->getId()) {
             return parent::getUrl();
         }
 
-        $url =  str_replace(DS, '/', $path);
-
-        if (strpos($url, 'media/') === 0) {
-            $url = substr($url, 6);
-        }
-
-        return Mage::getBaseUrl('media') . $url;
+        return $model->getUrl();
     }
 
     /**

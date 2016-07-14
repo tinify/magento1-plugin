@@ -64,9 +64,9 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
     protected $isCompressedBefore = false;
 
     /**
-     * @var int $isUsedAtSource
+     * @var int $isUsedAsSource
      */
-    protected $isUsedAtSource = 1;
+    protected $isUsedAsSource = 1;
 
     /**
      * @var Tiny_CompressImages_Helper_Data
@@ -366,11 +366,11 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
                 return true;
             }
 
-            $this->hashBefore         = $model->getHashBefore();
+            $this->hashBefore         = $this->_getFileHash($this->newFile);
             $this->hashAfter          = $model->getHashAfter();
-            $this->bytesAfter         = $model->getBytesAfter();
+            $this->bytesAfter         = $this->_getFileSize($this->newFile);
             $this->bytesBefore        = $model->getBytesBefore();
-            $this->isUsedAtSource     = $model->getUsedAsSource();
+            $this->isUsedAsSource     = $model->getUsedAsSource();
             $this->parentId           = $model->getId();
             $this->isCompressedBefore = false;
 
@@ -378,7 +378,7 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
 
             // Reset parent id and used at source.
             $this->parentId       = null;
-            $this->isUsedAtSource = 1;
+            $this->isUsedAsSource = 1;
 
             return copy($sourceFile->getPathname(), $this->newFile->getPathname());
         }
@@ -459,7 +459,7 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
         $this->_model->setHashAfter($this->hashAfter);
         $this->_model->setBytesAfter($this->bytesAfter);
         $this->_model->setProcessedAt(Varien_Date::now());
-        $this->_model->setUsedAsSource($this->isUsedAtSource);
+        $this->_model->setUsedAsSource($this->isUsedAsSource);
 
         if ($this->configHelper->isTestMode($this->storeId)) {
             $this->_model->setIsTest(1);

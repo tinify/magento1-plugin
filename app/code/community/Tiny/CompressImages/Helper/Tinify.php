@@ -188,6 +188,10 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
      * @return bool
      */
     public function validate($apiKey) {
+        if (empty($apiKey)) {
+            return false;
+        }
+
         \Tinify\setKey($apiKey);
 
         try {
@@ -338,7 +342,7 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
         $sourceFile = new SplFileInfo(Mage::getBaseDir() . $model->getPath());
 
         if (!$sourceFile->isFile()) {
-            $message = 'Failed: Copying the source file ' . $sourceFile->getPathname() . ' The file does not exists ' .
+            $message = 'Failed: Copying the source file ' . $sourceFile->getPathname() . '. The file does not exists ' .
                 'anymore. Deleting the model (ID: ' . $model->getId() . ').';
             $this->helper->log($message, 'info', $this->storeId);
 
@@ -370,8 +374,6 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
             // Reset parent id and used at source.
             $this->parentId       = null;
             $this->isUsedAtSource = 1;
-
-            $this->setTotalSavings();
 
             return copy($sourceFile->getPathname(), $this->newFile->getPathname());
         }
@@ -620,6 +622,48 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
         $collection->setOrder('processed_at', Varien_Data_Collection_Db::SORT_ORDER_DESC);
 
         return $collection;
+    }
+
+    /**
+     * Check the API status.
+     *
+     * @return array
+     */
+    public function getApiStatus($useCache = false)
+    {
+        $apiStatusCache = Mage::app()->loadCache('tiny_compressimages_api_status');
+        if ($useCache && $apiStatusCache !== false) {
+            return json_decode($apiStatusCache, true);
+        }
+
+        /** @var Tiny_CompressImages_Helper_Config $configHelper */
+        $configHelper = Mage::helper('tiny_compressimages/config');
+        $apiKey = $configHelper->getApiKey();
+        $isValidated = Mage::helper('tiny_compressimages/tinify')->validate($apiKey);
+
+        $cacheData = array();
+        if ($apiKey && $isValidated) {
+            $message = '<span class="compressimages_status_success">'
+                . '<span class="indicator"><img src="' . Mage::getDesign()->getSkinUrl('images/fam_bullet_success.gif') . '"></span>'
+                . Mage::helper('tiny_compressimages')->__('API connection successful')
+                . '</span>';
+
+            $cacheData['status'] = 'operational';
+        } else {
+            $message = '<span class="compressimages_status_failure">'
+                . '<span class="indicator"><img src="' . Mage::getDesign()->getSkinUrl('images/error_msg_icon.gif') . '"></span>'
+                . Mage::helper('tiny_compressimages')->__('Non-operational')
+                . '</span>';
+
+            $cacheData['status'] = 'nonoperational';
+        }
+
+        $result = array();
+        $result['status'] = 'success';
+        $result['message'] = $message;
+        Mage::app()->saveCache(json_encode($result), 'tiny_compressimages_api_status');
+
+        return $result;
     }
 
     /**

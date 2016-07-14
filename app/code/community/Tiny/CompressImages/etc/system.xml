@@ -140,7 +140,7 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <enabled translate="label comment tooltip">
-                            <label>Enable TinyPNG</label>
+                            <label>Mode</label>
                             <frontend_type>select</frontend_type>
                             <sort_order>10</sort_order>
                             <source_model>tiny_compressimages/system_config_source_testlive</source_model>

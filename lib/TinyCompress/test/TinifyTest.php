@@ -43,10 +43,24 @@ class ClientTest extends TestCase {
         $this->assertInstanceOf("Tinify\Client", Tinify\Tinify::getClient());
     }
 
+    public function testSetClientShouldReplaceClient() {
+        Tinify\setKey("abcde");
+        Tinify\Tinify::setClient("foo");
+        $this->assertSame("foo", Tinify\Tinify::getClient());
+    }
+
     public function testValidateWithValidKeyShouldReturnTrue() {
         Tinify\setKey("valid");
         CurlMock::register("https://api.tinify.com/shrink", array(
-            "status" => 400, "body" => '{"error":"InputMissing","message":"No input"}'
+            "status" => 400, "body" => '{"error":"Input missing","message":"No input"}'
+        ));
+        $this->assertTrue(Tinify\validate());
+    }
+
+    public function testValidateWithLimitedKeyShouldReturnTrue() {
+        Tinify\setKey("invalid");
+        CurlMock::register("https://api.tinify.com/shrink", array(
+            "status" => 429, "body" => '{"error":"Too many requests","message":"Your monthly limit has been exceeded"}'
         ));
         $this->assertTrue(Tinify\validate());
     }

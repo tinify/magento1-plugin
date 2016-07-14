@@ -56,7 +56,7 @@ class Tiny_CompressImages_Model_Product_Image extends Mage_Catalog_Model_Product
         /** @var Tiny_Compressimages_Model_Image $model */
         $path = substr($this->_newFile, strlen(Mage::getBaseDir('media')) - 6);
         $model = Mage::getModel('tiny_compressimages/image')->load($path, 'path');
-        if (!$model->getId()) {
+        if (!$model->getId() || !file_exists($model->getFilepathOptimized())) {
             return parent::getUrl();
         }
 

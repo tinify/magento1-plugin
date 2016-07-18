@@ -21,6 +21,7 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form extends Mage_Adminh
             ->_addSavedIndicator()
             ->_addApiIndicator()
             ->_addAccountType()
+            ->_addLogButtonType()
         ;
 
         return $this->_elementTypes;
@@ -87,6 +88,19 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form extends Mage_Adminh
     {
         $this->_elementTypes['compressimages_account_type'] = Mage::getConfig()
             ->getBlockClassName('tiny_compressimages/adminhtml_system_config_form_field_accountType');
+
+        return $this;
+    }
+
+    /**
+     * Add a field that shows the api status indicator.
+     *
+     * @return $this
+     */
+    protected function _addLogButtonType()
+    {
+        $this->_elementTypes['compressimages_log_button'] = Mage::getConfig()
+            ->getBlockClassName('tiny_compressimages/adminhtml_system_config_form_field_logFile');
 
         return $this;
     }

@@ -2,8 +2,8 @@
 <config>
     <modules>
         <Tiny_CompressImages>
-            <version>2.1.0</version>
-            <stability>beta</stability>
+            <version>2.0.0</version>
+            <stability>stable</stability>
         </Tiny_CompressImages>
     </modules>
     <global>

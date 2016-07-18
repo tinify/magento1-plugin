@@ -3,6 +3,8 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
 {
     const TINY_COMPRESSIMAGES_MEDIA_DIRECTORY = '/media/catalog/product/optimized';
 
+    const CACHE_KEY = 'tiny_compressimages_api_status';
+
     /**
      * @var bool $allowCompression
      */
@@ -648,7 +650,7 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
      */
     public function getApiStatus($useCache = false)
     {
-        $apiStatusCache = Mage::app()->loadCache('tiny_compressimages_api_status');
+        $apiStatusCache = Mage::app()->loadCache(static::CACHE_KEY);
         if ($useCache && $apiStatusCache !== false) {
             return json_decode($apiStatusCache, true);
         }
@@ -659,7 +661,7 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
         $isValidated = Mage::helper('tiny_compressimages/tinify')->validate($apiKey);
 
         $cacheData = array();
-        if ($apiKey && $isValidated) {
+        if (!$apiKey || $isValidated) {
             $message = '<span class="compressimages_status_success">'
                 . '<span class="indicator"><img src="' . Mage::getDesign()->getSkinUrl('images/fam_bullet_success.gif') . '"></span>'
                 . Mage::helper('tiny_compressimages')->__('API connection successful')
@@ -678,7 +680,13 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
         $result = array();
         $result['status'] = 'success';
         $result['message'] = $message;
-        Mage::app()->saveCache(json_encode($result), 'tiny_compressimages_api_status');
+
+        /**
+         * Only cache the results if the api is up.
+         */
+        if ($cacheData['status'] == 'operational') {
+            Mage::app()->saveCache(json_encode($result), static::CACHE_KEY);
+        }
 
         return $result;
     }

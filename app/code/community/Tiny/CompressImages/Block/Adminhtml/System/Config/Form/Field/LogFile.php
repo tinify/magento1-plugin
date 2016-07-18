@@ -1,5 +1,5 @@
 <?php
-class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_LogFile extends Mage_Adminhtml_Block_Abstract
+class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_LogFile extends Varien_Data_Form_Element_Abstract
 {
     /**
      * Template file used

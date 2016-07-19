@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <config>
     <modules>
-        <TIG_Tinypng>
+        <Tiny_CompressImages>
             <active>true</active>
             <codePool>community</codePool>
-        </TIG_Tinypng>
+        </Tiny_CompressImages>
     </modules>
 </config>

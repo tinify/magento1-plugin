@@ -1,0 +1,157 @@
+/* Default Magento Override */
+
+.content-header h3 {
+    color:#253033;
+}
+
+/* Modus radios */
+.wrapper-radio { margin-bottom: 3px; }
+.wrapper-radio input { margin-right: 5px; }
+#row_tiny_compressimages_status_usage .label { vertical-align: middle; }
+.radio-container { display: inline-block; }
+.radio-container + .field-tooltip { float:right; }
+
+/* ======== Logo / Identity ======== */
+
+/* logo in title bar */
+#tiny_compressimages_support .content-heading { background: url('../../../images/Tiny/CompressImages/george-menu-icon@2x.png') no-repeat 0 0px !important;
+    background-size: auto 40px !important;
+    line-height: 40px;
+    padding-left: 50px;
+    padding-bottom: 5px;
+}
+
+/* logo in left column */
+.tiny-compressimages-section { position: relative; line-height: 24px; }
+.tiny-compressimages-section span { padding-left: 50px !important; }
+.tiny-compressimages-section:after {     content: '';
+    display: block;
+    position: absolute;
+    top: 3px;
+    left: 18px;
+    height: 40px;
+    width: 54px;
+    background: url('../../../images/Tiny/CompressImages/george-menu-icon@2x.png') no-repeat 0 0px !important;
+    background-size: auto 25px !important;
+}
+/* ======== Support Tab General ======  */
+
+#tiny_compressimages_support { position :relative;}
+#tiny_compressimages_support p,
+#tiny_compressimages_support ul,
+#tiny_compressimages_support ol { padding: 6px 0 10px 0; }
+
+#tiny_compressimages_support ol { list-style: decimal inside; }
+#tiny_compressimages_support ol ol { list-style: lower-alpha inside; padding: 0 0 10px 12px; }
+#tiny_compressimages_support ul ul { list-style:none; padding: 0 0 10px 12px; }
+#tiny_compressimages_support h2.content-heading { border-bottom: 4px solid #dfdfdf; }
+#tiny_compressimages_support h2.content-heading .content-heading-logo { height: 24px; }
+
+#tiny_compressimages_support h4,
+#tiny_compressimages_support p { margin: 0; }
+
+/* ======== Support Tab ====== */
+
+.tiny-logo-bear {
+    position: absolute;
+    bottom: 0px;
+    right: 0;
+    width: auto;
+    max-width: 20%;
+    height: auto;
+    max-height: 180px; }
+
+#tiny_compressimages_support a:hover { text-decoration:none; }
+#tiny_compressimages_support img { max-width: 100%; }
+
+#tiny_compressimages_support .col-set { float:left; width: 100%; }
+#tiny_compressimages_support .col-set .col-1 { float:left; width: 75%; box-sizing:border-box; padding-right: 10px; }
+#tiny_compressimages_support .col-set .col-2 { float:left; width: 25%; box-sizing:border-box; padding-left: 10px;}
+
+#tiny_compressimages_support .tig_branding { float:left; width: 100%; }
+#tiny_compressimages_support .tig_branding .image { float:left; width: 50px; margin-top: 3px; }
+#tiny_compressimages_support .tig_branding .signature{ float:left; width: calc(100% - 50px); }
+
+/* ======== Connection Settings ======== */
+
+#compressimages_api_status { color: #009f3e;float: left; padding-bottom: 5px; clear: both; }
+.compressimages-api-deactivated { color: #cc0000; }
+
+.compressimages_status_success .indicator,
+.compressimages_status_failure .indicator {
+    vertical-align: top;
+    display: inline-block;
+    margin-right: 3px;
+}
+
+.compressimages_status_failure { color: #cc0000; }
+
+#row_tiny_compressimages_settings_api_key a:hover { text-decoration:none; }
+#compressimages_check_status { margin-left: 0 !important; float:left; clear:both; }
+
+/* ======== Image types to optimize ======== */
+
+
+
+
+/* ======== Latest Optimizations ======== */
+
+#tiny_compressimages_status tr td .scalable{ margin: 10px 0; }
+
+#tiny_compressimages_compression { padding: 9px 0; }
+#tiny_compressimages_compression td { padding-top:2px; padding-bottom:2px; margin:0; vertical-align:middle; overflow:hidden; }
+#tiny_compressimages_compression tr.tiny_compressimages_log { border-bottom: 1px solid #ececec; width: 100%; }
+
+#tiny_compressimages_compression .image_path { padding-left: 10px; }
+
+#tiny_compressimages_compression .image_path img { display: inline-block; max-width: 30px; max-height: 30px; vertical-align: middle; border: 1px solid #d6d6d6; }
+
+#tiny_compressimages_compression .info_box { padding: 0 0 0 20px; }
+
+#tiny_compressimages_compression .centered td,
+#tiny_compressimages_compression .show_less td,
+#tiny_compressimages_compression .show_more td { text-align:center; }
+
+.tiny_compressimages_width { box-sizing: border-box; min-width: 180px;}
+.tiny_compressimages-no-images {padding: 0 0 10px 4px; font-weight: bold;}
+.log-details-td {padding-left: 4px;}
+
+.title-file { width: 45px; }
+.title-original { width: 65px; }
+.title-now { width: 50px; }
+
+/* ======== Advanced options ======== */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

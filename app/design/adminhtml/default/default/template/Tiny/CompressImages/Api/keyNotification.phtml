@@ -1,0 +1,9 @@
+<?php $helper = Mage::helper('tiny_compressimages'); ?>
+<?php if (!$this->isApiKeySet()) : ?>
+    <div class="notification-global">
+        <?php echo $helper->__('Add your TinyPNG API key to start compressing images.'); ?>
+        <a href="<?php echo $this->getBackendUrl(); ?>">
+            <?php echo $helper->__('Go to Image Optimization Settings and add your key.'); ?>
+        </a>
+    </div>
+<?php endif; ?>

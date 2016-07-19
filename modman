@@ -1,0 +1,8 @@
+app/code/community/Tiny/CompressImages/
+app/design/adminhtml/default/default/layout/Tiny/CompressImages.xml
+app/design/adminhtml/default/default/template/Tiny/CompressImages/
+app/etc/modules/Tiny_CompressImages.xml
+app/locale/en_US/Tiny_CompressImages.csv
+lib/TinyCompress/
+skin/adminhtml/default/default/css/Tiny/CompressImages/
+skin/adminhtml/default/default/images/Tiny/CompressImages/

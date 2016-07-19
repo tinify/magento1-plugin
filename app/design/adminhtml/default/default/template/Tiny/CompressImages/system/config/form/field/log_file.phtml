@@ -1,0 +1,21 @@
+<?php
+/** @var Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_LogFile $this */
+?>
+<tr id="row_tiny_compressimages_advanced_log_file">
+    <td class="label">
+        <label for="tiny_compressimages_advanced_log_file"> Log file</label>
+    </td>
+    <td class="value">
+        <?php if ($this->logFileExists()): ?>
+            <button onclick="setLocation('<?php echo $this->getDownloadUrl(); ?>')" type="button" class="scalable">
+                <span><span><span><?php echo $this->__('Download log file'); ?></span></span></span>
+            </button>
+        <?php else: ?>
+            <button type="button" class="scalable disabled">
+                <span><span><span><?php echo $this->__('Download log file'); ?></span></span></span>
+            </button>
+        <?php endif; ?>
+    </td>
+</tr>
+
+

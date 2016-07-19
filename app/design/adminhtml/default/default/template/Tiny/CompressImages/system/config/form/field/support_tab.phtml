@@ -1,0 +1,87 @@
+<?php
+/** @var Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_SupportTab $this */
+?>
+
+<?php $_tigHomepage             = 'https://tig.nl/tinypng-magento-extension-community-edition/'; ?>
+<?php $_kbUrl                   = 'http://servicedesk.tig.nl/hc/nl/categories/202720888-TinyPNG'; ?>
+<?php $_kbTicketUrl             = 'mailto:servicedesk@tig.nl'; ?>
+<?php $_changelogUrl            = 'https://tig.nl'; ?>
+<?php $_installationManualUrl   = 'http://servicedesk.tig.nl/hc/nl/articles/219422177-TinyPNG-handleiding'; ?>
+<?php $_userGuideUrl            = 'https://tig.nl'; ?>
+<?php $_version                 = $this->getModuleVersion(); ?>
+<?php $_stability               = $this->getModuleStability(); ?>
+
+<tr id="tiny_compressimages_support">
+    <td>
+        <h2 class="content-heading">
+            <?php echo $this->__('Image Optimization %s', $_version);?>
+            <?php if (!empty($_stability) && $_stability != 'stable'): ?>
+                - <?php echo $_stability; ?>
+            <?php endif; ?>
+        </h2>
+        <table id="supportWrap" cellpadding="0" cellspacing="0">
+            <tr>
+                <td colspan="2">
+
+                    <div class="">
+                        <div class="col-set">
+                            <div class="col-1">
+                                <p>
+                                    <?php echo $this->__('Make your store faster by optimizing your JPEG and PNG product images. This extension automatically optimizes the images by integrating with the popular image compression services TinyJPG and TinyPNG.'); ?>
+                                </p>
+
+                                <!-- Magento CE -->
+                                <?php if (Mage::getEdition() === 'Community'): ?>
+                                    <p>
+                                        <?php echo $this->__('In case you need help or assistance with the extension or your account please contact'); ?> <a href="mailto:support@tinypng.com">support@tinypng.com</a>.
+                                    </p>
+                                <?php else: ?>
+                                    <!-- Magento EE -->
+                                    <p>
+                                        <?php echo $this->__('For general questions and help with your account please contact') ?> <a href="mailto:support@tinypng.com">support@tinypng.com</a>.
+                                    </p>
+                                <?php endif; ?>
+
+                                <p>
+                                    <?php echo $this->__('This extension is developed by <a href="%s" target="_BLANK">TIG</a>. Please <a href="%s" target="_BLANK">contact them</a> for technical support.', $_tigHomepage, $_kbTicketUrl); ?>
+                                </p>
+
+                            </div>
+                            <div class="col-2">
+                                <img class="tiny-logo-bear" alt="CompressImages" src="<?php echo $this->getSkinUrl('images/Tiny/CompressImages/george-magento@2x_opt.png'); ?>" />
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+
+<script>
+    //<![CDATA[
+    document.observe('dom:loaded', function() {
+        var elem;
+
+        // Set tabs open.
+        [
+            'tiny_compressimages_support-head',
+            'tiny_compressimages_image_types-head',
+            'tiny_compressimages_status-head',
+            'tiny_compressimages_settings-head'
+        ].each( function (name) {
+            elem = $(name);
+
+            if (!elem.hasClassName('open')) {
+                elem.click();
+            }
+        });
+
+        // Remove default onclick value
+        $('tiny_compressimages_support-head').setAttribute('onclick', '');
+
+        // Get and remove the first head on the page (ours)
+        $$('.entry-edit-head')[0].remove();
+    });
+    //]]>
+</script>

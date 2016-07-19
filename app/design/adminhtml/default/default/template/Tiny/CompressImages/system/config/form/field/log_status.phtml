@@ -1,0 +1,164 @@
+<?php
+/**
+ * @var Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_LogStatus $this
+ */
+
+/** @var Tiny_CompressImages_Helper_Tinify $_tinify */
+$_tinify = Mage::helper('tiny_compressimages/tinify');
+
+/** @var Tiny_CompressImages_Helper_Data $_helper */
+$_helper = Mage::helper('tiny_compressimages');
+$_data    = Mage::getModel('tiny_compressimages/totals')->getTotalCompressionInformation();
+
+/** @var Tiny_CompressImages_Model_Image $image */
+$_images = $_tinify->getCompressionStatus();
+
+$_imagesLimit = 10;
+?>
+
+<tr>
+    <td colspan="4">
+        <table cellspacing="5" class="form-list">
+            <tr>
+                <td>
+                    <h5><?php echo $this->__('Images are optimized each time Magento generates new product images in the image cache folder')?></h5>
+                    <?php if ($_data['totalCompressions'] < 1) :?>
+                    <p><?php
+                        echo $this->__(
+                            'If you have never used the extension before you should flush the product images cache. Magento will
+                            generate new product images that will be automatically optimized. You will only need to flush the cache
+                            once, any new products will be automatically optimized in future.'
+                        );
+                    ?></p>
+
+                    <button onclick="setLocation('<?php echo $this->getCleanImagesUrl()?>')" type="button" class="scalable">
+                        <span><span><span><?php echo Mage::helper('adminhtml')->__('Flush Catalog Images Cache') ?></span></span></span>
+                    </button>
+                    <?php endif; ?>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+
+
+<?php if ($_data['totalCompressions'] > 0) :?>
+<tr>
+    <td class="log-details-td">
+        <?php echo Mage::helper('tiny_compressimages')->__(
+            'Total of %s optimized product images. Original size : %s. New size : %s. Average savings %s%%.',
+            $_data['totalCompressions'],
+            $_data['bytesBefore'],
+            $_data['bytesAfter'],
+            $_data['percentageSaved']
+        ); ?>
+    </td>
+</tr>
+<?php endif; ?>
+
+<?php $i = 0; ?>
+<?php if ($_images->count()): ?>
+    <tr>
+        <td colspan="4">
+            <table id="tiny_compressimages_compression" cellspacing="5">
+                <?php /** Tiny_CompressImages_Model_Image $image */?>
+                <?php foreach ($_images as $image): ?>
+                    <?php $i++; ?>
+                    <?php if ($i > $_imagesLimit): ?>
+                        <tr class="tiny_compressimages_log log_hidden">
+                    <?php else : ?>
+                        <tr class="tiny_compressimages_log">
+                    <?php endif;?>
+                        <td class="image_path">
+                            <a href="<?php echo $image->getImageUrl(); ?>" target="_BLANK">
+                                <img src="<?php echo $image->getImageUrl(); ?>">
+                            </a>
+                        </td>
+                        <td class="info_box"><?php echo $image->getImageType(); ?></td>
+                        <td class="info_box tiny_compressimages_width">
+                            <?php echo $image->getPercentageSaved(); ?> saved (<?php echo $_helper->fileSize($image->getBytesBefore()). ' / '. $_helper->fileSize($image->getBytesAfter()); ?>)
+                        </td>
+                        <td class="info_box tiny_compressimages_width">
+                            <?php if ($image->getCompressedBefore()) : ?>
+                                <?php echo $this->__('Optimized previously'); ?>
+                            <?php elseif ($image->getParentId()) :?>
+                                <?php echo $this->__('Duplicate image'); ?>
+                            <?php else: ?>
+                                <?php echo $this->__('Optimized'); ?>
+                            <?php endif; ?>
+                        </td>
+                        <td class="info_box tiny_compressimages_width"><?php echo $image->getTimeAgo(); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+
+                <?php if ($_images->getSize() > $_images->count()): ?>
+                    <tr class="tiny_compressimages_log log_hidden">
+                        <td colspan="5"><?php echo $_helper->__('...and %d more images', $_images->getSize() - $_images->count()); ?></td>
+                    </tr>
+                <?php endif; ?>
+
+                <?php if ($i > $_imagesLimit): ?>
+                    <tr>
+                        <td colspan="5"><a id="show_all" href="#"><?php echo $this->__('Show more'); ?></a></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5"><a id="show_less" href="#"><?php echo $this->__('Show less'); ?></a></td>
+                    </tr>
+                <?php endif; ?>
+            </table>
+        </td>
+    </tr>
+<?php else: ?>
+<tr>
+    <td class="tiny_compressimages-no-images">
+        <?php echo $_helper->__('There are no saved compressions available yet.'); ?><br>
+    </td>
+</tr>
+<?php endif; ?>
+
+<tr>
+    <td class="log-details-td">
+        <?php $url = "<a href=".$this->getCleanImagesUrl()."/>".$this->__('flush the Magento image cache')."</a>"; ?>
+        <?php echo $_helper->__('If an image does not appear you may need to %s and visit the product page
+            again so images will be regenerated and optimized.', $url
+        ); ?>
+    </td>
+</tr>
+
+
+<script type="application/javascript">
+    document.observe('dom:loaded', function() {
+
+        var show_less = $('show_less');
+        var show_all  = $('show_all');
+
+        $$('.log_hidden').each(function(element) {
+            element.hide();
+        });
+
+        if (show_all !== null) {
+            show_all.observe('click', function (e) {
+                Event.stop(e);
+
+                $$('.log_hidden').each(function (element) {
+                    element.show();
+                });
+                show_all.hide();
+                show_less.show();
+            });
+        }
+
+        if (show_less !== null) {
+            show_less.hide();
+            show_less.observe('click', function (e) {
+                Event.stop(e);
+
+                $$('.log_hidden').each(function (element) {
+                    element.hide();
+                });
+                show_less.hide();
+                show_all.show();
+            });
+        }
+    });
+</script>

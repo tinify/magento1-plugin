@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/tinify/magento1-plugin.svg?branch=master)](https://travis-ci.org/tinify/magento1-plugin)
+
 # Compress JPEG & PNG images for Magento 1
 
 Make your Magento 1 store faster by compressing your JPEG and PNG images.
@@ -40,16 +42,12 @@ amount of compressions in the Magento 1 configuration section.
 
 ## Installation
 
-The extensions is still in beta, it is not available as Magento Connect
-package yet. Installation can be done using
-[Modman](https://github.com/colinmollenhour/modman). From your Magento 1
-installation directory:
+Copy the extension key from Magento Connect. Login on your webshop backend
+and open *System -> Magento Connect -> Magento Connect Manager*.
+Paste the extension key to install the extension.
 
-    git clone git@github.com:tinify/magento1-plugin.git .modman/Tiny_CompressImages
-    modman deploy-all
-
-Alternatively you can just copy all the files manually to your Magento 1
-installation directory.
+After installation, go to *System -> Configuration -> Image Optimization*, and 
+enter your TinyPNG API Key. Flush the images cache to start compressing.
 
 ## Contact us
 

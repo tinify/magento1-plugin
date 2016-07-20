@@ -13,12 +13,4 @@
             </action>
         </reference>
     </adminhtml_system_config_edit>
-
-    <adminhtml_cache_index>
-        <reference name="content">
-            <block name="cache.additional">
-                <block type="tiny_compressimages/adminhtml_cache_warning" name="tig.compressimages.cache-warning" template="Tiny/CompressImages/Cache/warning.phtml"></block>
-            </block>
-        </reference>
-    </adminhtml_cache_index>
 </layout>

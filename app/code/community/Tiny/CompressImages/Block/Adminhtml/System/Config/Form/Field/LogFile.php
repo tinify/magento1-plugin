@@ -1,5 +1,7 @@
 <?php
-class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_LogFile extends Varien_Data_Form_Element_Abstract
+class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_LogFile
+    extends Mage_Adminhtml_Block_Abstract
+    implements Varien_Data_Form_Element_Renderer_Interface
 {
     /**
      * Template file used
@@ -7,6 +9,20 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_LogFile exten
      * @var string
      */
     protected $_template = 'Tiny/CompressImages/system/config/form/field/log_file.phtml';
+
+    /**
+     * Render template
+     *
+     * @param Varien_Data_Form_Element_Abstract $element
+     *
+     * @return string
+     */
+    public function render(Varien_Data_Form_Element_Abstract $element)
+    {
+        $this->setElement($element);
+
+        return $this->toHtml();
+    }
 
     /**
      * Get the URL where we can download the log file.

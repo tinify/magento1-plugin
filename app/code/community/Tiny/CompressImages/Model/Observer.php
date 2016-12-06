@@ -17,6 +17,7 @@ class Tiny_CompressImages_Model_Observer
      * @param $observer
      *
      * @return $this
+     * @throws Exception
      */
     public function catalogProductImageSaveAfter($observer)
     {

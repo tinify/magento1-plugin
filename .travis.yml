@@ -12,5 +12,8 @@ env:
   - MAGENTO_VERSION=magento-mirror-1.8.0.0
   - MAGENTO_VERSION=magento-mirror-1.7.0.2
 
+before_script:
+  - export PATH=$PATH:$HOME/.composer/vendor/bin
+
 script:
   - bash setup.sh

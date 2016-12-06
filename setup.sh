@@ -21,20 +21,7 @@ PUBLIC_DIR="${BUILDENV}/public/"
 mkdir -p "${TOOLS}"
 mkdir -p "${PUBLIC_DIR}"
 
-if [ ! -f "${TOOLS}/n98-magerun" ]; then
-    wget https://files.magerun.net/n98-magerun.phar -O "${TOOLS}/n98-magerun"
-    chmod +x "${TOOLS}/n98-magerun"
-fi
-
-if [ ! -f "${TOOLS}/modman" ]; then
-    wget https://raw.githubusercontent.com/colinmollenhour/modman/master/modman -O "${TOOLS}/modman"
-    chmod +x "${TOOLS}/modman"
-fi
-
-if [ ! -f "${TOOLS}/phpunit" ]; then
-    wget https://phar.phpunit.de/phpunit-old.phar -O "${TOOLS}/phpunit"
-    chmod +x "${TOOLS}/phpunit"
-fi
+composer global require n98/magerun colinmollenhour/modman
 
 echo "Using build directory ${BUILDENV}"
 
@@ -45,7 +32,7 @@ MYSQLPASS=""
 if [ ! -z $MAGENTO_DB_PASS ]; then MYSQLPASS="-p${MAGENTO_DB_PASS}"; fi
 mysql -u${MAGENTO_DB_USER} ${MYSQLPASS} -h${MAGENTO_DB_HOST} -P${MAGENTO_DB_PORT} -e "DROP DATABASE IF EXISTS \`${MAGENTO_DB_NAME}\`; CREATE DATABASE \`${MAGENTO_DB_NAME}\`;"
 
-"${TOOLS}/n98-magerun" install \
+n98-magerun install \
       --dbHost="${MAGENTO_DB_HOST}" --dbUser="${MAGENTO_DB_USER}" --dbPass="${MAGENTO_DB_PASS}" --dbName="${MAGENTO_DB_NAME}" --dbPort="${MAGENTO_DB_PORT}" \
       --installSampleData=no \
       --useDefaultConfigParams=yes \
@@ -59,13 +46,13 @@ cp -rf . "${PUBLIC_DIR}/.modman/project"
 
 cd "${PUBLIC_DIR}"
 
-"${TOOLS}/modman" deploy-all
-"${TOOLS}/n98-magerun" config:set dev/template/allow_symlink 1
-"${TOOLS}/n98-magerun" sys:setup:run
+modman deploy-all
+n98-magerun config:set dev/template/allow_symlink 1
+n98-magerun sys:setup:run
 
 cd "${PUBLIC_DIR}/.modman/project";
 
-"${TOOLS}/phpunit"
+phpunit
 
 mysql -u${MAGENTO_DB_USER} ${MYSQLPASS} -h${MAGENTO_DB_HOST} -P${MAGENTO_DB_PORT} -e "DROP DATABASE IF EXISTS \`${MAGENTO_DB_NAME}\`;"
 echo "Deleting ${BUILDENV}"

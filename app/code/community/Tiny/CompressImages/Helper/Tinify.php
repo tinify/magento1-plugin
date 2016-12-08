@@ -326,7 +326,7 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
     protected function _isInOptimizedMediaDirectory()
     {
         $path = $this->_model->getPathOptimized();
-        $file = new SplFileInfo($path);
+        $file = new SplFileInfo(Mage::getBaseDir() . $path);
 
         if ($file->isFile()) {
             $this->isCompressedBefore = true;

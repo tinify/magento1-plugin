@@ -44,7 +44,7 @@
 #tiny_compressimages_support ol { list-style: decimal inside; }
 #tiny_compressimages_support ol ol { list-style: lower-alpha inside; padding: 0 0 10px 12px; }
 #tiny_compressimages_support ul ul { list-style:none; padding: 0 0 10px 12px; }
-#tiny_compressimages_support h2.content-heading { border-bottom: 4px solid #dfdfdf; }
+#tiny_compressimages_support h2.content-heading { margin-right: 190px; border-bottom: 4px solid #dfdfdf; }
 #tiny_compressimages_support h2.content-heading .content-heading-logo { height: 24px; }
 
 #tiny_compressimages_support h4,
@@ -54,12 +54,14 @@
 
 .tiny-logo-bear {
     position: absolute;
-    bottom: 0px;
+    bottom: 0;
     right: 0;
     width: auto;
     max-width: 20%;
     height: auto;
     max-height: 180px; }
+
+fieldset#tiny_compressimages_support { padding-bottom: 0; }
 
 #tiny_compressimages_support a:hover { text-decoration:none; }
 #tiny_compressimages_support img { max-width: 100%; }

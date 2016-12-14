@@ -50,7 +50,7 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_Status extend
             $button  = '<a href="https://tinypng.com/developers/subscription" target="_blank" id="tinypng_check_status" class="tiny-compressimages-button-orange scalable">';
             $button .= '<span><span><span>Upgrade</span></span></span></a>';
 
-            $onhold = $this->_helper->__('Compression on hold. 500 free images compressed this month.');
+            $onhold = $this->_helper->__('Compression on hold. 500 free images compressed this month.') . ' ';
             $upgrade = $this->_helper->__('Upgrade your account to compress more images');
 
             return '<span class="compressimages-api-deactivated">' . $onhold . '</span>' . $upgrade . '<br>' . $button;

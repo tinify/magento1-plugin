@@ -40,18 +40,17 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_Status extend
             }
         }
 
-        // TODO: Find a method to determine whether to use our or Tinify's compression count
         $compressionCount = Mage::helper('tiny_compressimages/tinify')->compressionCount();
 
         if ($configHelper->getApiKey() == '') {
             return $this->_helper->__('Add your TinyPNG API key to check the status');
         }
 
-        if ($compressionCount == 0 || $compressionCount == 500) {
+        if ($compressionCount == 500) {
             $button  = '<a href="https://tinypng.com/developers/subscription" target="_blank" id="tinypng_check_status" class="tiny-compressimages-button-orange scalable">';
             $button .= '<span><span><span>Upgrade</span></span></span></a>';
 
-            $onhold = $this->_helper->__('Compression on hold. 500 free images compressed this month.');
+            $onhold = $this->_helper->__('Compression on hold. 500 free images compressed this month.') . ' ';
             $upgrade = $this->_helper->__('Upgrade your account to compress more images');
 
             return '<span class="compressimages-api-deactivated">' . $onhold . '</span>' . $upgrade . '<br>' . $button;

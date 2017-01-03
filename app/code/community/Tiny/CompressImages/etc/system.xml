@@ -180,7 +180,7 @@
                         <log_file translate="label comment">
                             <label>Download the logfile</label>
                             <sort_order>30</sort_order>
-                            <frontend_type>compressimages_log_button</frontend_type>
+                            <frontend_model>tiny_compressimages/adminhtml_system_config_form_field_logFile</frontend_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>

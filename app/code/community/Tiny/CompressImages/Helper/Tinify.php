@@ -286,6 +286,8 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
                 'Path: ' . $compressionFile;
 
             $this->helper->log($message, 'info', $this->storeId);
+        } catch (\Tinify\AccountException $e) {
+            $this->helper->log($e->getMessage(), 'error', $this->storeId);
         } catch (\Tinify\Exception $e) {
             $this->helper->log($e, null, $this->storeId);
             return false;
@@ -326,7 +328,7 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
     protected function _isInOptimizedMediaDirectory()
     {
         $path = $this->_model->getPathOptimized();
-        $file = new SplFileInfo($path);
+        $file = new SplFileInfo(Mage::getBaseDir() . $path);
 
         if ($file->isFile()) {
             $this->isCompressedBefore = true;

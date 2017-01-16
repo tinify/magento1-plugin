@@ -1,8 +1,33 @@
-app/code/community/Tiny/CompressImages/
-app/design/adminhtml/default/default/layout/Tiny/CompressImages.xml
-app/design/adminhtml/default/default/template/Tiny/CompressImages/
-app/etc/modules/Tiny_CompressImages.xml
-app/locale/en_US/Tiny_CompressImages.csv
-lib/TinyCompress/
-skin/adminhtml/default/default/css/Tiny/CompressImages/
-skin/adminhtml/default/default/images/Tiny/CompressImages/
+app/code/community/Tiny/CompressImages            app/code/community/Tiny/CompressImages
+app/etc/modules/Tiny_CompressImages.xml            app/etc/modules/Tiny_CompressImages.xml
+app/locale/en_US/Tiny_CompressImages.csv            app/locale/en_US/Tiny_CompressImages.csv
+app/design/adminhtml/default/default/layout/Tiny/CompressImages.xml            app/design/adminhtml/default/default/layout/Tiny/CompressImages.xml
+app/design/adminhtml/default/default/template/Tiny/CompressImages/Api/keyNotification.phtml            app/design/adminhtml/default/default/template/Tiny/CompressImages/Api/keyNotification.phtml
+app/design/adminhtml/default/default/template/Tiny/CompressImages/system/config/form/field/log_file.phtml            app/design/adminhtml/default/default/template/Tiny/CompressImages/system/config/form/field/log_file.phtml
+app/design/adminhtml/default/default/template/Tiny/CompressImages/system/config/form/field/support_tab.phtml            app/design/adminhtml/default/default/template/Tiny/CompressImages/system/config/form/field/support_tab.phtml
+app/design/adminhtml/default/default/template/Tiny/CompressImages/system/config/form/field/log_status.phtml            app/design/adminhtml/default/default/template/Tiny/CompressImages/system/config/form/field/log_status.phtml
+lib/TinyCompress/README.md            lib/TinyCompress/README.md
+lib/TinyCompress/phpunit.xml            lib/TinyCompress/phpunit.xml
+lib/TinyCompress/composer.json            lib/TinyCompress/composer.json
+lib/TinyCompress/test/integration.php            lib/TinyCompress/test/integration.php
+lib/TinyCompress/test/TinifyClientTest.php            lib/TinyCompress/test/TinifyClientTest.php
+lib/TinyCompress/test/TinifyResultMetaTest.php            lib/TinyCompress/test/TinifyResultMetaTest.php
+lib/TinyCompress/test/TinifyResultTest.php            lib/TinyCompress/test/TinifyResultTest.php
+lib/TinyCompress/test/examples/voormedia.png            lib/TinyCompress/test/examples/voormedia.png
+lib/TinyCompress/test/examples/dummy.png            lib/TinyCompress/test/examples/dummy.png
+lib/TinyCompress/test/curl_mock.php            lib/TinyCompress/test/curl_mock.php
+lib/TinyCompress/test/helper.php            lib/TinyCompress/test/helper.php
+lib/TinyCompress/test/TinifySourceTest.php            lib/TinyCompress/test/TinifySourceTest.php
+lib/TinyCompress/test/TinifyTest.php            lib/TinyCompress/test/TinifyTest.php
+lib/TinyCompress/lib/data/cacert.pem            lib/TinyCompress/lib/data/cacert.pem
+lib/TinyCompress/lib/Tinify.php            lib/TinyCompress/lib/Tinify.php
+lib/TinyCompress/lib/Tinify/ResultMeta.php            lib/TinyCompress/lib/Tinify/ResultMeta.php
+lib/TinyCompress/lib/Tinify/Exception.php            lib/TinyCompress/lib/Tinify/Exception.php
+lib/TinyCompress/lib/Tinify/Source.php            lib/TinyCompress/lib/Tinify/Source.php
+lib/TinyCompress/lib/Tinify/Client.php            lib/TinyCompress/lib/Tinify/Client.php
+lib/TinyCompress/lib/Tinify/Result.php            lib/TinyCompress/lib/Tinify/Result.php
+lib/TinyCompress/LICENSE            lib/TinyCompress/LICENSE
+lib/TinyCompress/composer.lock            lib/TinyCompress/composer.lock
+skin/adminhtml/default/default/css/Tiny/CompressImages/config.css            skin/adminhtml/default/default/css/Tiny/CompressImages/config.css
+skin/adminhtml/default/default/images/Tiny/CompressImages/george-menu-icon@2x.png            skin/adminhtml/default/default/images/Tiny/CompressImages/george-menu-icon@2x.png
+skin/adminhtml/default/default/images/Tiny/CompressImages/george-magento@2x_opt.png            skin/adminhtml/default/default/images/Tiny/CompressImages/george-magento@2x_opt.png

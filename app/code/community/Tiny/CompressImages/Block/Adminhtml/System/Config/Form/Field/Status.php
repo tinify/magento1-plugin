@@ -47,7 +47,7 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_Status extend
         }
 
         if ($compressionCount == 500) {
-            $button  = '<a href="https://tinypng.com/developers/subscription" target="_blank" id="tinypng_check_status" class="tiny-compressimages-button-orange scalable">';
+            $button  = '<a href="https://tinypng.com/dashboard/developers" target="_blank" id="tinypng_check_status" class="tiny-compressimages-button-orange scalable">';
             $button .= '<span><span><span>Upgrade</span></span></span></a>';
 
             $onhold = $this->_helper->__('Compression on hold. 500 free images compressed this month.') . ' ';

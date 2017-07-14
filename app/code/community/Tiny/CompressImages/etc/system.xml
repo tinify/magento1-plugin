@@ -40,7 +40,7 @@
                             <label>API Key</label>
                             <frontend_type>text</frontend_type>
                             <backend_model>tiny_compressimages/system_config_backend_apiKey</backend_model>
-                            <comment><![CDATA[Visit <a href="https://tinypng.com/developers/subscription" target="_BLANK">TinyPNG Developer section</a> to get an API key.]]></comment>
+                            <comment><![CDATA[Visit <a href="https://tinypng.com/developers" target="_BLANK">TinyPNG Developer section</a> to get an API key.]]></comment>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

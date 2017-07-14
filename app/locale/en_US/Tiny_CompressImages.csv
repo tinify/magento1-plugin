@@ -52,7 +52,7 @@
 "Tiny_CompressImages::If this is set to Off, TinyPNG will no longer compress images","If this is set to Off, TinyPNG will no longer compress images"
 "Tiny_CompressImages::If test mode is activated, the extension will do real compressions. The result won't be saved.","If test mode is activated, the extension will do real compressions. The result won't be saved."
 "Tiny_CompressImages::API Key","API Key"
-"Tiny_CompressImages::You can fetch the API Key from the <a href=""https://tinypng.com/developers/subscription"" target=""_BLANK"">TinyPNG website</a>.","You can fetch the API Key from the <a href=""https://tinypng.com/developers/subscription"" target=""_BLANK"">TinyPNG website</a>."
+"Tiny_CompressImages::You can fetch the API Key from the <a href=""https://tinypng.com/developers"" target=""_BLANK"">TinyPNG website</a>.","You can fetch the API Key from the <a href=""https://tinypng.com/developers"" target=""_BLANK"">TinyPNG website</a>."
 "Tiny_CompressImages::Product images to be compressed","Product images to be compressed"
 "Tiny_CompressImages::Messages that should be logged","Messages that should be logged"
 "Tiny_CompressImages::TinyPNG Status","TinyPNG Status"

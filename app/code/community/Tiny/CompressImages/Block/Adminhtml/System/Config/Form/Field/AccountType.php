@@ -8,8 +8,8 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_AccountType e
      */
     public function getElementHtml()
     {
-        $button = '<a href="https://tinypng.com/developers/subscription" target="_blank" class="manual-links">';
-            $button .= Mage::helper('tiny_compressimages')->__('Credits');
+        $button = '<a href="https://tinypng.com/developers" target="_blank" class="manual-links">';
+        $button .= Mage::helper('tiny_compressimages')->__('Credits');
         $button .= '</a>';
 
         return Mage::helper('tiny_compressimages')->__('Free (A maximum of 500 images per month)<br>' . $button);

@@ -4,12 +4,12 @@
 
 Make your Magento 1 store faster by compressing your JPEG and PNG images.
 
-This plugin automatically optimizes your images by integrating with the
+This extension automatically optimizes your images by integrating with the
 popular image compression services TinyJPG and TinyPNG.
 
 Learn more about TinyJPG and TinyPNG at https://tinypng.com/.
 
-Do you use Magento 2? Install our Magento 2 plugin instead:
+Do you use Magento 2? Install the Magento 2 extension instead:
 https://packagist.org/packages/tinify/magento2
 
 ## How doest it work?
@@ -46,19 +46,21 @@ Copy the extension key from Magento Connect. Login on your webshop backend
 and open *System -> Magento Connect -> Magento Connect Manager*.
 Paste the extension key to install the extension.
 
-After installation, go to *System -> Configuration -> Image Optimization*, and 
+After installation, go to *System -> Configuration -> Image Optimization*, and
 enter your TinyPNG API Key. Flush the images cache to start compressing.
 
 ## Contact us
 
 Got questions or feedback? Let us know! Contact us at support@tinypng.com.
 
-## Information for plugin contributors
+## Information for contributors
+
+You will need to have the following prerequisites to make changes to the code.
 
 * PHP 5.4 or newer.
 * MySQL 5.4 or newer (integration tests).
-* Magento 1.8.0.0 or newer.
-* phpunit 4.8 or newer.
+* Magento 1.8.0 or newer.
+* PHPUnit 4.8 or newer.
 
 ### Running the unit tests
 

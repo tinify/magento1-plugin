@@ -12,7 +12,7 @@ Learn more about TinyJPG and TinyPNG at https://tinypng.com/.
 Do you use Magento 2? Install the Magento 2 extension instead:
 https://packagist.org/packages/tinify/magento2
 
-## How doest it work?
+## How does it work?
 
 When you view a product in your webshop, Magento creates different image sizes
 in its cache folders. This extension will compress these images for you

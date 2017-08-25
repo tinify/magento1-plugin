@@ -1,0 +1,32 @@
+{
+    "name": "tinify/magento1",
+    "description": "Speed up your Magento 1 webshop. Optimize your JPEG and PNG images automatically with TinyPNG.",
+    "keywords": [
+        "tinify",
+        "tinypng",
+        "tinyjpg",
+        "compress",
+        "images",
+        "api",
+        "magento",
+        "magento2",
+        "plugin",
+        "module"
+    ],
+    "type": "magento-module",
+    "license": "MIT",
+    "require": {},
+    "authors": [
+        {
+            "name": "TIG",
+            "email": "servicedesk@tig.nl",
+            "homepage": "http://tig.nl"
+        }
+    ],
+    "support": {
+        "email": "servicedesk@tig.nl",
+        "issues": "http://servicedesk.tig.nl/hc/nl/requests/new"
+    },
+    "homepage": "https://tig.nl/image-optimization-magento-extension-community-edition/",
+    "minimum-stability": "stable"
+}

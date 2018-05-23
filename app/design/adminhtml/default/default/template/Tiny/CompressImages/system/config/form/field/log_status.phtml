@@ -27,7 +27,10 @@ $_imagesLimit = 10;
                         echo $this->__(
                             'If you have never used the extension before you should flush the product images cache. Magento will
                             generate new product images that will be automatically optimized. You will only need to flush the cache
-                            once, any new products will be automatically optimized in future.'
+                            once, any new products will be automatically optimized in future. If you own a large store with lots of
+                            traffic and many product pages you may not want to flush the entire cache at once. As an alternative you
+                            can manually delete parts of the existing product image cache in small batches directly from the filesystem.
+                            Images that are missing from the cache will then be recreated and optimised on a smaller scale.'
                         );
                     ?></p>
 

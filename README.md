@@ -4,6 +4,8 @@
 
 Make your Magento 1 store faster by compressing your JPEG and PNG images.
 
+[![Magento configuration page](/screenshots/magento-config-page.jpg?raw=true "Magento configuration page")](#getting-started)
+
 This extension automatically optimizes your images by integrating with the
 popular image compression services TinyJPG and TinyPNG.
 
@@ -48,6 +50,14 @@ Paste the extension key to install the extension.
 
 After installation, go to *System -> Configuration -> Image Optimization*, and
 enter your TinyPNG API Key. Flush the images cache to start compressing.
+
+Regenerating the image cache and optimizing all images may take some time and
+can be intensive for the server that your store runs on. If you own a large
+store with lots of traffic and many product pages you may not want to flush
+the entire cache at once. As an alternative you can manually delete parts of
+the existing image cache in smaller batches directly from the filesystem.
+Images that are missing from the product cache folder will then be recreated
+and optimised on a smaller scale.
 
 ## Contact us
 

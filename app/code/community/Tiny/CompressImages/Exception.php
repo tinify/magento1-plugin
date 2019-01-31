@@ -1,2 +1,4 @@
 <?php
-class Tiny_CompressImages_Exception extends Exception {}
+class Tiny_CompressImages_Exception extends Exception
+{
+}

@@ -73,7 +73,8 @@ class Tiny_CompressImages_Model_Totals extends Mage_Core_Model_Abstract
      *
      * @return string
      */
-    function formatBytes($bytes, $precision = 2) {
+    function formatBytes($bytes, $precision = 2) 
+    {
         if ($bytes <= 0) {
             return '0 KB';
         }

@@ -5,7 +5,10 @@ namespace Tinify;
 class Client {
     const API_ENDPOINT = "https://api.tinify.com";
 
-    private $options;
+    const RETRY_COUNT = 1;
+    const RETRY_DELAY = 500;
+
+    protected $options;
 
     public static function userAgent() {
         $curl = curl_version();
@@ -16,19 +19,56 @@ class Client {
         return __DIR__ . "/../data/cacert.pem";
     }
 
-    function __construct($key, $app_identifier = NULL) {
+    function __construct($key, $appIdentifier = NULL, $proxy = NULL) {
+        $curl = curl_version();
+
+        if (!($curl["features"] & CURL_VERSION_SSL)) {
+            throw new ClientException("Your curl version does not support secure connections");
+        }
+
+        if ($curl["version_number"] < 0x071201) {
+            $version = $curl["version"];
+            throw new ClientException("Your curl version ${version} is outdated; please upgrade to 7.18.1 or higher");
+        }
+
+        $userAgent = join(" ", array_filter(array(self::userAgent(), $appIdentifier)));
+
         $this->options = array(
             CURLOPT_BINARYTRANSFER => true,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HEADER => true,
-            CURLOPT_USERPWD => "api:" . $key,
+            CURLOPT_USERPWD => $key ? ("api:" . $key) : NULL,
             CURLOPT_CAINFO => self::caBundle(),
             CURLOPT_SSL_VERIFYPEER => true,
-            CURLOPT_USERAGENT => join(" ", array_filter(array(self::userAgent(), $app_identifier))),
+            CURLOPT_USERAGENT => $userAgent,
         );
+
+        if ($proxy) {
+            $parts = parse_url($proxy);
+            if (isset($parts["host"])) {
+                $this->options[CURLOPT_PROXYTYPE] = CURLPROXY_HTTP;
+                $this->options[CURLOPT_PROXY] = $parts["host"];
+            } else {
+                throw new ConnectionException("Invalid proxy");
+            }
+
+            if (isset($parts["port"])) {
+                $this->options[CURLOPT_PROXYPORT] = $parts["port"];
+            }
+
+            $creds = "";
+            if (isset($parts["user"])) $creds .= $parts["user"];
+            if (isset($parts["pass"])) $creds .= ":" . $parts["pass"];
+
+            if ($creds) {
+                $this->options[CURLOPT_PROXYAUTH] = CURLAUTH_ANY;
+                $this->options[CURLOPT_PROXYUSERPWD] = $creds;
+            }
+        }
     }
 
-    function request($method, $url, $body = NULL, $header = array()) {
+    function request($method, $url, $body = NULL) {
+        $header = array();
         if (is_array($body)) {
             if (!empty($body)) {
                 $body = json_encode($body);
@@ -38,55 +78,99 @@ class Client {
             }
         }
 
-        $request = curl_init();
-        curl_setopt_array($request, $this->options);
-
-        $url = strtolower(substr($url, 0, 6)) == "https:" ? $url : Client::API_ENDPOINT . $url;
-        curl_setopt($request, CURLOPT_URL, $url);
-        curl_setopt($request, CURLOPT_CUSTOMREQUEST, strtoupper($method));
-
-        if (count($header) > 0) {
-            curl_setopt($request, CURLOPT_HTTPHEADER, $header);
-        }
-
-        if ($body) {
-            curl_setopt($request, CURLOPT_POSTFIELDS, $body);
-        }
-
-        $response = curl_exec($request);
-
-        if (is_string($response)) {
-            $status = curl_getinfo($request, CURLINFO_HTTP_CODE);
-            $headerSize = curl_getinfo($request, CURLINFO_HEADER_SIZE);
-            curl_close($request);
-
-            $headers = self::parseHeaders(substr($response, 0, $headerSize));
-            $body = substr($response, $headerSize);
-
-            if (isset($headers["compression-count"])) {
-                Tinify::setCompressionCount(intval($headers["compression-count"]));
+        for ($retries = self::RETRY_COUNT; $retries >= 0; $retries--) {
+            if ($retries < self::RETRY_COUNT) {
+                usleep(self::RETRY_DELAY * 1000);
             }
 
-            if ($status >= 200 && $status <= 299) {
-                return array("body" => $body, "headers" => $headers);
-            }
-
-            $details = json_decode($body);
-            if (!$details) {
-                $message = sprintf("Error while parsing response: %s (#%d)",
-                    PHP_VERSION_ID >= 50500 ? json_last_error_msg() : "Error",
-                    json_last_error());
-                $details = (object) array(
-                    "message" => $message,
-                    "error" => "ParseError"
+            $request = curl_init();
+            if ($request === false || $request === null) {
+                throw new ConnectionException(
+                    "Error while connecting: curl extension is not functional or disabled."
                 );
             }
 
-            throw Exception::create($details->message, $details->error, $status);
-        } else {
-            $message = sprintf("%s (#%d)", curl_error($request), curl_errno($request));
-            curl_close($request);
-            throw new ConnectionException("Error while connecting: " . $message);
+            curl_setopt_array($request, $this->options);
+
+            $url = strtolower(substr($url, 0, 6)) == "https:" ? $url : self::API_ENDPOINT . $url;
+            curl_setopt($request, CURLOPT_URL, $url);
+            curl_setopt($request, CURLOPT_CUSTOMREQUEST, strtoupper($method));
+
+            if (count($header) > 0) {
+                curl_setopt($request, CURLOPT_HTTPHEADER, $header);
+            }
+
+            if ($body) {
+                curl_setopt($request, CURLOPT_POSTFIELDS, $body);
+            }
+
+            $response = curl_exec($request);
+
+            if (is_string($response)) {
+                $status = curl_getinfo($request, CURLINFO_HTTP_CODE);
+                $headerSize = curl_getinfo($request, CURLINFO_HEADER_SIZE);
+                curl_close($request);
+
+                $headers = self::parseHeaders(substr($response, 0, $headerSize));
+                $body = substr($response, $headerSize);
+
+                if (isset($headers["compression-count"])) {
+                    Tinify::setCompressionCount(intval($headers["compression-count"]));
+                }
+
+                if ( isset( $headers["compression-count-remaining"] ) ) {
+                    Tinify::setRemainingCredits( intval( $headers["compression-count-remaining"] ) );
+                }
+
+                if ( isset( $headers["paying-state"] ) ) {
+                    Tinify::setPayingState( $headers["paying-state"] );
+                }
+
+                if ( isset( $headers["email-address"] ) ) {
+                    Tinify::setEmailAddress( $headers["email-address"] );
+                }
+
+                $isJson = false;
+                if (isset($headers["content-type"])) {
+                    /* Parse JSON response bodies. */
+                    list($contentType) = explode(";", $headers["content-type"], 2);
+                    if (strtolower(trim($contentType)) == "application/json") {
+                        $isJson = true;
+                    }
+                }
+
+                /* 1xx and 3xx are unexpected and will be treated as error. */
+                $isError = $status <= 199 || $status >= 300;
+
+                if ($isJson || $isError) {
+                    /* Parse JSON bodies, always interpret errors as JSON. */
+                    $body = json_decode($body);
+                    if (!$body) {
+                        $message = sprintf("Error while parsing response: %s (#%d)",
+                            PHP_VERSION_ID >= 50500 ? json_last_error_msg() : "Error",
+                            json_last_error());
+                        if ($retries > 0 && $status >= 500) continue;
+                        throw Exception::create($message, "ParseError", $status);
+                    }
+                }
+
+                if ($isError) {
+                    if ($retries > 0 && $status >= 500) continue;
+                    /* When the key doesn't exist a 404 response is given. */
+                    if ($status == 404) {
+                        throw Exception::create(null, null, $status);
+                    } else {
+                        throw Exception::create($body->message, $body->error, $status);
+                    }
+                }
+
+                return (object) array("body" => $body, "headers" => $headers);
+            } else {
+                $message = sprintf("%s (#%d)", curl_error($request), curl_errno($request));
+                curl_close($request);
+                if ($retries > 0) continue;
+                throw new ConnectionException("Error while connecting: " . $message);
+            }
         }
     }
 
@@ -95,14 +179,14 @@ class Client {
             $headers = explode("\r\n", $headers);
         }
 
-        $res = array();
+        $result = array();
         foreach ($headers as $header) {
             if (empty($header)) continue;
             $split = explode(":", $header, 2);
             if (count($split) === 2) {
-                $res[strtolower($split[0])] = trim($split[1]);
+                $result[strtolower($split[0])] = trim($split[1]);
             }
         }
-        return $res;
+        return $result;
     }
 }

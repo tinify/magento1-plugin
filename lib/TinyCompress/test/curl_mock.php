@@ -6,23 +6,45 @@ class CurlMockException extends Exception {
 }
 
 class CurlMock {
+    private static $defaultVersion = array(
+        "version_number" => 471808,
+        "version" => "7.51.0",
+        "features" => 951197,
+    );
+
     private static $urls = array();
     private static $requests = array();
+    private static $version = array();
 
     public $options = array();
     public $response;
     public $closed = false;
+
+    public static function version_info() {
+        return self::$version;
+    }
+
+    public static function set_version_info_key($key, $value) {
+        self::$version[$key] = $value;
+    }
 
     public static function register($url, $request, $response = NULL) {
         if (!$response) {
             $response = $request;
             $request = NULL;
         }
-        self::$urls[$url] = array($request, $response);
+
+        if (!isset(self::$urls[$url])) {
+            self::$urls[$url] = array();
+        }
+
+        array_push(self::$urls[$url], array($request, $response));
     }
 
     public static function reset() {
         self::$requests = array();
+        self::$urls = array();
+        self::$version = self::$defaultVersion;
     }
 
     public static function last_has($key) {
@@ -49,7 +71,12 @@ class CurlMock {
         }
         array_push(self::$requests, $this);
 
-        list($this->request, $this->response) = self::$urls[$this->options[CURLOPT_URL]];
+        $queue = &self::$urls[$this->options[CURLOPT_URL]];
+        list($this->request, $this->response) = $queue[0];
+
+        /* Keep last request as fallback. */
+        if (count($queue) > 1) array_shift($queue);
+
         if ($this->request) {
             if ($this->request["body"]) {
                 if ($this->options[CURLOPT_POSTFIELDS] != $this->request["body"]) {
@@ -125,6 +152,10 @@ class CurlMock {
         }
         return $this->response["errno"];
     }
+}
+
+function curl_version() {
+    return CurlMock::version_info();
 }
 
 function curl_init() {

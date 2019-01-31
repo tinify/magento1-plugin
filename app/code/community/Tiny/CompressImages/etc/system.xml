@@ -62,6 +62,14 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </usage>
+                        <credits translate="label comment">
+                            <label> </label>
+                            <sort_order>40</sort_order>
+                            <frontend_type>compressimages_credits</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </credits>
                     </fields>
                 </settings>
                 <image_types translate="label">

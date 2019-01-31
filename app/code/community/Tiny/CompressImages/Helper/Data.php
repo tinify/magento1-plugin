@@ -122,14 +122,17 @@ class Tiny_CompressImages_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @return string
      */
-    public function timeAgo($datefrom, $dateto = -1) {
+    public function timeAgo($datefrom, $dateto = -1) 
+    {
         $datefrom = strtotime($datefrom);
         if ($datefrom <= 0) {
             return $this->__('A long time ago');
         }
+
         if ($dateto == -1) {
             $dateto = time();
         }
+
         $difference = $dateto - $datefrom;
         if ($difference < 60) {
             $interval = "s";
@@ -146,16 +149,19 @@ class Tiny_CompressImages_Helper_Data extends Mage_Core_Helper_Abstract
         } elseif ($difference >= 60 * 60 * 24 * 365) {
             $interval = "y";
         }
+
         switch ($interval) {
             case "m":
                 $months_difference = floor($difference / 60 / 60 / 24 / 29);
                 while (mktime(date("H", $datefrom), date("i", $datefrom), date("s", $datefrom), date("n", $datefrom) + ($months_difference), date("j", $dateto), date("Y", $datefrom)) < $dateto) {
                     $months_difference++;
                 }
+
                 $datediff = $months_difference;
                 if ($datediff == 12) {
                     $datediff--;
                 }
+
                 $res = ($datediff == 1) ? $this->__('%s month ago', $datediff) : $this->__('%s months ago', $datediff);
                 break;
             case "y":

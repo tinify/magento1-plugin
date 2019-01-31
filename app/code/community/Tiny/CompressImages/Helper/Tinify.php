@@ -93,15 +93,15 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
     /**
      * Constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->_registerAutoloader();
         $this->_setIdentifier();
 
         $this->helper = Mage::helper('tiny_compressimages');
         $this->configHelper = Mage::helper('tiny_compressimages/config');
 
-        $apiKey = $this->configHelper->getApiKey($this->storeId);
-        $this->allowCompression = $this->validate($apiKey);
+        $this->allowCompression = $this->validateApiKey();
     }
 
     /**
@@ -113,7 +113,7 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
     {
         require_once(Mage::getBaseDir('lib') . '/TinyCompress/lib/Tinify.php');
 
-        spl_autoload_register( array($this, 'load'), true, true );
+        spl_autoload_register(array($this, 'load'), true, true);
 
         return $this;
     }
@@ -194,7 +194,12 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
      *
      * @return bool
      */
-    public function validate($apiKey) {
+    public function validateApiKey($apiKey = null)
+    {
+        if (!$apiKey) {
+            $apiKey = $this->configHelper->getApiKey($this->storeId);
+        }
+
         if (empty($apiKey)) {
             return false;
         }
@@ -361,8 +366,10 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
         } else {
             $model->addUsedAsSource()->save();
 
-            $this->helper->log('Copying the source file from ' . $sourceFile->getPathname() .
-                ' to ' . $this->newFile->getPathname(), 'info', $this->storeId);
+            $this->helper->log(
+                'Copying the source file from ' . $sourceFile->getPathname() .
+                ' to ' . $this->newFile->getPathname(), 'info', $this->storeId
+            );
 
             if ($this->configHelper->isTestMode($this->storeId)) {
                 $this->helper->log('Testmode is enabled, no image is copied');
@@ -511,7 +518,7 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
         $bytesAfter       = $this->bytesAfter;
         $totalCompression = 1;
 
-        if ($this->isBetweenDates($latest->getDateFrom(),$latest->getDateTo())) {
+        if ($this->isBetweenDates($latest->getDateFrom(), $latest->getDateTo())) {
             $bytesBefore      = $bytesBefore + $latest->getTotalBytesBefore();
             $bytesAfter       = $bytesAfter  + $latest->getTotalBytesAfter();
             $totalCompression = $totalCompression + $latest->getTotalCompressions();
@@ -520,7 +527,6 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
 
             // Load the latest record for updates.
             $model->load($latest->getEntityId());
-
         } else {
             $dateFrom = Mage::getModel('core/date')->date('Y-m-01');
             $dateTo   = Mage::getModel('core/date')->date('Y-m-t');
@@ -602,19 +608,71 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
      *
      * @return int|null
      */
-    public function compressionCount($store = null) {
+    public function compressionCount($store = null)
+    {
         if(!$this->configHelper->isConfigured($store)) {
             return 0;
         }
 
-        $apiKey = $this->configHelper->getApiKey($store);
-        $validated = $this->validate($apiKey);
-
-        if (!$validated) {
+        if (!$this->validateApiKey()) {
             return 0;
         }
 
         return \Tinify\compressionCount();
+    }
+
+    /**
+     * @param null $store
+     *
+     * @return int|null
+     */
+    public function getRemainingCredits($store = null)
+    {
+        if (!$this->configHelper->isConfigured($store)) {
+            return 0;
+        }
+
+        if (!$this->validateApiKey()) {
+            return 0;
+        }
+
+        return \Tinify\remainingCredits();
+    }
+
+    /**
+     * @param null $store
+     *
+     * @return int|null
+     */
+    public function getPayingState($store = null)
+    {
+        if (!$this->configHelper->isConfigured($store)) {
+            return 0;
+        }
+
+        if (!$this->validateApiKey()) {
+            return 0;
+        }
+
+        return \Tinify\payingState();
+    }
+
+    /**
+     * @param null $store
+     *
+     * @return int|null
+     */
+    public function getApiEmail($store = null)
+    {
+        if (!$this->configHelper->isConfigured($store)) {
+            return false;
+        }
+
+        if (!$this->validateApiKey()) {
+            return false;
+        }
+
+        return \Tinify\emailAddress();
     }
 
     /**
@@ -660,10 +718,10 @@ class Tiny_CompressImages_Helper_Tinify extends Mage_Core_Helper_Abstract
         /** @var Tiny_CompressImages_Helper_Config $configHelper */
         $configHelper = Mage::helper('tiny_compressimages/config');
         $apiKey = $configHelper->getApiKey();
-        $isValidated = Mage::helper('tiny_compressimages/tinify')->validate($apiKey);
+        $isValidated = Mage::helper('tiny_compressimages/tinify')->validateApiKey($apiKey);
 
         $cacheData = array();
-        if (!$apiKey || $isValidated) {
+        if ($isValidated) {
             $message = '<span class="compressimages_status_success">'
                 . '<span class="indicator"><img src="' . Mage::getDesign()->getSkinUrl('images/fam_bullet_success.gif') . '"></span>'
                 . Mage::helper('tiny_compressimages')->__('API connection successful')

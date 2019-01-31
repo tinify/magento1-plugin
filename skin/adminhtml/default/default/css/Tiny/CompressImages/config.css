@@ -79,6 +79,36 @@ fieldset#tiny_compressimages_support { padding-bottom: 0; }
 #compressimages_api_status { color: #009f3e;float: left; padding-bottom: 5px; clear: both; }
 .compressimages-api-deactivated { color: #cc0000; }
 
+#row_tiny_compressimages_settings_credits .value{
+    position: relative;
+}
+
+.tinypng-upgrade-button {
+    padding: 8px 15px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 13px;
+    background-color: #3abbd0;
+    border: none;
+    border-bottom: 3px solid #269eb1;
+    border-radius: 3px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    position: absolute;
+    right: -145px;
+    top: 60px;
+    letter-spacing: 0.2px;
+}
+
+.tinypng-upgrade-button:hover {
+    background-color:#359cb1;
+    border-bottom: 3px solid #348297;
+    color: #fff;
+    text-decoration :none;
+}
+
 .compressimages_status_success .indicator,
 .compressimages_status_failure .indicator {
     vertical-align: top;
@@ -121,6 +151,12 @@ fieldset#tiny_compressimages_support { padding-bottom: 0; }
 .title-file { width: 45px; }
 .title-original { width: 65px; }
 .title-now { width: 50px; }
+
+.tinypng-upgrade-text {
+    margin-top: 16px;
+    font-style: italic;
+
+}
 
 /* ======== Advanced options ======== */
 

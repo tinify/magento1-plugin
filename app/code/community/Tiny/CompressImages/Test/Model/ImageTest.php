@@ -122,7 +122,7 @@ class ImageTest extends Tiny_CompressImages_Test_Framework_Tiny_Test_TestCase
         $this->assertEquals($results['images_count'], $stats->getImagesCount());
         $this->assertEquals($results['greatest_saving'], $stats->getGreatestSaving());
 
-        $stats = $this->_instance->getStatistics(['current_month' => false]);
+        $stats = $this->_instance->getStatistics(array('current_month' => false));
         $this->assertEquals($results['percentage_all_year'], $stats->getPercentageSaved());
         $this->assertEquals($results['bytes_saved_all_year'], $stats->getBytesSaved());
         $this->assertEquals($results['images_count_all_year'], $stats->getImagesCount());
@@ -134,7 +134,8 @@ class ImageTest extends Tiny_CompressImages_Test_Framework_Tiny_Test_TestCase
      */
     public function testGetByHash()
     {
-        $this->createModels('tiny_compressimages/image', array(
+        $this->createModels(
+            'tiny_compressimages/image', array(
             array(
                 'path' => '1.jpg',
                 'hash_before' => '54eab696c5c868b669076216ede66a9f',
@@ -153,7 +154,8 @@ class ImageTest extends Tiny_CompressImages_Test_Framework_Tiny_Test_TestCase
                 'hash_after' => '8e160a4f7fa67e9126269bedcc81c640',
                 'processed_at' => Varien_Date::now(),
             ),
-        ));
+            )
+        );
 
         $model = $this->_instance->getByHash('54eab696c5c868b669076216ede66a9f');
         $this->assertEquals('1.jpg', $model->getPath());

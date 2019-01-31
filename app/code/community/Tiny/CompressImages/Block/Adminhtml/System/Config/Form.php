@@ -18,11 +18,11 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form extends Mage_Adminh
         $this
             ->_addRadioButtons()
             ->_addStatusIndicator()
+            ->_addCreditsIndicator()
             ->_addSavedIndicator()
             ->_addApiIndicator()
             ->_addAccountType()
-            ->_addLogButtonType()
-        ;
+            ->_addLogButtonType();
 
         return $this->_elementTypes;
     }
@@ -49,6 +49,19 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form extends Mage_Adminh
     {
         $this->_elementTypes['compressimages_status'] = Mage::getConfig()
             ->getBlockClassName('tiny_compressimages/adminhtml_system_config_form_field_status');
+
+        return $this;
+    }
+
+    /**
+     * Add a field that shows the credits remaining indicator.
+     *
+     * @return $this
+     */
+    protected function _addCreditsIndicator()
+    {
+        $this->_elementTypes['compressimages_credits'] = Mage::getConfig()
+            ->getBlockClassName('tiny_compressimages/adminhtml_system_config_form_field_credits');
 
         return $this;
     }

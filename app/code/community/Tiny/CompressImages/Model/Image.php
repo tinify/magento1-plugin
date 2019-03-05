@@ -126,15 +126,14 @@ class Tiny_CompressImages_Model_Image extends Mage_Core_Model_Abstract
         /**
          * Filter by the current month.
          */
-        if (
-            !isset($options['current_month']) ||
+        if (!isset($options['current_month']) ||
             (
                 isset($options['current_month']) &&
                 $options['current_month']
             )
         ) {
             $dateFrom = Mage::getModel('core/date')->date('Y-m-01');
-            $dateTo   = Mage::getModel('core/date')->date('Y-m-t');
+            $dateTo   = Mage::getModel('core/date')->date('Y-m-t 23:59:59');
 
             $collection->addFieldToFilter(
                 'processed_at',
@@ -152,8 +151,7 @@ class Tiny_CompressImages_Model_Image extends Mage_Core_Model_Abstract
             ->columns('count(image_id) as images_count')
             ->columns('sum(bytes_before) as bytes_before')
             ->columns('sum(bytes_after) as bytes_after')
-            ->columns('max(((bytes_before - bytes_after) / bytes_before) * 100) as greatest_saving')
-        ;
+            ->columns('max(((bytes_before - bytes_after) / bytes_before) * 100) as greatest_saving');
 
         $data = $collection->getFirstItem();
 
@@ -301,9 +299,11 @@ class Tiny_CompressImages_Model_Image extends Mage_Core_Model_Abstract
     {
         $collection = $this->getCollection();
 
-        Mage::getSingleton('core/resource_iterator')->walk($collection->getSelect(), array( function ($args) {
+        Mage::getSingleton('core/resource_iterator')->walk(
+            $collection->getSelect(), array( function ($args) {
             Mage::getModel('tiny_compressimages/image')->load($args['row']['image_id'])->delete();
-        }));
+            })
+        );
 
         return $this;
     }
@@ -318,9 +318,11 @@ class Tiny_CompressImages_Model_Image extends Mage_Core_Model_Abstract
         $collection = $this->getCollection();
         $collection->addFieldToFilter('is_test', '1');
 
-        Mage::getSingleton('core/resource_iterator')->walk($collection->getSelect(), array( function ($args) {
+        Mage::getSingleton('core/resource_iterator')->walk(
+            $collection->getSelect(), array( function ($args) {
             Mage::getModel('tiny_compressimages/image')->load($args['row']['image_id'])->delete();
-        }));
+            })
+        );
 
         return $this;
     }

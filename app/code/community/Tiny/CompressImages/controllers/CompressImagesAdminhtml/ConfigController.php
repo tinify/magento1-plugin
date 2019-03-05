@@ -60,6 +60,7 @@ class Tiny_CompressImages_CompressImagesAdminhtml_ConfigController extends Mage_
                 Mage::helper('adminhtml')->__('An error occurred while clearing the image cache.')
             );
         }
+
         $this->_redirect('adminhtml/system_config/edit/section/tiny_compressimages');
     }
 }

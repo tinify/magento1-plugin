@@ -53,8 +53,7 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_Api extends V
     {
         $this
             ->_getStatusHtml()
-            ->_getJavascript()
-        ;
+            ->_getJavascript();
 
         return $this->output;
     }
@@ -86,8 +85,8 @@ class Tiny_CompressImages_Block_Adminhtml_System_Config_Form_Field_Api extends V
             $js
                 .= '<script type="text/javascript">
                     var url = "' . Mage::helper("adminhtml")->getUrl(
-                    'adminhtml/CompressImagesAdminhtml_status/getApiStatus'
-                ) . '";
+                'adminhtml/CompressImagesAdminhtml_status/getApiStatus'
+            ) . '";
 
                     document.observe("dom:loaded", function() {
                         new Ajax.Request(url,
